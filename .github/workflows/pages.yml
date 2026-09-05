@@ -23,7 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configurar Pages
+      - name: Preparar imagens nítidas\n        run: |\n          rm -rf assets/img\n          unzip -oq hildegarda-images-v7.zip -d .\n\n      - name: Configurar Pages
         uses: actions/configure-pages@v5
         with:
           enablement: true
