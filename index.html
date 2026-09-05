@@ -22,6 +22,7 @@
       <h1>Santa Hildegarda de Bingen</h1>
       <p class="subtitle">Virgem e Doutora da Igreja</p>
       <blockquote>“Ó Sabedoria, que tudo ordenas com suavidade...”</blockquote>
+      <p class="dedication">Com amor e devoção<br><strong>Tatiana de Oliveira Machado</strong><br><span>devota de Santa Hildegarda de Bingen</span></p>
       <div class="progress-label" id="progressLabel">Dia 1 de 9</div>
       <div class="dots" id="dots"></div>
       <button class="btn primary" id="todayBtn">Iniciar a oração de hoje</button>
@@ -103,6 +104,7 @@
   </section>
 
   <section class="panel day-panel" id="dayPanel">
+    <div class="book-hint">‹ deslize como as páginas de um livro ›</div>
     <div class="day-header">
       <button class="btn ghost" id="prevDay">← Anterior</button>
       <div>
@@ -111,16 +113,32 @@
       </div>
       <button class="btn ghost" id="nextDay">Próximo →</button>
     </div>
-    <div class="day-layout">
-      <div id="dayArt" class="art art-day1" role="img" aria-label="Imagem devocional do dia"></div>
-      <div class="day-copy">
-        <blockquote id="verse"></blockquote>
-        <p id="meditation"></p>
-        <div class="reflection"><strong>Reflexão do dia</strong><p id="reflection"></p></div>
-        <div class="traditional">Pai-Nosso • Ave-Maria • Glória</div>
-        <div class="day-actions">
-          <button class="btn primary" id="doneBtn">Marcar dia como rezado</button>
-          <button class="btn secondary" id="speakDay">🔊 Ouvir o dia</button>
+    <div class="book-stage" id="bookStage">
+      <div class="book-page" id="bookPage">
+        <div class="day-layout">
+          <div id="dayArt" class="art art-day1" role="img" aria-label="Imagem devocional do dia"></div>
+          <div class="day-copy">
+            <blockquote id="verse"></blockquote>
+            <p id="meditation"></p>
+            <div class="reflection"><strong>Reflexão do dia</strong><p id="reflection"></p></div>
+            <div class="traditional">Pai-Nosso • Ave-Maria • Glória</div>
+            <details class="traditional-prayers">
+              <summary>Ver as orações tradicionais completas</summary>
+              <div id="traditionalPrayerText" class="prayer traditional-full">
+                <h3>Pai-Nosso</h3>
+                <p>Pai nosso que estais nos céus, santificado seja o vosso nome; venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu. O pão nosso de cada dia nos dai hoje; perdoai-nos as nossas ofensas, assim como nós perdoamos a quem nos tem ofendido; e não nos deixeis cair em tentação, mas livrai-nos do mal. Amém.</p>
+                <h3>Ave-Maria</h3>
+                <p>Ave Maria, cheia de graça, o Senhor é convosco; bendita sois vós entre as mulheres e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora de nossa morte. Amém.</p>
+                <h3>Glória</h3>
+                <p>Glória ao Pai, ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém.</p>
+              </div>
+              <button class="btn secondary" id="speakTraditional">🔊 Ouvir as orações completas</button>
+            </details>
+            <div class="day-actions">
+              <button class="btn primary" id="doneBtn">Marcar dia como rezado</button>
+              <button class="btn secondary" id="speakDay">🔊 Ouvir reflexão do dia</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
