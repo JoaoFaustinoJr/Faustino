@@ -17,3 +17,5 @@ A composição de Santa Hildegarda é de domínio público. A gravação “O fr
 
 ## Publicação
 O workflow `.github/workflows/pages.yml` publica o conteúdo estático no GitHub Pages.
+
+Versão inicial: 2026-09-05.
