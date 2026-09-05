@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#123f2a" />
+  <meta name="description" content="Novena Digital a Santa Hildegarda de Bingen — nove dias de oração, música e reflexão." />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@400;600;700&family=Material+Symbols+Rounded:FILL@0..1&display=swap" rel="stylesheet">
+  <title>Novena a Santa Hildegarda</title>
+  <style>
+    :root{--green:#123f2a;--green2:#245e42;--gold:#b08b3e;--cream:#f5edd9;--paper:#fffaf0;--ink:#2c2a21;--muted:#766d5d;--line:#d9c89b}
+    *{box-sizing:border-box}
+    body{margin:0;background:
+      radial-gradient(circle at 15% 10%,rgba(176,139,62,.12),transparent 28%),
+      linear-gradient(180deg,#f2ead5,#f8f3e7);color:var(--ink);font-family:Inter,system-ui,sans-serif;min-height:100vh}
+    body:before,body:after{content:"❧";position:fixed;color:rgba(36,94,66,.12);font-size:180px;z-index:-1}
+    body:before{top:2vh;left:-35px;transform:rotate(-25deg)} body:after{right:-35px;bottom:2vh;transform:rotate(155deg)}
+    .app{max-width:760px;margin:auto;min-height:100vh;padding:env(safe-area-inset-top) 16px calc(88px + env(safe-area-inset-bottom))}
+    header{padding:22px 4px 10px;text-align:center}
+    .eyebrow{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700}
+    h1,h2,h3,.serif{font-family:"Cormorant Garamond",Georgia,serif}
+    h1{font-size:clamp(2rem,9vw,3.3rem);line-height:.94;color:var(--green);margin:8px 0}
+    .sub{color:var(--muted);font-family:"Cormorant Garamond",serif;font-size:1.12rem}
+    .hero,.card{background:rgba(255,250,240,.92);border:1px solid rgba(176,139,62,.35);box-shadow:0 14px 36px rgba(45,39,25,.08);border-radius:26px;overflow:hidden}
+    .hero-art{padding:28px 18px 18px;text-align:center;background:
+      radial-gradient(circle at center,rgba(223,195,112,.22),transparent 44%),
+      repeating-radial-gradient(circle at center,transparent 0 28px,rgba(176,139,62,.08) 29px 30px)}
+    .medallion{width:158px;height:158px;margin:auto;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;background:#f7efdc;box-shadow:inset 0 0 0 8px #fff7e6}
+    .medallion svg{width:120px;height:120px}
+    .hero-body{padding:22px}
+    .quote{font-family:"Cormorant Garamond",serif;font-size:1.35rem;font-style:italic;text-align:center;color:#3a3329;margin:10px auto 16px;max-width:28ch}
+    .progress-row{display:flex;gap:8px;justify-content:center;margin:10px 0 18px}
+    .dot{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--gold);background:transparent}
+    .dot.done,.dot.active{background:var(--green);border-color:var(--green)}
+    .primary,.secondary{border:0;border-radius:16px;padding:15px 18px;font-weight:700;font-size:1rem;width:100%;cursor:pointer}
+    .primary{background:var(--green);color:white;box-shadow:0 8px 18px rgba(18,63,42,.18)}
+    .secondary{background:#efe5cc;color:var(--green);border:1px solid #d8c99f}
+    .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:14px}
+    .quick{background:#fff8e8;border:1px solid #dbc99b;border-radius:15px;padding:12px 6px;text-align:center;color:var(--green);font-size:.7rem;font-weight:700;cursor:pointer}
+    .quick .material-symbols-rounded{display:block;margin-bottom:4px;font-size:24px}
+    .screen{display:none;animation:fade .22s ease}.screen.active{display:block}@keyframes fade{from{opacity:.2;transform:translateY(5px)}to{opacity:1;transform:none}}
+    .topbar{display:flex;align-items:center;justify-content:space-between;margin:10px 0 14px}.iconbtn{border:0;background:#fff8e8;border-radius:50%;width:42px;height:42px;color:var(--green);cursor:pointer}
+    .day-card{padding:22px}.day-card h2{font-size:2rem;color:var(--green);margin:0;text-align:center}.day-theme{text-transform:uppercase;letter-spacing:.08em;text-align:center;color:var(--gold);font-weight:700}
+    .scripture{font-family:"Cormorant Garamond";font-size:1.3rem;font-style:italic;text-align:center;margin:18px 0}
+    .reflection{background:#f3ecd9;border:1px solid #ddcea5;border-radius:18px;padding:16px;margin-top:15px}
+    .prayer{line-height:1.72;font-family:"Cormorant Garamond";font-size:1.24rem;white-space:pre-line}
+    .audio{display:flex;gap:10px;align-items:center;padding:12px 14px;margin-bottom:14px}.audio .grow{flex:1}.audio small{display:block;color:var(--muted)}
+    .days{display:grid;gap:10px}.dayitem{display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;padding:14px;border:1px solid #ddcea5;border-radius:16px;background:#fff9ea;cursor:pointer}
+    .num{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--gold);font-family:"Cormorant Garamond";font-size:1.2rem;font-weight:700;color:var(--green)}
+    .dayitem.done .num{background:var(--green);color:white;border-color:var(--green)}
+    .dayitem b{font-family:"Cormorant Garamond";font-size:1.15rem}.dayitem small{color:var(--muted)}
+    textarea{width:100%;min-height:150px;padding:16px;border:1px solid #d7c79e;border-radius:16px;background:#fffdf7;font:1rem Inter;resize:vertical}
+    .saved{padding:14px;border-left:4px solid var(--gold);background:#f0ead6;border-radius:12px;margin:14px 0;white-space:pre-wrap}
+    .notice{font-size:.83rem;color:var(--muted);text-align:center;margin-top:12px}
+    .bottomnav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,250,240,.96);backdrop-filter:blur(14px);border-top:1px solid #ddcea5;padding:8px max(10px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center;z-index:30}
+    .navinner{max-width:760px;width:100%;display:grid;grid-template-columns:repeat(4,1fr)}
+    .navbtn{border:0;background:transparent;color:#7b725f;padding:6px;font-size:.7rem;font-weight:700;cursor:pointer}.navbtn.active{color:var(--green)}.navbtn span{display:block;font-size:25px}
+    .install{margin-top:12px}
+    .orn{color:var(--gold);text-align:center;letter-spacing:.3em;margin:8px 0}
+    .credit{font-size:.72rem;color:var(--muted);text-align:center;margin:20px 0 4px}
+    @media(min-width:700px){.app{padding-left:28px;padding-right:28px}.hero{display:grid;grid-template-columns:.9fr 1.1fr;align-items:center}.hero-art{height:100%;display:grid;align-content:center}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="eyebrow">Fé • Sabedoria • Cura • Viriditas</div>
+    <h1>Novena a Santa Hildegarda de Bingen</h1>
+    <div class="sub">Virgem e Doutora da Igreja</div>
+  </header>
+
+  <main>
+    <section id="home" class="screen active">
+      <div class="hero">
+        <div class="hero-art">
+          <div class="medallion" aria-label="Medalhão de Santa Hildegarda">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="53" fill="#efe2b8" stroke="#b08b3e"/>
+              <path d="M27 84 Q38 36 60 23 Q82 36 93 84 Q79 100 60 101 Q41 100 27 84Z" fill="#173f2b"/>
+              <ellipse cx="60" cy="49" rx="21" ry="27" fill="#efd8b9"/>
+              <path d="M40 50 Q42 23 60 20 Q81 25 81 52 Q68 37 43 55Z" fill="#fbf4e2"/>
+              <path d="M31 87 Q45 66 60 68 Q75 66 89 87" fill="none" stroke="#f3ead5" stroke-width="11"/>
+              <circle cx="60" cy="45" r="1.8" fill="#3c3025"/><circle cx="72" cy="45" r="1.8" fill="#3c3025"/>
+              <path d="M60 56 Q66 59 71 55" fill="none" stroke="#8e6348" stroke-width="1.5"/>
+              <path d="M20 28 C38 8 82 8 101 30" fill="none" stroke="#b08b3e" stroke-width="2"/>
+              <path d="M18 25 l-4 -7 m18 2 l-1 -9 m55 10 l3 -8 m16 15 l7 -5" stroke="#b08b3e"/>
+            </svg>
+          </div>
+        </div>
+        <div class="hero-body">
+          <div class="quote">“Ó Sabedoria, que tudo ordenas com suavidade...”</div>
+          <div style="text-align:center;font-weight:700;color:var(--green)" id="homeDayLabel">Dia 1 de 9</div>
+          <div class="progress-row" id="homeDots"></div>
+          <button class="primary" onclick="openToday()">Iniciar oração de hoje</button>
+          <button id="installBtn" class="secondary install" style="display:none">Instalar no celular</button>
+          <div class="grid4">
+            <button class="quick" onclick="toggleAudio()"><span class="material-symbols-rounded">music_note</span>Música</button>
+            <button class="quick" onclick="addGoogleReminder()"><span class="material-symbols-rounded">notifications</span>Lembrete</button>
+            <button class="quick" onclick="go('journey')"><span class="material-symbols-rounded">calendar_month</span>9 dias</button>
+            <button class="quick" onclick="go('intention')"><span class="material-symbols-rounded">favorite</span>Intenção</button>
+          </div>
+        </div>
+      </div>
+      <div class="credit">A música utilizada é “O frondens virga”, composição de Santa Hildegarda de Bingen; gravação livre disponibilizada pelo Wikimedia Commons.</div>
+    </section>
+
+    <section id="day" class="screen">
+      <div class="topbar"><button class="iconbtn" onclick="go('home')"><span class="material-symbols-rounded">arrow_back</span></button><b>Oração do dia</b><button class="iconbtn" onclick="speakPrayer()"><span class="material-symbols-rounded">record_voice_over</span></button></div>
+      <div class="card audio">
+        <span class="material-symbols-rounded">music_note</span><div class="grow"><b>O frondens virga</b><small>Santa Hildegarda • música de fundo</small></div>
+        <button class="iconbtn" onclick="toggleAudio()"><span id="audioIcon" class="material-symbols-rounded">play_arrow</span></button>
+      </div>
+      <div class="card day-card">
+        <h2 id="dayTitle"></h2><div id="dayTheme" class="day-theme"></div><div class="orn">✦ ❧ ✦</div>
+        <div id="dayVerse" class="scripture"></div>
+        <div id="dayText"></div>
+        <div class="reflection"><b class="serif" style="font-size:1.2rem">Reflexão do dia</b><div id="dayReflection" style="margin-top:7px"></div></div>
+        <div class="orn">✦ ❧ ✦</div>
+        <h3>Oração inicial</h3><div id="initialPrayer" class="prayer"></div>
+        <h3>Orações tradicionais</h3><div class="prayer">Pai-Nosso • Ave-Maria • Glória ao Pai</div>
+        <h3>Oração final</h3><div id="finalPrayer" class="prayer"></div>
+        <button class="primary" style="margin-top:18px" onclick="completeCurrent()">Concluir este dia</button>
+      </div>
+    </section>
+
+    <section id="intention" class="screen">
+      <div class="topbar"><button class="iconbtn" onclick="go('home')"><span class="material-symbols-rounded">arrow_back</span></button><b>Minha intenção</b><span></span></div>
+      <div class="card day-card">
+        <div class="orn">✦ ❧ ✦</div><h2>Minha intenção</h2>
+        <p style="text-align:center">Apresente a Deus, por intercessão de Santa Hildegarda, a sua intenção para esta novena.</p>
+        <textarea id="intentionText" placeholder="Escreva aqui sua intenção..."></textarea>
+        <button class="primary" style="margin-top:12px" onclick="saveIntention()">Guardar intenção</button>
+        <div id="savedIntention" class="saved" style="display:none"></div>
+        <div class="notice">A intenção fica guardada somente neste dispositivo.</div>
+      </div>
+    </section>
+
+    <section id="journey" class="screen">
+      <div class="topbar"><button class="iconbtn" onclick="go('home')"><span class="material-symbols-rounded">arrow_back</span></button><b>Minha jornada</b><span></span></div>
+      <div class="card day-card">
+        <h2>9 dias com Santa Hildegarda</h2>
+        <p id="journeyDate" style="text-align:center;color:var(--muted)"></p>
+        <div class="days" id="daysList"></div>
+        <div class="orn">✦ ❧ ✦</div>
+        <button class="secondary" onclick="addGoogleReminder()">Adicionar à Google Agenda</button>
+      </div>
+    </section>
+
+    <section id="about" class="screen">
+      <div class="topbar"><button class="iconbtn" onclick="go('home')"><span class="material-symbols-rounded">arrow_back</span></button><b>Sobre</b><span></span></div>
+      <div class="card day-card">
+        <h2>Santa Hildegarda de Bingen</h2>
+        <p>Santa Hildegarda de Bingen (1098–1179) foi monja beneditina, mística, teóloga, poetisa, compositora e escritora. Foi proclamada Doutora da Igreja por Bento XVI em 2012.</p>
+        <p>Esta novena propõe nove dias de oração inspirados na Sagrada Escritura, na liturgia e na espiritualidade hildegardiana, com especial atenção à sabedoria, à criação, à cura integral e à entrega a Deus.</p>
+        <div class="reflection"><b>Viriditas</b><p>A imagem do “verdejar” e da força vivificante da criação é um dos símbolos mais reconhecidos associados à espiritualidade de Hildegarda.</p></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<nav class="bottomnav"><div class="navinner">
+  <button class="navbtn active" data-screen="home" onclick="go('home')"><span class="material-symbols-rounded">home</span>Início</button>
+  <button class="navbtn" data-screen="journey" onclick="go('journey')"><span class="material-symbols-rounded">calendar_month</span>Novena</button>
+  <button class="navbtn" data-screen="intention" onclick="go('intention')"><span class="material-symbols-rounded">favorite</span>Intenção</button>
+  <button class="navbtn" data-screen="about" onclick="go('about')"><span class="material-symbols-rounded">auto_stories</span>Sobre</button>
+</div></nav>
+
+<audio id="bgAudio" loop preload="none" crossorigin="anonymous">
+  <source src="https://commons.wikimedia.org/wiki/Special:Redirect/file/O_frondens_2.ogg" type="audio/ogg">
+</audio>
+
+<script>
+const days=[
+{theme:"A Sabedoria de Deus",verse:"“O Senhor é minha luz e minha salvação.” (Sl 26,1)",text:"Que Santa Hildegarda nos obtenha a graça de buscar, acima de tudo, a Sabedoria que vem de Deus.",reflection:"Peçamos um coração atento, capaz de reconhecer a presença de Deus nas escolhas de cada dia."},
+{theme:"A Luz que vence as trevas",verse:"“Vossa palavra é lâmpada para os meus pés e luz para o meu caminho.” (Sl 118,105)",text:"Peçamos a Santa o dom do discernimento, da fé e da clareza para seguir sempre a Luz de Cristo.",reflection:"Onde a verdade e a caridade entram, as sombras perdem força."},
+{theme:"A confiança na Providência Divina",verse:"“Lançai sobre o Senhor toda a vossa ansiedade, porque Ele tem cuidado de vós.” (1Pd 5,7)",text:"Entreguemos a Deus aquilo que não conseguimos controlar e descansemos em sua bondade.",reflection:"Confiar é permanecer fiel mesmo quando ainda não vemos a resposta."},
+{theme:"A cura integral do ser humano",verse:"“Ele sara os corações quebrantados e cura suas feridas.” (Sl 147,3)",text:"Rezemos pela saúde do corpo, da mente e do espírito, e pela cura das feridas da alma.",reflection:"A cura cristã alcança a pessoa inteira e a reconduz à esperança."},
+{theme:"A força na enfermidade e na provação",verse:"“Posso todas as coisas naquele que me fortalece.” (Fl 4,13)",text:"Que Santa Hildegarda nos obtenha a graça de permanecer fiéis a Deus, mesmo nas cruzes e sofrimentos.",reflection:"A fortaleza não elimina a fragilidade; faz-nos atravessá-la acompanhados por Deus."},
+{theme:"A criação como obra de Deus",verse:"“Vós guiais grandes coisas, Senhor; tudo fez com sabedoria.” (Sl 103,24)",text:"Contemplemos a criação e bendigamos o Criador, reconhecendo Sua bondade em todas as criaturas.",reflection:"Cuidar da criação é também aprender a recebê-la como dom."},
+{theme:"A Igreja e a fidelidade à fé",verse:"“Eu sou a videira, vós sois os ramos. Quem permanece em mim e eu nele, esse dá muito fruto.” (Jo 15,5)",text:"Peçamos a Santa a graça de amar a Igreja, ser fiéis aos ensinamentos de Cristo e testemunhar o Evangelho.",reflection:"A fé amadurece quando se torna comunhão, serviço e testemunho."},
+{theme:"A humildade e o serviço",verse:"“Quem quiser ser o primeiro, seja o último de todos e o servo de todos.” (Mc 9,35)",text:"Que Santa Hildegarda nos ensine a colocar nossos dons a serviço dos outros, com humildade e amor.",reflection:"O dom floresce plenamente quando se transforma em serviço."},
+{theme:"A entrega total a Deus",verse:"“Tudo vem de Ti, Senhor, e das Tuas mãos o recebemos.” (1Cr 29,14)",text:"Entreguemos nossa vida, família, necessidades e intenções ao Senhor, pela intercessão de Santa Hildegarda.",reflection:"No último dia, a oração torna-se entrega: confiar o caminho inteiro às mãos de Deus."}
+];
+const initialPrayer=`Ó Santa Hildegarda de Bingen,
+virgem e Doutora da Igreja,
+mulher de profunda fé e ardente amor a Deus,
+que ouvistes a voz do Senhor na oração
+e contemplastes os mistérios da criação e da salvação,
+ensinai-me a buscar a Verdade com humildade
+e a amar a Deus sobre todas as coisas.
+Intercedei por mim junto ao Senhor,
+para que eu receba as graças de que mais necessito
+e para que eu cresça na sabedoria,
+na paz, na saúde do corpo e da alma,
+e no serviço generoso à Igreja e aos irmãos.
+Amém.`;
+const finalPrayer=`Ó Deus, que concedestes a Santa Hildegarda de Bingen a luz do Espírito Santo para conhecer vossos mistérios e manifestar vossa glória na criação, concedei-nos, por sua intercessão, a graça de buscar sempre a vossa Sabedoria, de amar a Igreja e de viver em fidelidade ao Evangelho. Por Cristo, nosso Senhor. Amém.`;
+
+let currentDay=1;
+let deferredPrompt=null;
+const store=()=>JSON.parse(localStorage.getItem("hildegardaNovena")||'{"completed":[],"start":null,"intention":""}');
+const save=s=>localStorage.setItem("hildegardaNovena",JSON.stringify(s));
+function ensureStart(){
+  const s=store(); if(!s.start){const now=new Date();const memorialStart=new Date(now.getFullYear(),8,9); if(now<=new Date(now.getFullYear(),8,17) && now>=new Date(now.getFullYear(),8,1)) s.start=memorialStart.toISOString(); else s.start=now.toISOString(); save(s)} return s;
+}
+function dayNumber(){
+  const s=ensureStart(),start=new Date(s.start),now=new Date(); const d=Math.floor((new Date(now.getFullYear(),now.getMonth(),now.getDate())-new Date(start.getFullYear(),start.getMonth(),start.getDate()))/86400000)+1; return Math.min(9,Math.max(1,d));
+}
+function renderHome(){
+  const n=dayNumber(),s=store(); document.getElementById("homeDayLabel").textContent="Dia "+n+" de 9";
+  document.getElementById("homeDots").innerHTML=days.map((_,i)=>'<span class="dot '+(s.completed.includes(i+1)?'done':(i+1===n?'active':''))+'"></span>').join("");
+}
+function openToday(){openDay(dayNumber())}
+function openDay(n){
+ currentDay=n; const d=days[n-1]; document.getElementById("dayTitle").textContent=n+"º Dia"; document.getElementById("dayTheme").textContent=d.theme;
+ document.getElementById("dayVerse").textContent=d.verse; document.getElementById("dayText").textContent=d.text; document.getElementById("dayReflection").textContent=d.reflection;
+ document.getElementById("initialPrayer").textContent=initialPrayer; document.getElementById("finalPrayer").textContent=finalPrayer; go("day");
+}
+function completeCurrent(){const s=store(); if(!s.completed.includes(currentDay))s.completed.push(currentDay); save(s); renderHome(); renderJourney(); if(currentDay<9)openDay(currentDay+1);else go("journey")}
+function go(id){
+ document.querySelectorAll(".screen").forEach(x=>x.classList.toggle("active",x.id===id));
+ document.querySelectorAll(".navbtn").forEach(x=>x.classList.toggle("active",x.dataset.screen===id));
+ if(id==="journey")renderJourney(); if(id==="intention")renderIntention(); scrollTo({top:0,behavior:"smooth"});
+}
+function fmt(d){return d.toLocaleDateString("pt-BR",{day:"2-digit",month:"long"})}
+function renderJourney(){
+ const s=ensureStart(),start=new Date(s.start); const end=new Date(start); end.setDate(end.getDate()+8);
+ document.getElementById("journeyDate").textContent="Conclusão prevista: "+fmt(end);
+ document.getElementById("daysList").innerHTML=days.map((d,i)=>{const dt=new Date(start);dt.setDate(dt.getDate()+i);const done=s.completed.includes(i+1);return '<div class="dayitem '+(done?'done':'')+'" onclick="openDay('+(i+1)+')"><div class="num">'+(done?'✓':i+1)+'</div><div><b>Dia '+(i+1)+' — '+d.theme+'</b><br><small>'+fmt(dt)+'</small></div><span class="material-symbols-rounded">chevron_right</span></div>'}).join("");
+}
+function saveIntention(){const s=store();s.intention=document.getElementById("intentionText").value.trim();save(s);renderIntention()}
+function renderIntention(){const s=store();document.getElementById("intentionText").value=s.intention||"";const box=document.getElementById("savedIntention");box.style.display=s.intention?"block":"none";box.textContent=s.intention?"Minha intenção atual:\n"+s.intention:""}
+const audio=document.getElementById("bgAudio");
+async function toggleAudio(){try{if(audio.paused){audio.volume=.22;await audio.play();document.getElementById("audioIcon").textContent="pause"}else{audio.pause();document.getElementById("audioIcon").textContent="play_arrow"}}catch(e){alert("Toque novamente em Música para liberar o áudio neste navegador.")}}
+function speakPrayer(){
+ if(!("speechSynthesis" in window)) return alert("Leitura em voz alta não disponível neste navegador.");
+ speechSynthesis.cancel(); const text=days[currentDay-1].text+" "+initialPrayer+" Pai Nosso. Ave Maria. Glória ao Pai. "+finalPrayer;
+ const u=new SpeechSynthesisUtterance(text);u.lang="pt-BR";u.rate=.86;u.pitch=1.02;
+ const vs=speechSynthesis.getVoices(); const female=vs.find(v=>v.lang.startsWith("pt") && /female|feminina|luciana|maria|francisca/i.test(v.name))||vs.find(v=>v.lang.startsWith("pt")); if(female)u.voice=female;
+ audio.volume=.08;speechSynthesis.speak(u);u.onend=()=>audio.volume=.22;
+}
+function addGoogleReminder(){
+ const s=ensureStart(),start=new Date(s.start),end=new Date(start);end.setDate(end.getDate()+9);
+ const ymd=d=>d.toISOString().slice(0,10).replaceAll("-","");
+ const url="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Novena a Santa Hildegarda de Bingen")+"&dates="+ymd(start)+"/"+ymd(end)+"&details="+encodeURIComponent("Nove dias de oração com Santa Hildegarda. Reserve alguns minutos por dia para a novena digital.");
+ window.open(url,"_blank","noopener");
+}
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;document.getElementById("installBtn").style.display="block"});
+document.getElementById("installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById("installBtn").style.display="none"}};
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js");
+ensureStart();renderHome();renderJourney();renderIntention();
+</script>
+</body>
+</html>
