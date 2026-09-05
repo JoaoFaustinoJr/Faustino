@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<rect width="512" height="512" rx="110" fill="#123f2a"/>
+<circle cx="256" cy="232" r="154" fill="#f5edd9" stroke="#b08b3e" stroke-width="14"/>
+<circle cx="256" cy="232" r="130" fill="none" stroke="#b08b3e" stroke-width="4" stroke-dasharray="5 14"/>
+<path d="M162 339Q184 179 256 127Q329 181 350 339Q300 387 256 389Q211 387 162 339Z" fill="#173f2b"/>
+<ellipse cx="256" cy="226" rx="62" ry="78" fill="#efd8b9"/>
+<path d="M195 229Q200 145 256 139Q314 149 318 231Q285 183 203 244Z" fill="#fff8e8"/>
+<path d="M178 345Q213 285 256 286Q299 285 334 345" fill="none" stroke="#f4ead1" stroke-width="31"/>
+<path d="M125 116Q180 57 256 58Q334 57 388 118" fill="none" stroke="#d2ad59" stroke-width="8"/>
+<path d="M256 58V29M170 77L155 51M342 78L358 51M117 132L90 116M394 132L422 116" stroke="#d2ad59" stroke-width="8" stroke-linecap="round"/>
+<path d="M115 409Q165 379 211 401M397 409Q347 379 301 401" fill="none" stroke="#d2ad59" stroke-width="10" stroke-linecap="round"/>
+<text x="256" y="468" text-anchor="middle" fill="#f5edd9" font-size="44" font-family="Georgia,serif">HILDEGARDA</text>
+</svg>
