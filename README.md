@@ -1,21 +1,35 @@
-# Novena Digital a Santa Hildegarda de Bingen
+# Novena Digital de Santa Hildegarda de Bingen
 
-PWA devocional em português com 9 dias de oração, progresso local, intenção pessoal, leitura em voz alta, música de Santa Hildegarda e integração com Google Agenda.
+Versão atualizada do app/PWA com:
 
-## Recursos
-- PWA instalável em Android/Chrome
-- progresso e intenção salvos no próprio aparelho
-- 9 dias da novena
-- música: **O frondens virga**, de Santa Hildegarda de Bingen, via Wikimedia Commons
-- leitura em voz alta com Web Speech API
-- botão para adicionar o período da novena à Google Agenda
-- Google Fonts e Material Symbols
-- funcionamento offline para o conteúdo principal
+- capa e cards ilustrados dos 9 dias incorporados
+- música funcional com botão de play/pause
+- fallback MP3 + OGG para maior compatibilidade no celular
+- contador da novena com data de início
+- intenção pessoal salva no navegador
+- leitura em voz alta
+- link para Google Agenda
+- PWA instalável
 
-## Música e licença
-A composição de Santa Hildegarda é de domínio público. A gravação “O frondens 2.ogg” é disponibilizada no Wikimedia Commons. Consulte a página do arquivo para os créditos e condições aplicáveis à gravação.
+## Música
 
-## Publicação
-O workflow `.github/workflows/pages.yml` publica o conteúdo estático no GitHub Pages.
+Faixa incorporada por streaming externo com atribuição:
+- **O frondens virga** — composição de Santa Hildegarda de Bingen
+- gravação: **Makemi**, via Wikimedia Commons
+- URLs usadas no app:
+  - OGG: https://upload.wikimedia.org/wikipedia/commons/a/ad/O_frondens_2.ogg
+  - MP3: https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ad/O_frondens_2.ogg/O_frondens_2.ogg.mp3
 
-Versão inicial: 2026-09-05.
+## Estrutura
+
+- `index.html`
+- `styles.css`
+- `app.js`
+- `sw.js`
+- `manifest.webmanifest`
+- `assets/img/*`
+- `assets/icons/*`
+
+## Observação
+
+Nesta sessão eu preparei todo o pacote atualizado pronto para publicar. Se desejar, este conteúdo pode substituir diretamente os arquivos do GitHub Pages.
