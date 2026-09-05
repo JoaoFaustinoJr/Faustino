@@ -1,161 +1,51 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#244331" />
-  <meta name="description" content="Novena Digital de Santa Hildegarda de Bingen" />
-  <title>Novena Digital de Santa Hildegarda</title>
-  <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="icon" href="assets/icons/icon-192.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <header class="hero">
-    <div class="hero-inner">
-      <img class="hero-icon" src="assets/img/hero.png" alt="Santa Hildegarda de Bingen" />
-      <div class="hero-copy">
-        <p class="eyebrow">Novena Digital</p>
-        <h1>Santa Hildegarda de Bingen</h1>
-        <p class="subtitle">Virgem e Doutora da Igreja · 9 dias de oração, contemplação e confiança no Deus da Vida.</p>
-        <p class="discreet">Tatiana de Oliveira Machado · devota de Santa Hildegarda de Bingen</p>
-        <div class="hero-actions">
-          <button id="openReaderBtn" class="btn primary">Iniciar a oração de hoje</button>
-          <button id="installBtn" class="btn secondary hidden">Instalar no celular</button>
-        </div>
-      </div>
-    </div>
-  </header>
+<!doctype html><html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#173f2b"><title>Novena a Santa Hildegarda</title>
+<link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css"></head><body>
+<header class="hero shell"><div class="hero-card">
+<div class="classic classic-hero" aria-label="Santa Hildegarda de Bingen"></div>
+<div class="hero-copy"><div class="eyebrow">NOVENA DIGITAL</div><h1>Santa Hildegarda de Bingen</h1>
+<p class="subtitle">Virgem e Doutora da Igreja</p><blockquote>“Ó Sabedoria, que tudo ordenas com suavidade...”</blockquote>
+<p class="dedication">Com amor e devoção<br><strong>Tatiana de Oliveira Machado</strong><br><span>devota de Santa Hildegarda de Bingen</span></p>
+<div class="progress-label" id="progressLabel">Dia 1 de 9</div><div class="dots" id="dots"></div>
+<button class="btn primary" id="todayBtn">Iniciar a oração de hoje</button>
+<button class="btn secondary hidden" id="installBtn">Instalar no celular</button></div></div></header>
 
-  <main class="shell">
-    <section class="panel overview">
-      <div>
-        <h2>Sua novena</h2>
-        <p class="muted">Escolha a data de início. O app calcula automaticamente o dia da novena e guarda o progresso neste aparelho.</p>
-      </div>
-      <div class="overview-grid">
-        <div class="metric"><span class="metric-label">Hoje</span><strong id="todayLabel">—</strong></div>
-        <div class="metric"><span class="metric-label">Dia atual</span><strong id="currentDayLabel">Dia 1 de 9</strong></div>
-        <div class="metric"><span class="metric-label">Progresso</span><strong id="progressLabel">0%</strong></div>
-      </div>
-      <div class="start-controls">
-        <label>
-          <span>Data de início</span>
-          <input type="date" id="startDate" />
-        </label>
-        <button id="saveStartBtn" class="btn primary">Salvar início</button>
-        <button id="resetBtn" class="btn ghost">Reiniciar progresso</button>
-        <button id="calendarBtn" class="btn gold">Adicionar à Google Agenda</button>
-      </div>
-    </section>
+<main class="shell">
+<section class="panel"><h2>Sua novena</h2><p class="muted">Escolha a data de início. O app calcula automaticamente o dia da novena e guarda o progresso neste aparelho.</p>
+<div class="metrics"><div class="metric"><span>Hoje</span><strong id="todayLabel">—</strong></div><div class="metric"><span>Dia atual</span><strong id="currentDayLabel">Dia 1 de 9</strong></div><div class="metric"><span>Progresso</span><strong id="percentLabel">0%</strong></div></div>
+<div class="control-grid"><label><span>Data de início</span><input type="date" id="startDate"></label>
+<button class="btn primary" id="saveStart">Salvar início</button><button class="btn ghost" id="resetProgress">Reiniciar progresso</button>
+<button class="btn secondary" id="calendarBtn">Adicionar à Google Agenda</button></div></section>
 
-    <section class="panel audio-panel">
-      <div class="panel-heading">
-        <h2>Música de Santa Hildegarda</h2>
-        <p class="muted">Toque para iniciar. Em celulares, o navegador só libera áudio após um toque do usuário.</p>
-      </div>
-      <div class="audio-row">
-        <div>
-          <strong id="trackTitle">O frondens virga</strong>
-          <p class="muted small">Composição de Santa Hildegarda · gravação livre atribuída a Makemi (Wikimedia Commons)</p>
-          <p id="audioStatus" class="status">Pronto para reproduzir</p>
-        </div>
-        <div class="audio-controls">
-          <button id="musicToggle" class="btn primary">▶ Tocar música</button>
-          <label class="volume-wrap">Volume
-            <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="0.35" />
-          </label>
-        </div>
-      </div>
-      <audio id="bgAudio" preload="metadata" loop playsinline>
-        <source src="https://commons.wikimedia.org/wiki/Special:Redirect/file/O_frondens_2.ogg" type="audio/ogg" />
-      </audio>
-    </section>
+<section class="panel audio-panel"><div><div class="eyebrow">MÚSICA DE SANTA HILDEGARDA</div><h2>O frondens virga</h2>
+<p class="muted">Toque para iniciar. Em celulares, o navegador exige um toque antes de reproduzir áudio.</p><div id="audioStatus" class="status">Pronto para reproduzir.</div></div>
+<div class="audio-controls"><button class="btn primary" id="musicBtn">▶ Tocar música</button>
+<label class="volume"><span>Volume</span><input type="range" id="volume" min="0" max="1" step=".05" value=".32"></label></div>
+<audio id="music" preload="metadata" loop playsinline>
+<source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ad/O_frondens_2.ogg/O_frondens_2.ogg.mp3" type="audio/mpeg">
+<source src="https://upload.wikimedia.org/wikipedia/commons/a/ad/O_frondens_2.ogg" type="audio/ogg"></audio></section>
 
-    <section class="panel info-tabs">
-      <div class="tabs">
-        <button class="tab active" data-tab="intro">Apresentação</button>
-        <button class="tab" data-tab="howto">Como rezar</button>
-        <button class="tab" data-tab="initial">Oração inicial</button>
-        <button class="tab" data-tab="intention">Minha intenção</button>
-        <button class="tab" data-tab="final">Oração final</button>
-      </div>
-      <div class="tab-content active" id="intro">
-        <h2>Apresentação</h2>
-        <p>Santa Hildegarda de Bingen foi monja beneditina, mística, teóloga, compositora e Doutora da Igreja. Seus escritos conduzem à contemplação de Deus, da criação e da verdadeira sabedoria.</p>
-        <blockquote>“Viriditas é a força vivificante de Deus que tudo cria, sustenta e renova.”</blockquote>
-        <p class="discreet">Este livrinho devocional pertence a Tatiana de Oliveira Machado, devota de Santa Hildegarda de Bingen.</p>
-      </div>
-      <div class="tab-content" id="howto">
-        <h2>Como rezar a novena</h2>
-        <ol>
-          <li>Faça o sinal da Cruz e invoque a Santíssima Trindade.</li>
-          <li>Leia a Palavra de Deus e o tema do dia.</li>
-          <li>Medite em silêncio e apresente sua oração pessoal.</li>
-          <li>Reze, ao final, Pai-Nosso, Ave-Maria e Glória.</li>
-          <li>Conclua com a oração final da novena.</li>
-        </ol>
-      </div>
-      <div class="tab-content" id="initial">
-        <h2>Oração inicial</h2>
-        <p>Ó Santa Hildegarda de Bingen, virgem e Doutora da Igreja, mulher de profunda fé e de ardente amor a Deus, que ouvistes a voz do Senhor na luz da oração e contemplastes os mistérios da criação e da salvação, ensinai-me a buscar a Verdade com humildade e a amar a Deus sobre todas as coisas.</p>
-        <p>Intercedei por mim junto ao Senhor, para que eu receba as graças de que mais necessito, cresça na sabedoria, na paz, na saúde do corpo e da alma, e no serviço generoso à Igreja e aos irmãos. Amém.</p>
-        <div class="speak-row"><button class="btn secondary speak-btn" data-speak-target="initial">🔊 Ouvir leitura</button></div>
-      </div>
-      <div class="tab-content" id="intention">
-        <h2>Minha intenção</h2>
-        <textarea id="intentionInput" rows="5" placeholder="Escreva aqui sua intenção para esta Novena..."></textarea>
-        <div class="intent-actions">
-          <button id="saveIntentionBtn" class="btn primary">Salvar intenção</button>
-          <span id="intentionStatus" class="status">Nada salvo ainda.</span>
-        </div>
-      </div>
-      <div class="tab-content" id="final">
-        <h2>Oração final da novena</h2>
-        <p>Ó Deus, que concedestes a Santa Hildegarda de Bingen a luz do Espírito Santo para contemplar vossos mistérios e manifestar vossa glória na criação, concedei-nos, por sua intercessão, a graça de buscar sempre a vossa sabedoria, de amar a Igreja e de viver em fidelidade ao Evangelho. Por Cristo, nosso Senhor. Amém.</p>
-        <div class="speak-row"><button class="btn secondary speak-btn" data-speak-target="final">🔊 Ouvir leitura</button></div>
-      </div>
-    </section>
+<section class="panel"><div class="tabs">
+<button class="tab active" data-tab="presentation">Apresentação</button><button class="tab" data-tab="howto">Como rezar</button>
+<button class="tab" data-tab="initial">Oração inicial</button><button class="tab" data-tab="intention">Minha intenção</button>
+</div>
+<div class="tabcontent active" id="presentation"><h2>Apresentação</h2><p>Santa Hildegarda de Bingen foi monja beneditina, mística, teóloga, compositora e Doutora da Igreja. Esta novena propõe nove dias de oração, Palavra de Deus, reflexão e entrega pessoal.</p><div class="viriditas"><strong>VIRIDITAS</strong><span>A força vivificante de Deus que tudo cria, sustenta e renova.</span></div></div>
+<div class="tabcontent" id="howto"><h2>Como rezar</h2><ol><li>Faça o sinal da Cruz.</li><li>Leia a Palavra e o tema do dia.</li><li>Medite e apresente sua intenção.</li><li>Reze Pai-Nosso, Ave-Maria e Glória.</li><li>Conclua com a oração final.</li></ol></div>
+<div class="tabcontent" id="initial"><h2>Oração inicial</h2><div class="prayer" id="initialText">Ó Santa Hildegarda de Bingen, virgem e Doutora da Igreja, mulher de profunda fé e de ardente amor a Deus, que ouvistes a voz do Senhor na oração e contemplastes os mistérios da criação e da salvação, ensinai-me a buscar a Verdade com humildade e a amar a Deus sobre todas as coisas. Intercedei por mim junto ao Senhor, para que eu receba as graças de que mais necessito, cresça na sabedoria, na paz, na saúde do corpo e da alma, e no serviço generoso à Igreja e aos irmãos. Amém.</div><button class="btn secondary speak" data-target="initialText">🔊 Ouvir oração</button></div>
+<div class="tabcontent" id="intention"><h2>Minha intenção</h2><textarea id="intentionText" rows="5" placeholder="Escreva aqui sua intenção..."></textarea><button class="btn primary" id="saveIntention">Guardar intenção</button><p class="status" id="intentionStatus"></p></div></section>
 
-    <section class="panel reader-panel" id="readerPanel">
-      <div class="reader-head">
-        <div>
-          <h2>Livro da novena</h2>
-          <p class="muted">Navegue com os botões laterais ou deslize para a direita e para a esquerda.</p>
-        </div>
-        <div class="reader-actions">
-          <button id="prevDayBtn" class="btn ghost">← Anterior</button>
-          <span id="readerCounter" class="reader-counter">1 / 9</span>
-          <button id="nextDayBtn" class="btn ghost">Próximo →</button>
-        </div>
-      </div>
+<section class="panel book-panel" id="dayPanel"><div class="book-hint">‹ deslize como as páginas de um livro ›</div>
+<div class="day-header"><button class="btn ghost" id="prevDay">← Anterior</button><div><div class="eyebrow" id="dayNo">1º DIA</div><h2 id="dayTitle">A Sabedoria de Deus</h2></div><button class="btn ghost" id="nextDay">Próximo →</button></div>
+<div class="book-stage" id="bookStage"><div class="book-page" id="bookPage"><div class="day-layout">
+<div id="dayArt" class="classic classic-day1"></div><div class="day-copy"><blockquote id="verse"></blockquote><p id="meditation"></p>
+<div class="reflection"><strong>Reflexão do dia</strong><p id="reflection"></p></div>
+<div class="traditional">Pai-Nosso • Ave-Maria • Glória</div>
+<details class="traditional-prayers"><summary>Ver as orações tradicionais completas</summary><div id="traditionalPrayerText" class="prayer"><h3>Pai-Nosso</h3><p>Pai nosso que estais nos céus, santificado seja o vosso nome; venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu. O pão nosso de cada dia nos dai hoje; perdoai-nos as nossas ofensas, assim como nós perdoamos a quem nos tem ofendido; e não nos deixeis cair em tentação, mas livrai-nos do mal. Amém.</p><h3>Ave-Maria</h3><p>Ave Maria, cheia de graça, o Senhor é convosco; bendita sois vós entre as mulheres e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora de nossa morte. Amém.</p><h3>Glória</h3><p>Glória ao Pai, ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém.</p></div><button class="btn secondary" id="speakTraditional">🔊 Ouvir as orações completas</button></details>
+<div class="day-actions"><button class="btn primary" id="doneBtn">Marcar dia como rezado</button><button class="btn secondary" id="speakDay">🔊 Ouvir reflexão do dia</button></div></div></div></div></div></section>
 
-      <div class="book-shell">
-        <div id="swipeHint" class="swipe-hint">⟷ Deslize para navegar</div>
-        <div class="book-viewport" id="bookViewport">
-          <div class="book-track" id="bookTrack"></div>
-        </div>
-      </div>
-
-      <div class="reader-footer">
-        <div class="page-dots" id="pageDots"></div>
-        <div class="devotional-actions">
-          <button id="markDoneBtn" class="btn primary">Marcar dia como rezado</button>
-          <button id="speakDayBtn" class="btn secondary">🔊 Ouvir o dia</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel credits">
-      <h2>Créditos</h2>
-      <p><strong>Arte do app:</strong> conjunto visual em estilo iluminura clássica, aplicado aos 9 dias da novena.</p>
-      <p><strong>Música:</strong> “O frondens virga”, composição de Santa Hildegarda de Bingen, em gravação livre atribuída a Makemi.</p>
-    </section>
-  </main>
-
-  <script src="app.js"></script>
-</body>
-</html>
+<section class="panel"><h2>Oração final</h2><div class="prayer" id="finalText">Ó Deus, que concedestes a Santa Hildegarda de Bingen a luz do Espírito Santo para contemplar vossos mistérios e manifestar vossa glória na criação, concedei-nos, por sua intercessão, a graça de buscar sempre a vossa Sabedoria, de amar a Igreja e de viver em fidelidade ao Evangelho. Por Cristo, nosso Senhor. Amém.</div><button class="btn secondary speak" data-target="finalText">🔊 Ouvir oração</button></section>
+</main><script src="./app.js"></script></body></html>

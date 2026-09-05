@@ -9,58 +9,26 @@ const days=[
 {title:"A Humildade e o Serviço",verse:"“Quem quiser ser o primeiro, seja o último de todos e o servo de todos.” (Mc 9,35)",med:"Que Santa Hildegarda nos ensine a colocar nossos dons a serviço dos outros, com humildade e amor.",ref:"O dom floresce plenamente quando se transforma em serviço."},
 {title:"A Entrega Total a Deus",verse:"“Tudo vem de Ti, Senhor, e das Tuas mãos o recebemos.” (1Cr 29,14)",med:"Entreguemos nossa vida, família, necessidades e intenções ao Senhor, pela intercessão de Santa Hildegarda.",ref:"No último dia, a oração torna-se entrega: confiar o caminho inteiro às mãos de Deus."}
 ];
-const $=id=>document.getElementById(id);
-let selected=1,deferredPrompt=null;
+const $=id=>document.getElementById(id);let selected=1,deferredPrompt=null;
 const state=()=>{try{return JSON.parse(localStorage.getItem("hildegardaState")||'{"start":"","done":[],"intention":""}')}catch{return{start:"",done:[],intention:""}}};
 const save=s=>localStorage.setItem("hildegardaState",JSON.stringify(s));
 function isoToday(){const d=new Date(),z=d.getTimezoneOffset()*60000;return new Date(d-z).toISOString().slice(0,10)}
 function currentDay(){const s=state();if(!s.start)return 1;const a=new Date(s.start+"T00:00:00"),b=new Date();b.setHours(0,0,0,0);return Math.max(1,Math.min(9,Math.floor((b-a)/86400000)+1))}
-function renderHome(){const s=state(),n=currentDay();$("progressLabel").textContent="Dia "+n+" de 9";$("dots").innerHTML=days.map((_,i)=>'<span class="dot '+(s.done.includes(i+1)?"done":i+1===n?"active":"")+'"></span>').join("");$("startDate").value=s.start||isoToday()}
-function renderDay(n){selected=Math.max(1,Math.min(9,n));const d=days[selected-1];$("dayNo").textContent=selected+"º DIA";$("dayTitle").textContent=d.title;$("verse").textContent=d.verse;$("meditation").textContent=d.med;$("reflection").textContent=d.ref;$("dayArt").className="art art-day"+selected;const done=state().done.includes(selected);$("doneBtn").textContent=done?"✓ Dia rezado":"Marcar dia como rezado"}
-function speechFriendly(text){return text
- .replace(/\((?:Sl|Jo|Mc|Fl|Pd|Cr|1Pd|1Cr|2Cr|Rm|Mt|Lc|At|Is|Gn|Ex)[^)]*\)/gi,"")
- .replace(/\b(?:Sl|Jo|Mc|Fl|Pd|Cr|1Pd|1Cr|2Cr)\s*\d+[,:.]?\d*/gi,"")
- .replace(/\s+/g," ").trim()}
-function speak(text){if(!("speechSynthesis" in window)){alert("Leitura em voz alta não disponível neste navegador.");return}
- speechSynthesis.cancel();
- const u=new SpeechSynthesisUtterance(speechFriendly(text));u.lang="pt-BR";u.rate=.88;u.pitch=1.02;
- const voices=speechSynthesis.getVoices();
- const preferred=voices.find(x=>x.lang&&x.lang.toLowerCase().startsWith("pt-br")&&/female|femin|maria|luciana|francisca|google/i.test(x.name))
-   ||voices.find(x=>x.lang&&x.lang.toLowerCase().startsWith("pt-br"))
-   ||voices.find(x=>x.lang&&x.lang.toLowerCase().startsWith("pt"));
- if(preferred)u.voice=preferred;
- const previousVolume=music&&!music.paused?music.volume:null;
- if(previousVolume!==null)music.volume=Math.min(previousVolume,.08);
- u.onend=()=>{if(previousVolume!==null)music.volume=previousVolume};
- u.onerror=()=>{if(previousVolume!==null)music.volume=previousVolume};
- speechSynthesis.speak(u)}
-document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".tab,.tabcontent").forEach(x=>x.classList.remove("active"));t.classList.add("active");$(t.dataset.tab).classList.add("active")});
+function renderHome(){const s=state(),n=currentDay();$("progressLabel").textContent="Dia "+n+" de 9";$("currentDayLabel").textContent="Dia "+n+" de 9";$("todayLabel").textContent=new Date().toLocaleDateString("pt-BR");$("percentLabel").textContent=Math.round((s.done.length/9)*100)+"%";$("dots").innerHTML=days.map((_,i)=>'<span class="dot '+(s.done.includes(i+1)?"done":i+1===n?"active":"")+'"></span>').join("");$("startDate").value=s.start||isoToday()}
+function renderDay(n){selected=Math.max(1,Math.min(9,n));const d=days[selected-1];$("dayNo").textContent=selected+"º DIA";$("dayTitle").textContent=d.title;$("verse").textContent=d.verse;$("meditation").textContent=d.med;$("reflection").textContent=d.ref;$("dayArt").className="classic classic-day"+selected;$("doneBtn").textContent=state().done.includes(selected)?"✓ Dia rezado":"Marcar dia como rezado"}
+function speechFriendly(text){return text.replace(/\((?:Sl|Jo|Mc|Fl|Pd|Cr|1Pd|1Cr|2Cr|Rm|Mt|Lc|At|Is|Gn|Ex)[^)]*\)/gi,"").replace(/\b(?:Sl|Jo|Mc|Fl|Pd|Cr|1Pd|1Cr|2Cr)\s*\d+[,:.]?\d*/gi,"").replace(/\s+/g," ").trim()}
+function speak(text){if(!("speechSynthesis" in window)){alert("Leitura em voz alta não disponível neste navegador.");return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(speechFriendly(text));u.lang="pt-BR";u.rate=.88;const voices=speechSynthesis.getVoices();u.voice=voices.find(x=>x.lang?.toLowerCase().startsWith("pt-br"))||voices.find(x=>x.lang?.toLowerCase().startsWith("pt"))||null;const music=$("music"),prev=!music.paused?music.volume:null;if(prev!==null)music.volume=Math.min(prev,.08);u.onend=u.onerror=()=>{if(prev!==null)music.volume=prev};speechSynthesis.speak(u)}
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".tabcontent").forEach(x=>x.classList.remove("active"));t.classList.add("active");$(t.dataset.tab).classList.add("active")});
 document.querySelectorAll(".speak").forEach(b=>b.onclick=()=>speak($(b.dataset.target).innerText));
 $("todayBtn").onclick=()=>{renderDay(currentDay());$("dayPanel").scrollIntoView({behavior:"smooth"})};
-function turnPage(direction){
- const next=Math.max(1,Math.min(9,selected+direction)); if(next===selected)return;
- const page=$("bookPage"); page.classList.add(direction>0?"turn-left":"turn-right");
- setTimeout(()=>{renderDay(next);page.classList.remove("turn-left","turn-right")},220)
-}
-$("prevDay").onclick=()=>turnPage(-1);$("nextDay").onclick=()=>turnPage(1);
-let touchStartX=0,touchStartY=0;
-$("bookStage").addEventListener("touchstart",e=>{const t=e.changedTouches[0];touchStartX=t.clientX;touchStartY=t.clientY},{passive:true});
-$("bookStage").addEventListener("touchend",e=>{const t=e.changedTouches[0],dx=t.clientX-touchStartX,dy=t.clientY-touchStartY;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.2)turnPage(dx<0?1:-1)},{passive:true});
+function turnPage(dir){const next=Math.max(1,Math.min(9,selected+dir));if(next===selected)return;const p=$("bookPage");p.classList.add(dir>0?"turn-left":"turn-right");setTimeout(()=>{renderDay(next);p.classList.remove("turn-left","turn-right")},220)}
+$("prevDay").onclick=()=>turnPage(-1);$("nextDay").onclick=()=>turnPage(1);let sx=0,sy=0;$("bookStage").addEventListener("touchstart",e=>{const t=e.changedTouches[0];sx=t.clientX;sy=t.clientY},{passive:true});$("bookStage").addEventListener("touchend",e=>{const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.2)turnPage(dx<0?1:-1)},{passive:true});
 $("doneBtn").onclick=()=>{const s=state();if(!s.done.includes(selected))s.done.push(selected);save(s);renderHome();renderDay(selected)};
 $("saveStart").onclick=()=>{const s=state();s.start=$("startDate").value||isoToday();save(s);renderHome();renderDay(currentDay())};
 $("resetProgress").onclick=()=>{if(confirm("Reiniciar o progresso da novena?")){const s=state();s.start=$("startDate").value||isoToday();s.done=[];save(s);renderHome();renderDay(currentDay())}};
-$("saveIntention").onclick=()=>{const s=state();s.intention=$("intentionText").value.trim();save(s);$("intentionStatus").textContent="Intenção guardada neste aparelho."};
-$("intentionText").value=state().intention||"";
-$("calendarBtn").onclick=()=>{const s=state(),start=s.start||isoToday();const a=new Date(start+"T00:00:00"),e=new Date(a);e.setDate(e.getDate()+9);const f=d=>d.toISOString().slice(0,10).replaceAll("-","");const u=new URL("https://calendar.google.com/calendar/render");u.searchParams.set("action","TEMPLATE");u.searchParams.set("text","Novena a Santa Hildegarda de Bingen");u.searchParams.set("dates",f(a)+"/"+f(e));u.searchParams.set("details","Nove dias de oração com Santa Hildegarda de Bingen.");window.open(u,"_blank","noopener")};
-const music=$("music");music.volume=parseFloat($("volume").value);
-$("volume").oninput=e=>music.volume=parseFloat(e.target.value);
-$("musicBtn").onclick=async()=>{if(music.paused){try{await music.play()}catch(e){$("audioStatus").textContent="Toque novamente para liberar o áudio neste navegador."}}else music.pause()};
-music.onplaying=()=>{$("musicBtn").textContent="❚❚ Pausar música";$("audioStatus").textContent="Música em reprodução."};
-music.onpause=()=>{$("musicBtn").textContent="▶ Tocar música";$("audioStatus").textContent="Música pausada."};
-music.onerror=()=>{$("audioStatus").textContent="Não foi possível carregar a música. Verifique a conexão e tente novamente."};
-$("speakDay").onclick=()=>{const d=days[selected-1];speak(selected+"º dia. "+d.title+". "+d.verse+". "+d.med+" "+d.ref)};
-$("speakTraditional").onclick=()=>speak($("traditionalPrayerText").innerText);
-window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;$("installBtn").classList.remove("hidden")});
-$("installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$("installBtn").classList.add("hidden")}};
-if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js").catch(()=>{});
-renderHome();renderDay(currentDay());
+$("saveIntention").onclick=()=>{const s=state();s.intention=$("intentionText").value.trim();save(s);$("intentionStatus").textContent="Intenção guardada neste aparelho."};$("intentionText").value=state().intention||"";
+$("calendarBtn").onclick=()=>{const s=state(),start=s.start||isoToday(),a=new Date(start+"T00:00:00"),e=new Date(a);e.setDate(e.getDate()+9);const f=d=>d.toISOString().slice(0,10).replaceAll("-","");const u=new URL("https://calendar.google.com/calendar/render");u.searchParams.set("action","TEMPLATE");u.searchParams.set("text","Novena a Santa Hildegarda de Bingen");u.searchParams.set("dates",f(a)+"/"+f(e));u.searchParams.set("details","Nove dias de oração com Santa Hildegarda de Bingen.");window.open(u,"_blank","noopener")};
+const music=$("music");music.volume=parseFloat($("volume").value);$("volume").oninput=e=>music.volume=parseFloat(e.target.value);$("musicBtn").onclick=async()=>{if(music.paused){try{await music.play()}catch(e){$("audioStatus").textContent="Não foi possível iniciar. Toque novamente ou verifique a conexão."}}else music.pause()};music.onplaying=()=>{$("musicBtn").textContent="❚❚ Pausar música";$("audioStatus").textContent="Música em reprodução."};music.onpause=()=>{$("musicBtn").textContent="▶ Tocar música";$("audioStatus").textContent="Música pausada."};music.onerror=()=>{$("audioStatus").textContent="Não foi possível carregar a música."};
+$("speakDay").onclick=()=>{const d=days[selected-1];speak(selected+"º dia. "+d.title+". "+d.verse+". "+d.med+" "+d.ref)};$("speakTraditional").onclick=()=>speak($("traditionalPrayerText").innerText);
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;$("installBtn").classList.remove("hidden")});$("installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$("installBtn").classList.add("hidden")}};
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js").catch(()=>{});renderHome();renderDay(currentDay());
