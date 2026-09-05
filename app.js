@@ -1,0 +1,41 @@
+const days=[
+{title:"A Sabedoria de Deus",verse:"“O Senhor é minha luz e minha salvação.” (Sl 26,1)",med:"Que Santa Hildegarda nos obtenha a graça de buscar, acima de tudo, a Sabedoria que vem de Deus.",ref:"Peçamos um coração atento para reconhecer a presença de Deus nas escolhas de cada dia."},
+{title:"A Luz que vence as trevas",verse:"“Vossa palavra é lâmpada para os meus pés e luz para o meu caminho.” (Sl 118,105)",med:"Peçamos o dom do discernimento, da fé e da clareza para seguir sempre a Luz de Cristo.",ref:"Onde a verdade e a caridade entram, as sombras perdem força."},
+{title:"A Confiança na Providência Divina",verse:"“Lançai sobre o Senhor toda a vossa ansiedade, porque Ele tem cuidado de vós.” (1Pd 5,7)",med:"Entreguemos a Deus aquilo que não conseguimos controlar e descansemos em sua bondade.",ref:"Confiar é permanecer fiel mesmo quando ainda não vemos a resposta."},
+{title:"A Cura Integral do Ser Humano",verse:"“Ele cura os corações quebrantados e cuida das suas feridas.” (Sl 147,3)",med:"Rezemos pela saúde do corpo, da mente e do espírito, e pela cura das feridas da alma.",ref:"A cura cristã alcança a pessoa inteira e a reconduz à esperança."},
+{title:"A Força na Enfermidade e na Provação",verse:"“Posso todas as coisas naquele que me fortalece.” (Fl 4,13)",med:"Que Santa Hildegarda nos obtenha a graça de permanecer fiéis a Deus, mesmo nas cruzes e sofrimentos.",ref:"A fortaleza não elimina a fragilidade; faz-nos atravessá-la acompanhados por Deus."},
+{title:"A Criação como Obra de Deus",verse:"“Quão numerosas são as vossas obras, Senhor! Fizestes tudo com sabedoria.” (Sl 103,24)",med:"Contemplemos a criação e bendigamos o Criador, reconhecendo Sua bondade em todas as criaturas.",ref:"Cuidar da criação é também aprender a recebê-la como dom."},
+{title:"A Igreja e a Fidelidade à Fé",verse:"“Eu sou a videira, vós sois os ramos. Quem permanece em mim e eu nele, esse dá muito fruto.” (Jo 15,5)",med:"Peçamos a graça de amar a Igreja, ser fiéis aos ensinamentos de Cristo e testemunhar o Evangelho.",ref:"A fé amadurece quando se torna comunhão, serviço e testemunho."},
+{title:"A Humildade e o Serviço",verse:"“Quem quiser ser o primeiro, seja o último de todos e o servo de todos.” (Mc 9,35)",med:"Que Santa Hildegarda nos ensine a colocar nossos dons a serviço dos outros, com humildade e amor.",ref:"O dom floresce plenamente quando se transforma em serviço."},
+{title:"A Entrega Total a Deus",verse:"“Tudo vem de Ti, Senhor, e das Tuas mãos o recebemos.” (1Cr 29,14)",med:"Entreguemos nossa vida, família, necessidades e intenções ao Senhor, pela intercessão de Santa Hildegarda.",ref:"No último dia, a oração torna-se entrega: confiar o caminho inteiro às mãos de Deus."}
+];
+const $=id=>document.getElementById(id);
+let selected=1,deferredPrompt=null;
+const state=()=>{try{return JSON.parse(localStorage.getItem("hildegardaState")||'{"start":"","done":[],"intention":""}')}catch{return{start:"",done:[],intention:""}}};
+const save=s=>localStorage.setItem("hildegardaState",JSON.stringify(s));
+function isoToday(){const d=new Date(),z=d.getTimezoneOffset()*60000;return new Date(d-z).toISOString().slice(0,10)}
+function currentDay(){const s=state();if(!s.start)return 1;const a=new Date(s.start+"T00:00:00"),b=new Date();b.setHours(0,0,0,0);return Math.max(1,Math.min(9,Math.floor((b-a)/86400000)+1))}
+function renderHome(){const s=state(),n=currentDay();$("progressLabel").textContent="Dia "+n+" de 9";$("dots").innerHTML=days.map((_,i)=>'<span class="dot '+(s.done.includes(i+1)?"done":i+1===n?"active":"")+'"></span>').join("");$("startDate").value=s.start||isoToday()}
+function renderDay(n){selected=Math.max(1,Math.min(9,n));const d=days[selected-1];$("dayNo").textContent=selected+"º DIA";$("dayTitle").textContent=d.title;$("verse").textContent=d.verse;$("meditation").textContent=d.med;$("reflection").textContent=d.ref;$("dayArt").className="art art-day"+selected;const done=state().done.includes(selected);$("doneBtn").textContent=done?"✓ Dia rezado":"Marcar dia como rezado"}
+function speak(text){if(!("speechSynthesis" in window)){alert("Leitura em voz alta não disponível neste navegador.");return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="pt-BR";u.rate=.9;const voices=speechSynthesis.getVoices(),v=voices.find(x=>x.lang&&x.lang.toLowerCase().startsWith("pt-br"))||voices.find(x=>x.lang&&x.lang.toLowerCase().startsWith("pt"));if(v)u.voice=v;speechSynthesis.speak(u)}
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".tab,.tabcontent").forEach(x=>x.classList.remove("active"));t.classList.add("active");$(t.dataset.tab).classList.add("active")});
+document.querySelectorAll(".speak").forEach(b=>b.onclick=()=>speak($(b.dataset.target).innerText));
+$("todayBtn").onclick=()=>{renderDay(currentDay());$("dayPanel").scrollIntoView({behavior:"smooth"})};
+$("prevDay").onclick=()=>renderDay(selected-1);$("nextDay").onclick=()=>renderDay(selected+1);
+$("doneBtn").onclick=()=>{const s=state();if(!s.done.includes(selected))s.done.push(selected);save(s);renderHome();renderDay(selected)};
+$("saveStart").onclick=()=>{const s=state();s.start=$("startDate").value||isoToday();save(s);renderHome();renderDay(currentDay())};
+$("resetProgress").onclick=()=>{if(confirm("Reiniciar o progresso da novena?")){const s=state();s.start=$("startDate").value||isoToday();s.done=[];save(s);renderHome();renderDay(currentDay())}};
+$("saveIntention").onclick=()=>{const s=state();s.intention=$("intentionText").value.trim();save(s);$("intentionStatus").textContent="Intenção guardada neste aparelho."};
+$("intentionText").value=state().intention||"";
+$("calendarBtn").onclick=()=>{const s=state(),start=s.start||isoToday();const a=new Date(start+"T00:00:00"),e=new Date(a);e.setDate(e.getDate()+9);const f=d=>d.toISOString().slice(0,10).replaceAll("-","");const u=new URL("https://calendar.google.com/calendar/render");u.searchParams.set("action","TEMPLATE");u.searchParams.set("text","Novena a Santa Hildegarda de Bingen");u.searchParams.set("dates",f(a)+"/"+f(e));u.searchParams.set("details","Nove dias de oração com Santa Hildegarda de Bingen.");window.open(u,"_blank","noopener")};
+const music=$("music");music.volume=parseFloat($("volume").value);
+$("volume").oninput=e=>music.volume=parseFloat(e.target.value);
+$("musicBtn").onclick=async()=>{if(music.paused){try{await music.play()}catch(e){$("audioStatus").textContent="Toque novamente para liberar o áudio neste navegador."}}else music.pause()};
+music.onplaying=()=>{$("musicBtn").textContent="❚❚ Pausar música";$("audioStatus").textContent="Música em reprodução."};
+music.onpause=()=>{$("musicBtn").textContent="▶ Tocar música";$("audioStatus").textContent="Música pausada."};
+music.onerror=()=>{$("audioStatus").textContent="Não foi possível carregar a música. Verifique a conexão e tente novamente."};
+$("speakDay").onclick=()=>{const d=days[selected-1];speak(selected+"º dia. "+d.title+". "+d.verse+". "+d.med+" "+d.ref+" Pai-Nosso, Ave-Maria e Glória.")};
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;$("installBtn").classList.remove("hidden")});
+$("installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$("installBtn").classList.add("hidden")}};
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js").catch(()=>{});
+renderHome();renderDay(currentDay());
