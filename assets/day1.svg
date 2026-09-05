@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+<defs>
+ <radialGradient id="p" cx="50%" cy="38%" r="70%"><stop offset="0" stop-color="#fff9e9"/><stop offset="1" stop-color="#eadcb8"/></radialGradient>
+ <linearGradient id="g" x1="0" x2="1"><stop stop-color="#d9b45c"/><stop offset=".5" stop-color="#8f6c24"/><stop offset="1" stop-color="#d9b45c"/></linearGradient>
+</defs>
+<rect width="640" height="640" rx="28" fill="url(#p)"/>
+<rect x="14" y="14" width="612" height="612" rx="24" fill="none" stroke="#b68b36" stroke-width="5"/>
+<path d="M30 150C90 110 95 45 160 35M610 150C550 110 545 45 480 35M30 490C95 525 100 595 165 610M610 490C545 525 540 595 475 610" fill="none" stroke="#2d6045" stroke-width="13" stroke-linecap="round"/>
+<path d="M45 145c65-45 100-78 135-105M595 145c-65-45-100-78-135-105M45 495c65 45 100 78 135 105M595 495c-65 45-100 78-135 105" fill="none" stroke="#b68b36" stroke-width="4"/>
+<g fill="#2d6045"><ellipse cx="70" cy="90" rx="11" ry="24" transform="rotate(-45 70 90)"/><ellipse cx="115" cy="108" rx="11" ry="24" transform="rotate(45 115 108)"/><ellipse cx="160" cy="90" rx="11" ry="24" transform="rotate(-45 160 90)"/><ellipse cx="205" cy="108" rx="11" ry="24" transform="rotate(45 205 108)"/><ellipse cx="250" cy="90" rx="11" ry="24" transform="rotate(-45 250 90)"/><ellipse cx="295" cy="108" rx="11" ry="24" transform="rotate(45 295 108)"/><ellipse cx="340" cy="90" rx="11" ry="24" transform="rotate(-45 340 90)"/><ellipse cx="385" cy="108" rx="11" ry="24" transform="rotate(45 385 108)"/></g>
+<text x="320" y="72" text-anchor="middle" font-family="Georgia,serif" font-size="34" font-weight="700" fill="#173f2b">1º DIA · SABEDORIA</text>
+<circle cx="320" cy="260" r="105" fill="#f0cf72" stroke="#b68b36" stroke-width="6"/><path d="M320 120v280M180 260h280M220 160l200 200M420 160L220 360" stroke="#fff7d4" stroke-width="9"/><path d="M170 430q75-40 150 0q75-40 150 0v92q-75-40-150 0q-75-40-150 0z" fill="#1d4f36" stroke="#b68b36" stroke-width="5"/><path d="M320 430v92" stroke="#d6b155" stroke-width="4"/>
+</svg>
