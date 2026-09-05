@@ -22,23 +22,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Preparar imagens nítidas
-        run: |
-          rm -rf assets/img
-          unzip -oq hildegarda-images-v7.zip -d .
-
       - name: Configurar Pages
         uses: actions/configure-pages@v5
         with:
           enablement: true
-
       - name: Upload do site
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
           name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
-
       - name: Publicar
         id: deployment
         uses: actions/deploy-pages@v4
