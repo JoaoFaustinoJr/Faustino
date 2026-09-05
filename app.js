@@ -17,11 +17,35 @@ function isoToday(){const d=new Date(),z=d.getTimezoneOffset()*60000;return new 
 function currentDay(){const s=state();if(!s.start)return 1;const a=new Date(s.start+"T00:00:00"),b=new Date();b.setHours(0,0,0,0);return Math.max(1,Math.min(9,Math.floor((b-a)/86400000)+1))}
 function renderHome(){const s=state(),n=currentDay();$("progressLabel").textContent="Dia "+n+" de 9";$("dots").innerHTML=days.map((_,i)=>'<span class="dot '+(s.done.includes(i+1)?"done":i+1===n?"active":"")+'"></span>').join("");$("startDate").value=s.start||isoToday()}
 function renderDay(n){selected=Math.max(1,Math.min(9,n));const d=days[selected-1];$("dayNo").textContent=selected+"º DIA";$("dayTitle").textContent=d.title;$("verse").textContent=d.verse;$("meditation").textContent=d.med;$("reflection").textContent=d.ref;$("dayArt").className="art art-day"+selected;const done=state().done.includes(selected);$("doneBtn").textContent=done?"✓ Dia rezado":"Marcar dia como rezado"}
-function speak(text){if(!("speechSynthesis" in window)){alert("Leitura em voz alta não disponível neste navegador.");return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="pt-BR";u.rate=.9;const voices=speechSynthesis.getVoices(),v=voices.find(x=>x.lang&&x.lang.toLowerCase().startsWith("pt-br"))||voices.find(x=>x.lang&&x.lang.toLowerCase().startsWith("pt"));if(v)u.voice=v;speechSynthesis.speak(u)}
+function speechFriendly(text){return text
+ .replace(/\((?:Sl|Jo|Mc|Fl|Pd|Cr|1Pd|1Cr|2Cr|Rm|Mt|Lc|At|Is|Gn|Ex)[^)]*\)/gi,"")
+ .replace(/\b(?:Sl|Jo|Mc|Fl|Pd|Cr|1Pd|1Cr|2Cr)\s*\d+[,:.]?\d*/gi,"")
+ .replace(/\s+/g," ").trim()}
+function speak(text){if(!("speechSynthesis" in window)){alert("Leitura em voz alta não disponível neste navegador.");return}
+ speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(speechFriendly(text));u.lang="pt-BR";u.rate=.88;u.pitch=1.02;
+ const voices=speechSynthesis.getVoices();
+ const preferred=voices.find(x=>x.lang&&x.lang.toLowerCase().startsWith("pt-br")&&/female|femin|maria|luciana|francisca|google/i.test(x.name))
+   ||voices.find(x=>x.lang&&x.lang.toLowerCase().startsWith("pt-br"))
+   ||voices.find(x=>x.lang&&x.lang.toLowerCase().startsWith("pt"));
+ if(preferred)u.voice=preferred;
+ const previousVolume=music&&!music.paused?music.volume:null;
+ if(previousVolume!==null)music.volume=Math.min(previousVolume,.08);
+ u.onend=()=>{if(previousVolume!==null)music.volume=previousVolume};
+ u.onerror=()=>{if(previousVolume!==null)music.volume=previousVolume};
+ speechSynthesis.speak(u)}
 document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".tab,.tabcontent").forEach(x=>x.classList.remove("active"));t.classList.add("active");$(t.dataset.tab).classList.add("active")});
 document.querySelectorAll(".speak").forEach(b=>b.onclick=()=>speak($(b.dataset.target).innerText));
 $("todayBtn").onclick=()=>{renderDay(currentDay());$("dayPanel").scrollIntoView({behavior:"smooth"})};
-$("prevDay").onclick=()=>renderDay(selected-1);$("nextDay").onclick=()=>renderDay(selected+1);
+function turnPage(direction){
+ const next=Math.max(1,Math.min(9,selected+direction)); if(next===selected)return;
+ const page=$("bookPage"); page.classList.add(direction>0?"turn-left":"turn-right");
+ setTimeout(()=>{renderDay(next);page.classList.remove("turn-left","turn-right")},220)
+}
+$("prevDay").onclick=()=>turnPage(-1);$("nextDay").onclick=()=>turnPage(1);
+let touchStartX=0,touchStartY=0;
+$("bookStage").addEventListener("touchstart",e=>{const t=e.changedTouches[0];touchStartX=t.clientX;touchStartY=t.clientY},{passive:true});
+$("bookStage").addEventListener("touchend",e=>{const t=e.changedTouches[0],dx=t.clientX-touchStartX,dy=t.clientY-touchStartY;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.2)turnPage(dx<0?1:-1)},{passive:true});
 $("doneBtn").onclick=()=>{const s=state();if(!s.done.includes(selected))s.done.push(selected);save(s);renderHome();renderDay(selected)};
 $("saveStart").onclick=()=>{const s=state();s.start=$("startDate").value||isoToday();save(s);renderHome();renderDay(currentDay())};
 $("resetProgress").onclick=()=>{if(confirm("Reiniciar o progresso da novena?")){const s=state();s.start=$("startDate").value||isoToday();s.done=[];save(s);renderHome();renderDay(currentDay())}};
@@ -34,7 +58,8 @@ $("musicBtn").onclick=async()=>{if(music.paused){try{await music.play()}catch(e)
 music.onplaying=()=>{$("musicBtn").textContent="❚❚ Pausar música";$("audioStatus").textContent="Música em reprodução."};
 music.onpause=()=>{$("musicBtn").textContent="▶ Tocar música";$("audioStatus").textContent="Música pausada."};
 music.onerror=()=>{$("audioStatus").textContent="Não foi possível carregar a música. Verifique a conexão e tente novamente."};
-$("speakDay").onclick=()=>{const d=days[selected-1];speak(selected+"º dia. "+d.title+". "+d.verse+". "+d.med+" "+d.ref+" Pai-Nosso, Ave-Maria e Glória.")};
+$("speakDay").onclick=()=>{const d=days[selected-1];speak(selected+"º dia. "+d.title+". "+d.verse+". "+d.med+" "+d.ref)};
+$("speakTraditional").onclick=()=>speak($("traditionalPrayerText").innerText);
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;$("installBtn").classList.remove("hidden")});
 $("installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$("installBtn").classList.add("hidden")}};
 if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js").catch(()=>{});
