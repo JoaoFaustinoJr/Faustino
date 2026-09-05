@@ -1,4 +1,4 @@
-const CACHE="hildegarda-v4";
+const CACHE="hildegarda-v5";
 const A=["./","./index.html","./styles.css","./app.js","./manifest.webmanifest","./icon.svg",
 "./assets/hero.svg","./assets/day1.svg","./assets/day2.svg","./assets/day3.svg","./assets/day4.svg",
 "./assets/day5.svg","./assets/day6.svg","./assets/day7.svg","./assets/day8.svg","./assets/day9.svg"];
