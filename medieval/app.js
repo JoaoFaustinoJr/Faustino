@@ -87,8 +87,49 @@ $("musicQuick").onclick=()=>{dock.classList.add("show");toggleMusic()};
 $("musicBtn").onclick=toggleMusic;$("volume").oninput=e=>music.volume=parseFloat(e.target.value);
 async function toggleMusic(){dock.classList.add("show");if(music.paused){try{await music.play()}catch{alert("Toque novamente para iniciar a música.")}}else music.pause()}
 music.onplaying=()=>{$("musicBtn").textContent="❚❚"};music.onpause=()=>{$("musicBtn").textContent="▶"};
-window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;$("installBtn").hidden=false});
-$("installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$("installBtn").hidden=true}};
+function installButtons(){return [$("installHomeBtn"),$("installBtn")].filter(Boolean)}
+function isStandalone(){return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone===true}
+function setInstalledUI(){
+  installButtons().forEach(b=>{b.textContent="✓ App instalado";b.disabled=true});
+  const h=$("installHelp"); if(h){h.hidden=false;h.textContent="A Novena já está instalada neste aparelho."}
+}
+function showInstallHelp(){
+  const h=$("installHelp"); if(!h)return;
+  const ua=navigator.userAgent||"";
+  const ios=/iPhone|iPad|iPod/i.test(ua);
+  const android=/Android/i.test(ua);
+  h.hidden=false;
+  if(ios){
+    h.textContent="No Safari: toque em Compartilhar e escolha “Adicionar à Tela de Início”.";
+  }else if(android){
+    h.textContent="No Chrome: toque no menu ⋮ e escolha “Instalar app” ou “Adicionar à tela inicial”.";
+  }else{
+    h.textContent="Abra o menu do navegador e procure “Instalar aplicativo” ou “Adicionar à tela inicial”.";
+  }
+}
+async function requestInstall(){
+  if(isStandalone()){setInstalledUI();return}
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    const choice=await deferredPrompt.userChoice;
+    if(choice && choice.outcome==="accepted"){
+      installButtons().forEach(b=>{b.textContent="Instalando…";b.disabled=true});
+    }else{
+      showInstallHelp();
+    }
+    deferredPrompt=null;
+  }else{
+    showInstallHelp();
+  }
+}
+window.addEventListener("beforeinstallprompt",e=>{
+  e.preventDefault();
+  deferredPrompt=e;
+  installButtons().forEach(b=>{b.disabled=false;b.textContent=b.id==="installBtn"?"⬇ Instalar no celular":"Instalar no celular"});
+});
+window.addEventListener("appinstalled",()=>{deferredPrompt=null;setInstalledUI()});
+installButtons().forEach(b=>b.onclick=requestInstall);
+if(isStandalone())setInstalledUI();
 if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js").catch(()=>{});
 renderHome();renderDay(currentDay());renderJourney();
 

@@ -62,9 +62,13 @@ jobs:
           file share-card.png
           python3 -m pip install --quiet pillow
           python3 medieval/build_share_card.py
+          python3 medieval/build_pwa_icons.py
           test -s medieval/share-card.png
-          file medieval/share-card.png
-          ls -lh share-card.png medieval/share-card.png
+          test -s medieval/icons/icon-192.png
+          test -s medieval/icons/icon-512.png
+          test -s medieval/icons/maskable-512.png
+          file medieval/share-card.png medieval/icons/icon-192.png medieval/icons/icon-512.png medieval/icons/maskable-512.png
+          ls -lh share-card.png medieval/share-card.png medieval/icons/*.png
 
       - name: Configurar Pages
         uses: actions/configure-pages@v5

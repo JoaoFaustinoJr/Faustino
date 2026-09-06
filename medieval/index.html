@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0f4a32">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Hildegarda">
 <title>Novena Iluminada — Santa Hildegarda de Bingen</title>
 <meta name="description" content="Novena medieval digital de Santa Hildegarda de Bingen: 9 dias de oração, reflexão, intenção e música.">
 <meta property="og:type" content="website">
@@ -12,8 +16,8 @@
 <meta property="og:image" content="https://joaofaustinojr.github.io/Faustino/medieval/share-card.png?v=6">
 <meta property="og:url" content="https://joaofaustinojr.github.io/Faustino/medieval/share.html?v=6">
 <link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" href="../assets/icons/hildegarda-official.png" type="image/png">
-<link rel="apple-touch-icon" href="../assets/icons/hildegarda-official.png">
+<link rel="icon" href="./icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
@@ -54,6 +58,12 @@
           <button class="quick-card" id="musicQuick"><span>♫</span><b>Música</b></button>
           <button class="quick-card" data-go="intention"><span>♥</span><b>Minha intenção</b></button>
           <button class="quick-card" data-go="journey"><span>⌁</span><b>Minha jornada</b></button>
+        </div>
+
+        <div class="install-panel" id="installPanel">
+          <div class="install-copy"><span class="install-seal">⬇</span><div><strong>Leve a novena com você</strong><small>Instale no celular e abra como um aplicativo.</small></div></div>
+          <button class="install-cta" id="installHomeBtn">Instalar no celular</button>
+          <p class="install-help" id="installHelp" hidden></p>
         </div>
 
         <div class="book-hint">⌑ <em>deslize como as páginas de um livro</em> ⌑</div>
@@ -156,7 +166,7 @@
           <button class="soft-btn" id="saveStart">Salvar início</button>
           <button class="soft-btn" id="calendarBtn">Adicionar à Google Agenda</button>
           <button class="soft-btn" id="shareBtn">Compartilhar no WhatsApp</button>
-          <button class="soft-btn" id="installBtn" hidden>Instalar no celular</button>
+          <button class="soft-btn install-more" id="installBtn">⬇ Instalar no celular</button>
           <button class="soft-btn danger" id="resetProgress">Reiniciar progresso</button>
         </div>
       </article>

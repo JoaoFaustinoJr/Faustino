@@ -1,13 +1,19 @@
 {
+  "id":"./",
   "name":"Novena Iluminada de Santa Hildegarda de Bingen",
-  "short_name":"Hildegarda Medieval",
+  "short_name":"Hildegarda",
   "description":"Novena digital em estilo de manuscrito iluminado medieval.",
-  "start_url":"./",
+  "start_url":"./?source=pwa",
   "scope":"./",
   "display":"standalone",
+  "display_override":["standalone","minimal-ui"],
+  "orientation":"portrait-primary",
   "background_color":"#f7e8bf",
   "theme_color":"#0d4a31",
+  "prefer_related_applications":false,
   "icons":[
-    {"src":"../assets/icons/hildegarda-official.png","sizes":"160x160","type":"image/png","purpose":"any"}
+    {"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"./icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"},
+    {"src":"./icons/maskable-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}
   ]
 }
