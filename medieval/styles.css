@@ -153,3 +153,35 @@ blockquote{margin:14px auto;font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.05;
 .install-cta:disabled,.install-more:disabled{opacity:.7;cursor:default}
 .install-help{margin:10px 2px 0;padding:10px 12px;border-left:3px solid var(--gold);background:rgba(255,255,255,.42);color:#5d4d34;line-height:1.35;font-size:.95rem}
 .install-more{border-width:2px;background:#f5e6bd}
+
+
+/* v8 — fluxo ritual da novena e lembrete das 19h */
+.ritual-home-status{margin:-4px auto 14px;padding:9px 12px;border:1px solid rgba(184,138,42,.7);border-radius:12px;background:#fff7df;color:#5f4a28;font-style:italic;font-size:1rem}
+.ritual-guide{margin:16px 0 12px;padding:13px 15px;border-left:4px solid var(--gold);background:rgba(13,74,49,.055);border-radius:0 12px 12px 0;display:grid;gap:3px}
+.ritual-guide strong{font-family:Cinzel,serif;color:var(--green);font-size:.88rem;letter-spacing:.1em}
+.ritual-guide span{font-size:1.05rem;line-height:1.35}
+.ritual-progress{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 16px;padding:9px;border:1px solid rgba(184,138,42,.55);border-radius:16px;background:rgba(255,248,226,.72)}
+.ritual-step{position:relative;display:grid;grid-template-columns:28px 1fr;align-items:center;gap:7px;padding:8px 7px;border-radius:11px;color:#766347;transition:.18s ease}
+.ritual-step b{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--gold);background:#fff6dc;color:var(--green);font-family:Cinzel,serif;font-size:.78rem}
+.ritual-step small{font-family:Cinzel,serif;font-size:.68rem;line-height:1.15}
+.ritual-step.current{background:var(--green);color:#fff4d4;box-shadow:inset 0 0 0 1px var(--gold)}
+.ritual-step.current b{background:#f2d47b;border-color:#f2d47b;color:#173f2d}
+.ritual-step.complete{color:var(--green);background:rgba(13,74,49,.06)}
+.ritual-step.complete b{background:var(--green);color:#fff4d4}
+.ritual-step.complete b{font-size:0}
+.ritual-step.complete b:after{content:"✓";font-size:.85rem}
+.ritual-section{scroll-margin-top:18px;padding:8px 0 2px}
+.ritual-kicker{font-family:Cinzel,serif;color:var(--gold);font-weight:700;letter-spacing:.12em;font-size:.72rem;margin-top:5px}
+.ritual-actions{display:grid;gap:9px;margin-top:8px}
+.ritual-divider{text-align:center;color:var(--gold);font-size:1.8rem;margin:20px 0}
+.reminder-note{display:grid;gap:4px;padding:13px 14px;border:1px solid var(--gold);border-radius:14px;background:linear-gradient(180deg,#fff7df,#f3e2b7)}
+.reminder-note strong{font-family:Cinzel,serif;color:var(--green);font-size:.92rem}
+.reminder-note span{color:#5f523d;line-height:1.3}
+.reminder-note small{color:#775d2e;font-style:italic;line-height:1.25}
+.reminder-btn{border-width:2px;background:#f5e6bd}
+@media(max-width:520px){
+  .ritual-progress{gap:4px;padding:6px}
+  .ritual-step{grid-template-columns:24px 1fr;gap:5px;padding:7px 4px}
+  .ritual-step b{width:23px;height:23px}
+  .ritual-step small{font-size:.57rem}
+}
