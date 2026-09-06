@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="./styles.css?v=8">
 </head>
 <body>
 <div class="app-frame">
@@ -51,6 +51,7 @@
           <strong id="homeDayLabel">Dia 1 de 9</strong>
           <div class="day-dots" id="homeDots"></div>
         </div>
+        <div class="ritual-home-status" id="ritualHomeStatus" hidden></div>
 
         <button class="primary-cta" id="startPrayerBtn"><span>🙏</span> Iniciar oração de hoje <b>›</b></button>
 
@@ -75,6 +76,12 @@
         <button class="icon-btn" id="prevDay" aria-label="Dia anterior">←</button>
         <div><span id="dayNo">1º DIA</span><h2 id="dayTitle">A Sabedoria de Deus</h2></div>
         <button class="icon-btn" id="nextDay" aria-label="Próximo dia">→</button>
+      </div>
+
+      <div class="ritual-progress" aria-label="Etapas da oração">
+        <span class="ritual-step" data-ritual-step="initial"><b>1</b><small>Oração inicial</small></span>
+        <span class="ritual-step" data-ritual-step="day"><b>2</b><small>Reflexão do dia</small></span>
+        <span class="ritual-step" data-ritual-step="final"><b>3</b><small>Oração final</small></span>
       </div>
 
       <article class="illuminated-page day-folio" id="bookPage" data-theme="sapientia">
@@ -109,7 +116,7 @@
           </div>
         </details>
         <div class="page-actions">
-          <button class="primary-cta compact" id="doneBtn">Marcar dia como rezado</button>
+          <button class="primary-cta compact" id="doneBtn">Concluir com a oração final ›</button>
           <button class="soft-btn" id="speakDay">🔊 Ouvir reflexão</button>
         </div>
         <div class="folio-footer"><span>VIRIDITAS</span><b>❦</b><span>SAPIENTIA</span><b>❦</b><span>VITA</span></div>
@@ -125,12 +132,38 @@
           <strong>VIRIDITAS</strong>
           <span>A força vivificante de Deus que tudo cria, sustenta e renova.</span>
         </div>
-        <h3>Oração inicial</h3>
-        <div id="initialText" class="prayer-text">Ó Santa Hildegarda de Bingen, virgem e Doutora da Igreja, mulher de profunda fé e de ardente amor a Deus, que ouvistes a voz do Senhor na oração e contemplastes os mistérios da criação e da salvação, ensinai-me a buscar a Verdade com humildade e a amar a Deus sobre todas as coisas. Intercedei por mim junto ao Senhor, para que eu receba as graças de que mais necessito, cresça na sabedoria, na paz, na saúde do corpo e da alma, e no serviço generoso à Igreja e aos irmãos. Amém.</div>
-        <button class="soft-btn speak" data-target="initialText">🔊 Ouvir oração inicial</button>
-        <h3>Oração final</h3>
-        <div id="finalText" class="prayer-text">Ó Deus, que concedestes a Santa Hildegarda de Bingen a luz do Espírito Santo para contemplar vossos mistérios e manifestar vossa glória na criação, concedei-nos, por sua intercessão, a graça de buscar sempre a vossa Sabedoria, de amar a Igreja e de viver em fidelidade ao Evangelho. Por Cristo, nosso Senhor. Amém.</div>
-        <button class="soft-btn speak" data-target="finalText">🔊 Ouvir oração final</button>
+
+        <div class="ritual-guide">
+          <strong>Ordo Orationis</strong>
+          <span>Cada dia da novena começa com a Oração Inicial, segue pela reflexão do dia e se encerra com a Oração Final.</span>
+        </div>
+        <div class="ritual-progress" aria-label="Etapas da oração">
+          <span class="ritual-step" data-ritual-step="initial"><b>1</b><small>Oração inicial</small></span>
+          <span class="ritual-step" data-ritual-step="day"><b>2</b><small>Reflexão do dia</small></span>
+          <span class="ritual-step" data-ritual-step="final"><b>3</b><small>Oração final</small></span>
+        </div>
+
+        <section class="ritual-section" id="initialSection">
+          <div class="ritual-kicker">ETAPA 1 DE 3 · PREPARAÇÃO</div>
+          <h3>Oração inicial</h3>
+          <div id="initialText" class="prayer-text">Ó Santa Hildegarda de Bingen, virgem e Doutora da Igreja, mulher de profunda fé e de ardente amor a Deus, que ouvistes a voz do Senhor na oração e contemplastes os mistérios da criação e da salvação, ensinai-me a buscar a Verdade com humildade e a amar a Deus sobre todas as coisas. Intercedei por mim junto ao Senhor, para que eu receba as graças de que mais necessito, cresça na sabedoria, na paz, na saúde do corpo e da alma, e no serviço generoso à Igreja e aos irmãos. Amém.</div>
+          <div class="ritual-actions">
+            <button class="soft-btn speak" data-target="initialText">🔊 Ouvir oração inicial</button>
+            <button class="primary-cta compact" id="beginDayBtn">Prosseguir para a reflexão do dia ›</button>
+          </div>
+        </section>
+
+        <div class="ritual-divider">❦</div>
+
+        <section class="ritual-section" id="finalSection">
+          <div class="ritual-kicker">ETAPA 3 DE 3 · CONCLUSÃO</div>
+          <h3>Oração final</h3>
+          <div id="finalText" class="prayer-text">Ó Deus, que concedestes a Santa Hildegarda de Bingen a luz do Espírito Santo para contemplar vossos mistérios e manifestar vossa glória na criação, concedei-nos, por sua intercessão, a graça de buscar sempre a vossa Sabedoria, de amar a Igreja e de viver em fidelidade ao Evangelho. Por Cristo, nosso Senhor. Amém.</div>
+          <div class="ritual-actions">
+            <button class="soft-btn speak" data-target="finalText">🔊 Ouvir oração final</button>
+            <button class="primary-cta compact" id="finishPrayerBtn">Amém · Concluir a oração de hoje</button>
+          </div>
+        </section>
       </article>
     </section>
 
@@ -164,7 +197,8 @@
         </label>
         <div class="stack">
           <button class="soft-btn" id="saveStart">Salvar início</button>
-          <button class="soft-btn" id="calendarBtn">Adicionar à Google Agenda</button>
+          <div class="reminder-note"><strong>⏰ Hora da oração</strong><span>Ao iniciar a novena, você pode criar um lembrete diário às 19h durante os nove dias.</span><small id="reminderStatus"></small></div>
+          <button class="soft-btn reminder-btn" id="calendarBtn">⏰ Ativar lembrete diário às 19h</button>
           <button class="soft-btn" id="shareBtn">Compartilhar no WhatsApp</button>
           <button class="soft-btn install-more" id="installBtn">⬇ Instalar no celular</button>
           <button class="soft-btn danger" id="resetProgress">Reiniciar progresso</button>
@@ -191,6 +225,6 @@
     <button class="nav-item" data-go="more"><span>•••</span><b>Mais</b></button>
   </nav>
 </div>
-<script src="./app.js"></script>
+<script src="./app.js?v=8"></script>
 </body>
 </html>
