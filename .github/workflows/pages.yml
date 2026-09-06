@@ -22,15 +22,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Preparar imagens clássicas individuais
+        run: |
+          mkdir -p assets/img
+          tar -xzf image-bundles/days1-3.tgz -C assets/img
+          tar -xzf image-bundles/days4-6.tgz -C assets/img
+          tar -xzf image-bundles/days7-9.tgz -C assets/img
+          test -s assets/img/hero.webp
+          for n in 1 2 3 4 5 6 7 8 9; do test -s "assets/img/day${n}.webp"; done
+
       - name: Configurar Pages
         uses: actions/configure-pages@v5
         with:
           enablement: true
+
       - name: Upload do site
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
           name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
+
       - name: Publicar
         id: deployment
         uses: actions/deploy-pages@v4
