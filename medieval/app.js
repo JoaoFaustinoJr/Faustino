@@ -23,6 +23,18 @@ const daysEN=[
 {title:"Humility and Service",verse:"“If anyone wishes to be first, he shall be the last of all and the servant of all.” (Mk 9:35)",med:"May Saint Hildegard teach us to place our gifts at the service of others, with humility and love.",ref:"A gift fully blossoms when it becomes service.",theme:"humilitas",motto:"HUMILITAS",latin:"Servire in caritate.",left:"Service gives love a concrete form.",right:"Humility turns a gift into an offering.",symbol:"❀",word:"SERVICE"},
 {title:"Total Surrender to God",verse:"“For everything is from you, and what we give is what we have from you.” (1 Chr 29:14)",med:"Let us entrust our life, family, needs, and intentions to the Lord through the intercession of Saint Hildegard.",ref:"On the final day, prayer becomes surrender: placing the entire journey in God's hands.",theme:"oblatio",motto:"OBLATIO",latin:"Totum Deo.",left:"All is received; all can be offered.",right:"The journey ends in trust and gratitude.",symbol:"✥",word:"SURRENDER"}
 ];
+const daysDE=[
+{title:"Die Weisheit Gottes",verse:"„Der HERR ist mein Licht und mein Heil: Vor wem sollte ich mich fürchten?“ (Ps 27,1)",med:"Die heilige Hildegard erbitte uns die Gnade, vor allem die Weisheit zu suchen, die von Gott kommt.",ref:"Bitten wir um ein waches Herz, das Gottes Gegenwart in den Entscheidungen jedes Tages erkennt.",theme:"sapientia",motto:"SAPIENTIA",latin:"In lumine Sapientiae ambulamus.",left:"Weisheit wächst im Schweigen, das zu hören vermag.",right:"Die Wahrheit in Demut suchen.",symbol:"✦",word:"WEISHEIT"},
+{title:"Das Licht, das die Finsternis besiegt",verse:"„Dein Wort ist meinem Fuß eine Leuchte, ein Licht für meine Pfade.“ (Ps 119,105)",med:"Bitten wir um Unterscheidungskraft, Glauben und Klarheit, damit wir stets dem Licht Christi folgen.",ref:"Wo Wahrheit und Liebe Raum gewinnen, verliert die Finsternis ihre Macht.",theme:"lux",motto:"LUX",latin:"Lux in tenebris lucet.",left:"Empfangenes Licht wird zum Weg.",right:"Unterscheiden heißt, im Licht zu gehen.",symbol:"✧",word:"LICHT"},
+{title:"Vertrauen auf die göttliche Vorsehung",verse:"„Werft alle eure Sorge auf ihn, denn er kümmert sich um euch!“ (1 Petr 5,7)",med:"Legen wir Gott anheim, was wir nicht beherrschen können, und ruhen wir in seiner Güte.",ref:"Vertrauen heißt, treu zu bleiben, auch wenn die Antwort noch nicht sichtbar ist.",theme:"providentia",motto:"PROVIDENTIA",latin:"In Deo speramus.",left:"Hingabe ist auch ein Akt des Glaubens.",right:"Die Vorsehung trägt unseren Weg.",symbol:"❦",word:"VERTRAUEN"},
+{title:"Die ganzheitliche Heilung des Menschen",verse:"„Er heilt, die gebrochenen Herzens sind, er verbindet ihre Wunden.“ (Ps 147,3)",med:"Beten wir um Heil für Leib, Seele und Geist und um Heilung der Wunden unseres Inneren.",ref:"Christliche Heilung nimmt den ganzen Menschen in den Blick und führt ihn neu zur Hoffnung.",theme:"sanitas",motto:"SANITAS",latin:"Cura corporis et animae.",left:"Leib, Seele und Geist vor Gott.",right:"Auch die Hoffnung gehört zum Heilwerden.",symbol:"✤",word:"HEILUNG"},
+{title:"Kraft in Krankheit und Prüfung",verse:"„Alles vermag ich durch den, der mich stärkt.“ (Phil 4,13)",med:"Die heilige Hildegard erbitte uns die Gnade, Gott auch in Krankheit, Kreuz und Prüfung treu zu bleiben.",ref:"Stärke beseitigt unsere Zerbrechlichkeit nicht; sie hilft uns, sie mit Gott zu durchschreiten.",theme:"fortitudo",motto:"FORTITUDO",latin:"In infirmitate fortitudo.",left:"Zerbrechlichkeit kann ein Ort des Vertrauens werden.",right:"Mit Gott auszuharren ist schon ein Sieg.",symbol:"☩",word:"STÄRKE"},
+{title:"Die Schöpfung als Werk Gottes",verse:"„Wie zahlreich sind deine Werke, HERR; sie alle hast du mit Weisheit gemacht.“ (Ps 104,24)",med:"Betrachten wir die Schöpfung und preisen wir den Schöpfer, dessen Güte in seinen Geschöpfen aufscheint.",ref:"Die Schöpfung zu bewahren heißt auch, sie dankbar als Gabe zu empfangen.",theme:"creatio",motto:"CREATIO",latin:"Omnia in Sapientia ordinasti.",left:"Die Natur lädt zur Betrachtung ein.",right:"Wer die Schöpfung als Gabe empfängt, lernt sie zu hüten.",symbol:"❧",word:"SCHÖPFUNG"},
+{title:"Die Kirche und die Treue zum Glauben",verse:"„Ich bin der Weinstock, ihr seid die Reben. Wer in mir bleibt … bringt reiche Frucht.“ (Joh 15,5)",med:"Bitten wir um die Gnade, die Kirche zu lieben, der Lehre Christi treu zu bleiben und das Evangelium zu bezeugen.",ref:"Der Glaube reift, wenn er Gemeinschaft, Dienst und Zeugnis wird.",theme:"fides",motto:"FIDES",latin:"Manete in me.",left:"Glaube wächst in Gemeinschaft.",right:"In Christus bleiben heißt Frucht bringen.",symbol:"✠",word:"TREUE"},
+{title:"Demut und Dienst",verse:"„Wer der Erste sein will, soll der Letzte von allen und der Diener aller sein.“ (Mk 9,35)",med:"Die heilige Hildegard lehre uns, unsere Gaben in Demut und Liebe in den Dienst anderer zu stellen.",ref:"Eine Gabe entfaltet sich ganz, wenn sie zum Dienst wird.",theme:"humilitas",motto:"HUMILITAS",latin:"Servire in caritate.",left:"Dienst gibt der Liebe eine konkrete Gestalt.",right:"Demut macht aus der Gabe eine Hingabe.",symbol:"❀",word:"DIENST"},
+{title:"Die völlige Hingabe an Gott",verse:"„Von dir kommt ja alles; und was wir dir gegeben haben, stammt aus deiner Hand.“ (1 Chr 29,14)",med:"Legen wir unser Leben, unsere Familie, unsere Nöte und Anliegen durch die Fürsprache der heiligen Hildegard in Gottes Hände.",ref:"Am letzten Tag wird das Gebet zur Hingabe: Wir vertrauen den ganzen Weg Gottes Händen an.",theme:"oblatio",motto:"OBLATIO",latin:"Totum Deo.",left:"Alles ist empfangen; alles kann dargebracht werden.",right:"Der Weg endet in Vertrauen und Dankbarkeit.",symbol:"✥",word:"HINGABE"}
+];
+
 let days=daysPT;
 
 let selected=1,deferredPrompt=null,sx=0,sy=0,homeSx=0,homeSy=0,currentLang="pt";
@@ -38,8 +50,8 @@ function load(){
 function save(s){localStorage.setItem(stateKey,JSON.stringify(s))}
 function isoToday(){const d=new Date(),z=d.getTimezoneOffset()*60000;return new Date(d-z).toISOString().slice(0,10)}
 function currentDay(){const s=load();if(!s.start)return 1;const a=new Date(s.start+"T00:00:00"),b=new Date();b.setHours(0,0,0,0);return Math.max(1,Math.min(9,Math.floor((b-a)/86400000)+1))}
-function formatDate(d){return new Date(d+"T12:00:00").toLocaleDateString(currentLang==="en"?"en-US":"pt-BR")}
-function endDate(){const s=load();const a=new Date((s.start||isoToday())+"T12:00:00");a.setDate(a.getDate()+8);return a.toLocaleDateString(currentLang==="en"?"en-US":"pt-BR")}
+function formatDate(d){return new Date(d+"T12:00:00").toLocaleDateString(currentLang==="en"?"en-US":currentLang==="de"?"de-DE":"pt-BR")}
+function endDate(){const s=load();const a=new Date((s.start||isoToday())+"T12:00:00");a.setDate(a.getDate()+8);return a.toLocaleDateString(currentLang==="en"?"en-US":currentLang==="de"?"de-DE":"pt-BR")}
 function activeRitual(){
   const s=load(),r=s.ritual;
   if(!r||!r.day||!["initial","day","final"].includes(r.step))return null;
@@ -58,37 +70,41 @@ function updateRitualUI(){
 }
 function renderHome(){
   const s=load(),n=currentDay(),r=activeRitual(),status=$("ritualHomeStatus");
-  $("homeDayLabel").textContent=(currentLang==="en"?"Day ":"Dia ")+n+(currentLang==="en"?" of 9":" de 9");
+  $("homeDayLabel").textContent=currentLang==="en"?"Day "+n+" of 9":currentLang==="de"?"Tag "+n+" von 9":"Dia "+n+" de 9";
   $("homeDots").innerHTML=days.map((_,i)=>'<span class="day-dot '+(s.done.includes(i+1)?"done":i+1===n?"active":"")+'"></span>').join("");
   if(r){
-    const label=currentLang==="en"?(r.step==="initial"?"Opening prayer":r.step==="day"?"Reflection of the day":"Closing prayer"):(r.step==="initial"?"Oração inicial":r.step==="day"?"Reflexão do dia":"Oração final");
+    const label=currentLang==="en"?(r.step==="initial"?"Opening prayer":r.step==="day"?"Reflection of the day":"Closing prayer"):currentLang==="de"?(r.step==="initial"?"Eröffnungsgebet":r.step==="day"?"Betrachtung des Tages":"Schlussgebet"):(r.step==="initial"?"Oração inicial":r.step==="day"?"Reflexão do dia":"Oração final");
     status.hidden=false;
     status.textContent=currentLang==="en"
       ?"Prayer for Day "+r.day+" in progress · step "+stepNumber(r.step)+" of 3 — "+label
-      :"Oração do Dia "+r.day+" em andamento · etapa "+stepNumber(r.step)+" de 3 — "+label;
+      :currentLang==="de"
+        ?"Gebet für Tag "+r.day+" · Schritt "+stepNumber(r.step)+" von 3 — "+label
+        :"Oração do Dia "+r.day+" em andamento · etapa "+stepNumber(r.step)+" de 3 — "+label;
     $("startPrayerBtn").innerHTML=currentLang==="en"
       ?'<span>❦</span> Resume prayer for Day '+r.day+' <b>›</b>'
-      :'<span>❦</span> Retomar oração do Dia '+r.day+' <b>›</b>';
+      :currentLang==="de"
+        ?'<span>❦</span> Gebet für Tag '+r.day+' fortsetzen <b>›</b>'
+        :'<span>❦</span> Retomar oração do Dia '+r.day+' <b>›</b>';
   }else if(s.done.includes(n)){
     status.hidden=false;
-    status.textContent=currentLang==="en"?"✓ Today's prayer completed · Deo gratias.":"✓ Oração de hoje concluída · Deo gratias.";
-    $("startPrayerBtn").innerHTML=currentLang==="en"?'<span>✓</span> Review today’s prayer <b>›</b>':'<span>✓</span> Rever oração de hoje <b>›</b>';
+    status.textContent=currentLang==="en"?"✓ Today's prayer completed · Deo gratias.":currentLang==="de"?"✓ Das heutige Gebet ist abgeschlossen · Deo gratias.":"✓ Oração de hoje concluída · Deo gratias.";
+    $("startPrayerBtn").innerHTML=currentLang==="en"?'<span>✓</span> Review today’s prayer <b>›</b>':currentLang==="de"?'<span>✓</span> Heutiges Gebet noch einmal beten <b>›</b>':'<span>✓</span> Rever oração de hoje <b>›</b>';
   }else{
     status.hidden=true;
-    $("startPrayerBtn").innerHTML=currentLang==="en"?'<span>🙏</span> Begin today’s prayer <b>›</b>':'<span>🙏</span> Iniciar oração de hoje <b>›</b>';
+    $("startPrayerBtn").innerHTML=currentLang==="en"?'<span>🙏</span> Begin today’s prayer <b>›</b>':currentLang==="de"?'<span>🙏</span> Heutiges Gebet beginnen <b>›</b>':'<span>🙏</span> Iniciar oração de hoje <b>›</b>';
   }
   updateRitualUI();
 }
 function renderDay(n){
   selected=Math.max(1,Math.min(9,n));
   const d=days[selected-1], page=$("bookPage");
-  $("dayNo").textContent=currentLang==="en"?"DAY "+selected:selected+"º DIA";
+  $("dayNo").textContent=currentLang==="en"?"DAY "+selected:currentLang==="de"?"TAG "+selected:selected+"º DIA";
   $("dayTitle").textContent=d.title;
   $("verse").textContent=d.verse;
   $("meditation").textContent=d.med;
   $("reflection").textContent=d.ref;
   $("dayArt").src=CLASSIC_IMAGES[selected-1];
-  $("dayArt").alt=currentLang==="en"?"Artwork for Day "+selected+" — "+d.title:"Arte do "+selected+"º dia — "+d.title;
+  $("dayArt").alt=currentLang==="en"?"Artwork for Day "+selected+" — "+d.title:currentLang==="de"?"Bild zu Tag "+selected+" — "+d.title:"Arte do "+selected+"º dia — "+d.title;
   $("dayMotto").textContent=d.motto;
   $("dayLatin").textContent=d.latin;
   $("leftNote").textContent=d.left;
@@ -98,9 +114,11 @@ function renderDay(n){
   page.dataset.theme=d.theme;
   $("doneBtn").textContent=currentLang==="en"
     ?(load().done.includes(selected)?"Review conclusion with closing prayer ›":"Continue to the closing prayer ›")
-    :(load().done.includes(selected)?"Rever conclusão com a oração final ›":"Concluir com a oração final ›");
+    :currentLang==="de"
+      ?(load().done.includes(selected)?"Abschlussgebet noch einmal beten ›":"Zum Schlussgebet ›")
+      :(load().done.includes(selected)?"Rever conclusão com a oração final ›":"Concluir com a oração final ›");
 }
-function renderJourney(){const s=load();$("journeyList").innerHTML=days.map((d,i)=>`<button class="journey-row ${s.done.includes(i+1)?"done":""}" data-day="${i+1}"><span class="num">${i+1}</span><span class="meta"><strong>${currentLang==="en"?"Day ":"Dia "}${i+1}</strong><small>${d.title}</small></span><span>›</span></button>`).join("");$("endDateLabel").textContent=endDate();document.querySelectorAll("[data-day]").forEach(b=>b.onclick=()=>{renderDay(+b.dataset.day);go("prayers")})}
+function renderJourney(){const s=load();$("journeyList").innerHTML=days.map((d,i)=>`<button class="journey-row ${s.done.includes(i+1)?"done":""}" data-day="${i+1}"><span class="num">${i+1}</span><span class="meta"><strong>${currentLang==="en"?"Day ":currentLang==="de"?"Tag ":"Dia "}${i+1}</strong><small>${d.title}</small></span><span>›</span></button>`).join("");$("endDateLabel").textContent=endDate();document.querySelectorAll("[data-day]").forEach(b=>b.onclick=()=>{renderDay(+b.dataset.day);go("prayers")})}
 function go(name){
   document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.dataset.view===name));
   document.querySelectorAll(".nav-item").forEach(b=>b.classList.toggle("active",b.dataset.go===name));
@@ -188,13 +206,15 @@ function reminderCalendarUrl(){
   const s=load(),start=(s.start||isoToday()).replaceAll("-","");
   const u=new URL("https://calendar.google.com/calendar/render");
   u.searchParams.set("action","TEMPLATE");
-  u.searchParams.set("text",currentLang==="en"?"Saint Hildegard — Novena Prayer":"Santa Hildegarda — Hora da Novena");
+  u.searchParams.set("text",currentLang==="en"?"Saint Hildegard — Novena Prayer":currentLang==="de"?"Heilige Hildegard — Novenengebet":"Santa Hildegarda — Hora da Novena");
   u.searchParams.set("dates",start+"T190000/"+start+"T193000");
   u.searchParams.set("ctz",Intl.DateTimeFormat().resolvedOptions().timeZone||"America/Sao_Paulo");
   u.searchParams.set("recur","RRULE:FREQ=DAILY;COUNT=9");
   u.searchParams.set("details",currentLang==="en"
     ?"It is 7:00 PM. Begin with the Opening Prayer, continue with the reflection of the day, and conclude with the Closing Prayer.\n\nOpen the Illuminated Novena: https://joaofaustinojr.github.io/Faustino/medieval/?lang=en"
-    :"São 19h. Comece pela Oração Inicial, siga a reflexão do dia e conclua com a Oração Final.\n\nAbrir a Novena Iluminada: https://joaofaustinojr.github.io/Faustino/medieval/");
+    :currentLang==="de"
+      ?"Es ist 19:00 Uhr. Beginne mit dem Eröffnungsgebet, gehe zur Betrachtung des Tages und schließe mit dem Schlussgebet.\n\nIlluminierte Novene öffnen: https://joaofaustinojr.github.io/Faustino/medieval/?lang=de"
+      :"São 19h. Comece pela Oração Inicial, siga a reflexão do dia e conclua com a Oração Final.\n\nAbrir a Novena Iluminada: https://joaofaustinojr.github.io/Faustino/medieval/");
   return u.toString();
 }
 function renderReminderStatus(){
@@ -204,9 +224,13 @@ function renderReminderStatus(){
     ?(s.reminderOpened
       ?"Google Calendar is prepared for 9 days at 7:00 PM. Confirm the event in Calendar to finish."
       :"The reminder is created in Google Calendar so it can work even when the app is closed.")
-    :(s.reminderOpened
-      ?"Google Agenda preparado para 9 dias às 19h. Confirme o evento no calendário para concluir."
-      :"O lembrete é criado no Google Agenda para funcionar mesmo com o app fechado.");
+    :currentLang==="de"
+      ?(s.reminderOpened
+        ?"Google Kalender ist für 9 Tage um 19:00 Uhr vorbereitet. Bestätige den Termin im Kalender."
+        :"Die Erinnerung wird im Google Kalender angelegt und funktioniert auch bei geschlossener App.")
+      :(s.reminderOpened
+        ?"Google Agenda preparado para 9 dias às 19h. Confirme o evento no calendário para concluir."
+        :"O lembrete é criado no Google Agenda para funcionar mesmo com o app fechado.");
 }
 function openReminderCalendar(){
   const s=load();s.reminderOpened=true;save(s);renderReminderStatus();
@@ -223,24 +247,56 @@ $("saveStart").onclick=()=>{
   $("startDate").value=s.start;
   if(ask&&confirm(currentLang==="en"
     ?"Novena started. Would you like to prepare a daily 7:00 PM reminder in Google Calendar for the nine days?"
-    :"Novena iniciada. Deseja preparar no Google Agenda um lembrete diário às 19h durante os nove dias?"))openReminderCalendar();
+    :currentLang==="de"
+      ?"Die Novene hat begonnen. Möchtest du für die neun Tage täglich um 19:00 Uhr eine Erinnerung im Google Kalender anlegen?"
+      :"Novena iniciada. Deseja preparar no Google Agenda um lembrete diário às 19h durante os nove dias?"))openReminderCalendar();
 };
-$("resetProgress").onclick=()=>{if(confirm(currentLang==="en"?"Restart the progress of this novena?":"Reiniciar o progresso desta novena?")){const s=load();s.done=[];s.ritual=null;s.lastCompleted=null;s.start=$("startDate").value||isoToday();save(s);renderHome();renderJourney();renderDay(currentDay())}};
+$("resetProgress").onclick=()=>{if(confirm(currentLang==="en"?"Restart the progress of this novena?":currentLang==="de"?"Den Fortschritt dieser Novene zurücksetzen?":"Reiniciar o progresso desta novena?")){const s=load();s.done=[];s.ritual=null;s.lastCompleted=null;s.start=$("startDate").value||isoToday();save(s);renderHome();renderJourney();renderDay(currentDay())}};
 $("calendarBtn").onclick=openReminderCalendar;
 $("shareBtn").onclick=()=>{
   const t=currentLang==="en"
     ?"🌿 *Digital Novena to Saint Hildegard of Bingen*\n\n9 days of prayer, reflection, intention, and music.\nSwipe as if turning the pages of a book.\n\n📖 https://joaofaustinojr.github.io/Faustino/medieval/?lang=en"
-    :"🌿 *Novena Digital de Santa Hildegarda de Bingen*\n\n9 dias de oração, reflexão, intenção e música.\nDeslize como as páginas de um livro.\n\n📖 https://joaofaustinojr.github.io/Faustino/medieval/";
+    :currentLang==="de"
+      ?"🌿 *Digitale Novene zur heiligen Hildegard von Bingen*\n\n9 Tage mit Gebet, Betrachtung, persönlichem Anliegen und Musik.\nWische wie beim Umblättern eines Buches.\n\n📖 https://joaofaustinojr.github.io/Faustino/medieval/?lang=de"
+      :"🌿 *Novena Digital de Santa Hildegarda de Bingen*\n\n9 dias de oração, reflexão, intenção e música.\nDeslize como as páginas de um livro.\n\n📖 https://joaofaustinojr.github.io/Faustino/medieval/";
   window.open("https://wa.me/?text="+encodeURIComponent(t),"_blank","noopener");
 };
 function speechFriendly(text){return text
-  .replace(/\((?:Sl|Jo|Mc|Fl|Pd|Cr|1Pd|1Cr|2Cr|Rm|Mt|Lc|At|Is|Gn|Ex|Ps|Jn|Mk|Phil|Pt|Chr|1\s*Pt|1\s*Chr)[^)]*\)/gi,"")
-  .replace(/\b(?:Sl|Jo|Mc|Fl|Pd|Cr|1Pd|1Cr|2Cr|Ps|Jn|Mk|Phil|1\s*Pt|1\s*Chr)\s*\d+[,:.]?\d*/gi,"")
+  .replace(/\((?:Sl|Jo|Mc|Fl|Pd|Cr|1Pd|1Cr|2Cr|Rm|Mt|Lc|At|Is|Gn|Ex|Ps|Jn|Mk|Phil|Pt|Chr|Petr|Joh|1\s*Pt|1\s*Chr|1\s*Petr|1\s*Chr)[^)]*\)/gi,"")
+  .replace(/\b(?:Sl|Jo|Mc|Fl|Pd|Cr|1Pd|1Cr|2Cr|Ps|Jn|Mk|Phil|Petr|Joh|1\s*Pt|1\s*Chr|1\s*Petr)\s*\d+[,:.]?\d*/gi,"")
   .replace(/\s+/g," ").trim()}
-function speak(text){if(!("speechSynthesis" in window)){alert(currentLang==="en"?"Read-aloud is not available in this browser.":"Leitura em voz alta não disponível neste navegador.");return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(speechFriendly(text));u.lang=currentLang==="en"?"en-US":"pt-BR";u.rate=.88;const v=speechSynthesis.getVoices();u.voice=currentLang==="en"?(v.find(x=>x.lang?.toLowerCase().startsWith("en-us"))||v.find(x=>x.lang?.toLowerCase().startsWith("en"))):(v.find(x=>x.lang?.toLowerCase().startsWith("pt-br"))||v.find(x=>x.lang?.toLowerCase().startsWith("pt")))||null;const m=$("music"),prev=!m.paused?m.volume:null;if(prev!==null)m.volume=.06;u.onend=u.onerror=()=>{if(prev!==null)m.volume=prev};speechSynthesis.speak(u)}
+function speechLocale(){return currentLang==="en"?"en-US":currentLang==="de"?"de-DE":"pt-BR"}
+function chooseVoice(v){const l=speechLocale().toLowerCase();return v.find(x=>x.lang?.toLowerCase()===l)||v.find(x=>x.lang?.toLowerCase().startsWith(l.slice(0,2)))||null}
+function speak(text){if(!("speechSynthesis" in window)){alert(currentLang==="en"?"Read-aloud is not available in this browser.":currentLang==="de"?"Vorlesen ist in diesem Browser nicht verfügbar.":"Leitura em voz alta não disponível neste navegador.");return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(speechFriendly(text));u.lang=speechLocale();u.rate=.88;const v=speechSynthesis.getVoices();u.voice=chooseVoice(v);const m=$("music"),prev=!m.paused?m.volume:null;if(prev!==null)m.volume=.06;u.onend=u.onerror=()=>{if(prev!==null)m.volume=prev};speechSynthesis.speak(u)}
+
+function speakPrayerSequence(parts){
+  if(!("speechSynthesis" in window)){
+    alert(currentLang==="en"?"Read-aloud is not available in this browser.":currentLang==="de"?"Vorlesen ist in diesem Browser nicht verfügbar.":"Leitura em voz alta não disponível neste navegador.");
+    return;
+  }
+  speechSynthesis.cancel();
+  const list=(parts||[]).map(speechFriendly).filter(Boolean);
+  const voices=speechSynthesis.getVoices(),voice=chooseVoice(voices);
+  const m=$("music"),prev=!m.paused?m.volume:null;
+  if(prev!==null)m.volume=.045;
+  let i=0;
+  const finish=()=>{if(prev!==null)m.volume=prev};
+  const next=()=>{
+    if(i>=list.length){finish();return}
+    const u=new SpeechSynthesisUtterance(list[i++]);
+    u.lang=speechLocale();
+    u.voice=voice;
+    u.rate=.76;
+    u.pitch=.98;
+    u.onend=()=>setTimeout(next,520);
+    u.onerror=()=>{finish()};
+    speechSynthesis.speak(u);
+  };
+  next();
+}
 document.querySelectorAll(".speak").forEach(b=>b.onclick=()=>speak($(b.dataset.target).innerText));
 $("speakDay").onclick=()=>{const d=days[selected-1];speak(d.title+". "+d.verse+" "+d.med+" "+d.ref)};
-$("speakTraditional").onclick=()=>speak($("traditionalPrayerText").innerText.replace(currentLang==="en"?"Listen to the full prayers":"Ouvir as orações completas",""));
+$("speakTraditional").onclick=()=>speakPrayerSequence(PRAYERS[currentLang].speech);
 const music=$("music"),dock=$("musicDock");music.volume=parseFloat($("volume").value);
 $("musicQuick").onclick=()=>{dock.classList.add("show");toggleMusic()};
 $("musicBtn").onclick=toggleMusic;$("volume").oninput=e=>music.volume=parseFloat(e.target.value);
@@ -251,12 +307,32 @@ const PRAYERS={
   pt:{
     initial:"Ó Santa Hildegarda de Bingen, virgem e Doutora da Igreja, mulher de profunda fé e de ardente amor a Deus, que ouvistes a voz do Senhor na oração e contemplastes os mistérios da criação e da salvação, ensinai-me a buscar a Verdade com humildade e a amar a Deus sobre todas as coisas. Intercedei por mim junto ao Senhor, para que eu receba as graças de que mais necessito, cresça na sabedoria, na paz, na saúde do corpo e da alma, e no serviço generoso à Igreja e aos irmãos. Amém.",
     final:"Ó Deus, que concedestes a Santa Hildegarda de Bingen a luz do Espírito Santo para contemplar vossos mistérios e manifestar vossa glória na criação, concedei-nos, por sua intercessão, a graça de buscar sempre a vossa Sabedoria, de amar a Igreja e de viver em fidelidade ao Evangelho. Por Cristo, nosso Senhor. Amém.",
-    traditional:`<h4>Pai-Nosso</h4><p>Pai nosso que estais nos céus, santificado seja o vosso nome; venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu. O pão nosso de cada dia nos dai hoje; perdoai-nos as nossas ofensas, assim como nós perdoamos a quem nos tem ofendido; e não nos deixeis cair em tentação, mas livrai-nos do mal. Amém.</p><h4>Ave-Maria</h4><p>Ave Maria, cheia de graça, o Senhor é convosco; bendita sois vós entre as mulheres e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora de nossa morte. Amém.</p><h4>Glória</h4><p>Glória ao Pai, ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém.</p><button class="soft-btn" id="speakTraditional">🔊 Ouvir as orações completas</button>`
+    traditional:`<h4>Pai-Nosso</h4><p>Pai nosso que estais nos céus, santificado seja o vosso nome; venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu. O pão nosso de cada dia nos dai hoje; perdoai-nos as nossas ofensas, assim como nós perdoamos a quem nos tem ofendido; e não nos deixeis cair em tentação, mas livrai-nos do mal. Amém.</p><h4>Ave-Maria</h4><p>Ave Maria, cheia de graça, o Senhor é convosco; bendita sois vós entre as mulheres e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora de nossa morte. Amém.</p><h4>Glória</h4><p>Glória ao Pai, ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém.</p><button class="soft-btn" id="speakTraditional">🔊 Ouvir as orações completas</button>`,
+    speech:[
+      "Pai nosso que estais nos céus, santificado seja o vosso nome; venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu. O pão nosso de cada dia nos dai hoje; perdoai-nos as nossas ofensas, assim como nós perdoamos a quem nos tem ofendido; e não nos deixeis cair em tentação, mas livrai-nos do mal. Amém.",
+      "Ave Maria, cheia de graça, o Senhor é convosco; bendita sois vós entre as mulheres e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora de nossa morte. Amém.",
+      "Glória ao Pai, ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém."
+    ]
   },
   en:{
     initial:"O Saint Hildegard of Bingen, virgin and Doctor of the Church, woman of deep faith and ardent love of God, you listened to the Lord's voice in prayer and contemplated the mysteries of creation and salvation. Teach me to seek Truth with humility and to love God above all things. Intercede for me before the Lord, that I may receive the graces I most need, grow in wisdom and peace, in health of body and soul, and in generous service to the Church and to my brothers and sisters. Amen.",
     final:"O God, who granted Saint Hildegard of Bingen the light of the Holy Spirit to contemplate your mysteries and make known your glory in creation, grant us, through her intercession, the grace always to seek your Wisdom, to love the Church, and to live faithfully according to the Gospel. Through Christ our Lord. Amen.",
-    traditional:`<h4>Our Father</h4><p>Our Father, who art in heaven, hallowed be thy name; thy kingdom come; thy will be done on earth as it is in heaven. Give us this day our daily bread; and forgive us our trespasses as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen.</p><h4>Hail Mary</h4><p>Hail, Mary, full of grace, the Lord is with thee. Blessed art thou among women and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.</p><h4>Glory Be</h4><p>Glory be to the Father and to the Son and to the Holy Spirit, as it was in the beginning is now, and ever shall be world without end. Amen.</p><button class="soft-btn" id="speakTraditional">🔊 Listen to the full prayers</button>`
+    traditional:`<h4>Our Father</h4><p>Our Father, who art in heaven, hallowed be thy name; thy kingdom come; thy will be done on earth as it is in heaven. Give us this day our daily bread; and forgive us our trespasses as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen.</p><h4>Hail Mary</h4><p>Hail, Mary, full of grace, the Lord is with thee. Blessed art thou among women and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.</p><h4>Glory Be</h4><p>Glory be to the Father and to the Son and to the Holy Spirit, as it was in the beginning is now, and ever shall be world without end. Amen.</p><button class="soft-btn" id="speakTraditional">🔊 Listen to the full prayers</button>`,
+    speech:[
+      "Our Father, who art in heaven, hallowed be thy name; thy kingdom come; thy will be done on earth as it is in heaven. Give us this day our daily bread; and forgive us our trespasses as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen.",
+      "Hail, Mary, full of grace, the Lord is with thee. Blessed art thou among women and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.",
+      "Glory be to the Father and to the Son and to the Holy Spirit, as it was in the beginning is now, and ever shall be world without end. Amen."
+    ]
+  },
+  de:{
+    initial:"O heilige Hildegard von Bingen, Jungfrau und Kirchenlehrerin, Frau tiefen Glaubens und glühender Gottesliebe, du hast im Gebet auf die Stimme des Herrn gehört und die Geheimnisse der Schöpfung und des Heils betrachtet. Lehre mich, die Wahrheit in Demut zu suchen und Gott über alles zu lieben. Tritt für mich beim Herrn ein, damit ich die Gnaden empfange, die ich am meisten brauche, in Weisheit und Frieden wachse, an Leib und Seele Heil erfahre und der Kirche und meinen Mitmenschen großzügig diene. Amen.",
+    final:"O Gott, du hast der heiligen Hildegard von Bingen das Licht des Heiligen Geistes geschenkt, damit sie deine Geheimnisse schaue und deine Herrlichkeit in der Schöpfung bezeuge. Gewähre uns auf ihre Fürsprache die Gnade, stets deine Weisheit zu suchen, die Kirche zu lieben und dem Evangelium treu zu leben. Durch Christus, unseren Herrn. Amen.",
+    traditional:`<h4>Vaterunser</h4><p>Vater unser im Himmel, geheiligt werde dein Name. Dein Reich komme. Dein Wille geschehe, wie im Himmel so auf Erden. Unser tägliches Brot gib uns heute. Und vergib uns unsere Schuld, wie auch wir vergeben unsern Schuldigern. Und führe uns nicht in Versuchung, sondern erlöse uns von dem Bösen. Amen.</p><h4>Gegrüßet seist du, Maria</h4><p>Gegrüßet seist du, Maria, voll der Gnade, der Herr ist mit dir. Du bist gebenedeit unter den Frauen und gebenedeit ist die Frucht deines Leibes, Jesus. Heilige Maria, Mutter Gottes, bitte für uns Sünder jetzt und in der Stunde unseres Todes. Amen.</p><h4>Ehre sei dem Vater</h4><p>Ehre sei dem Vater und dem Sohn und dem Heiligen Geist, wie im Anfang, so auch jetzt und alle Zeit und in Ewigkeit. Amen.</p><button class="soft-btn" id="speakTraditional">🔊 Gebete langsam anhören</button>`,
+    speech:[
+      "Vater unser im Himmel, geheiligt werde dein Name. Dein Reich komme. Dein Wille geschehe, wie im Himmel so auf Erden. Unser tägliches Brot gib uns heute. Und vergib uns unsere Schuld, wie auch wir vergeben unsern Schuldigern. Und führe uns nicht in Versuchung, sondern erlöse uns von dem Bösen. Amen.",
+      "Gegrüßet seist du, Maria, voll der Gnade, der Herr ist mit dir. Du bist gebenedeit unter den Frauen und gebenedeit ist die Frucht deines Leibes, Jesus. Heilige Maria, Mutter Gottes, bitte für uns Sünder jetzt und in der Stunde unseres Todes. Amen.",
+      "Ehre sei dem Vater und dem Sohn und dem Heiligen Geist, wie im Anfang, so auch jetzt und alle Zeit und in Ewigkeit. Amen."
+    ]
   }
 };
 
@@ -286,6 +362,19 @@ const I18N={
     more:"More",startDate:"Start date",saveStart:"Save start date",reminderTitle:"⏰ Prayer time",reminderText:"When you begin the novena, you can create a daily reminder at 7:00 PM for the nine days.",reminderBtn:"⏰ Set daily 7:00 PM reminder",about:"❦ About Saint Hildegard & Sources",share:"Share on WhatsApp",install:"⬇ Install on phone",reset:"Restart progress",
     navHome:"Home",navPrayers:"Prayers",navWisdom:"Wisdom",navIntention:"Intention",navMore:"More",musicLabel:"Music of Saint Hildegard",
     aboutTitle:"About & Sources",langSourceTitle:"Catholic references for the English edition",langSourceText:"The English traditional prayers follow forms published by the United States Conference of Catholic Bishops (USCCB). The short English Scripture quotations follow the New American Bible, Revised Edition (NABRE), as published on the USCCB Bible website."
+  },
+  de:{
+    title:"Illuminierte Novene — Heilige Hildegard von Bingen",status:"BETE • ERKENNE • HEILE • LEBE",kicker:"DIGITALE NOVENE ZUR",saint:"HEILIGEN HILDEGARD<br>VON BINGEN",subtitle:"Jungfrau und Kirchenlehrerin",quote:"„O Weisheit,<br>die du alles mit Milde ordnest …“",devotee:"Verehrerin der heiligen Hildegard von Bingen",
+    music:"Musik",intention:"Mein Anliegen",journey:"Mein Gebetsweg",installLead:"Nimm die Novene mit",installSub:"Installiere sie auf deinem Handy und öffne sie wie eine App.",bookHint:"wische wie beim Umblättern eines Buches",
+    reflection:"Betrachtung des Tages",sequence:"<span>☩</span> Vaterunser <b>•</b> Ave Maria <b>•</b> Ehre sei dem Vater <span>☩</span>",fullPrayers:"Traditionelle katholische Gebete",listenReflection:"🔊 Betrachtung anhören",
+    wisdomTitle:"Weisheit und Viriditas",wisdomIntro:"Die heilige Hildegard von Bingen war Benediktinerin, Mystikerin, Theologin, Komponistin und Kirchenlehrerin. Diese Novene führt durch neun Tage mit Gebet, Wort Gottes, Betrachtung und persönlicher Hingabe.",viriditas:"Die lebensspendende Kraft Gottes, die alles erschafft, trägt und erneuert.",
+    ritualGuide:"Jeder Tag der Novene beginnt mit dem Eröffnungsgebet, führt durch die Betrachtung des Tages und endet mit dem Schlussgebet.",opening:"Eröffnungsgebet",closing:"Schlussgebet",step1:"Eröffnungsgebet",step2:"Betrachtung des Tages",step3:"Schlussgebet",
+    stage1:"SCHRITT 1 VON 3 · VORBEREITUNG",stage3:"SCHRITT 3 VON 3 · ABSCHLUSS",listenOpening:"🔊 Eröffnungsgebet anhören",continueDay:"Zur Betrachtung des Tages ›",listenClosing:"🔊 Schlussgebet anhören",finish:"Amen · Heutiges Gebet abschließen",
+    intentionTitle:"Mein Anliegen",intentionIntro:"Bringe Gott durch die Fürsprache der heiligen Hildegard dein Anliegen für diese Novene dar.",intentionPlaceholder:"Schreibe hier dein Anliegen …",heart:"Gott kennt dein Herz.",saveIntention:"🔒 Anliegen speichern",
+    journeyTitle:"Mein Gebetsweg",journeySub:"9 Tage mit der heiligen Hildegard von Bingen",completion:"Abschluss der Novene",prayForUs:"Heilige Hildegard von Bingen, bitte für uns!",
+    more:"Mehr",startDate:"Beginn der Novene",saveStart:"Beginn speichern",reminderTitle:"⏰ Gebetszeit",reminderText:"Beim Beginn der Novene kannst du für neun Tage täglich um 19:00 Uhr eine Erinnerung einrichten.",reminderBtn:"⏰ Tägliche Erinnerung um 19:00 Uhr",about:"❦ Über die heilige Hildegard & Quellen",share:"Über WhatsApp teilen",install:"⬇ Auf dem Handy installieren",reset:"Fortschritt zurücksetzen",
+    navHome:"Start",navPrayers:"Gebete",navWisdom:"Weisheit",navIntention:"Anliegen",navMore:"Mehr",musicLabel:"Musik der heiligen Hildegard",
+    aboutTitle:"Über Hildegard & Quellen",langSourceTitle:"Katholische Quellen für die deutsche Ausgabe",langSourceText:"Die deutschen Schriftzitate folgen der Einheitsübersetzung 2016, dem approbierten katholischen Bibeltext im deutschen Sprachraum. Vaterunser, Ave Maria und das Ehre sei dem Vater folgen gebräuchlichen katholischen Gebetsfassungen des deutschen Sprachgebiets."
   }
 };
 
@@ -383,19 +472,90 @@ const ABOUT_EN_HTML=`
 
   <div class="closing-banner">“Monastic liturgy and the interiorization of Sacred Scripture are guiding lines of her thought.”</div>
 `;
+
+const ABOUT_DE_HTML=`
+  <div class="mini-seal">H</div>
+  <h2>Über Hildegard &amp; Quellen</h2>
+
+  <section class="about-block">
+    <div class="about-kicker">HEILIGE HILDEGARD VON BINGEN</div>
+    <h3>Über die heilige Hildegard</h3>
+    <p>Die heilige Hildegard von Bingen (1098–1179) war Benediktinerin, Äbtissin, Mystikerin, Schriftstellerin und Komponistin. Ihr Leben verband Gebet, Heilige Schrift, Liturgie, klösterliche Gemeinschaft, theologisches Denken, Musik und eine wache Betrachtung der Schöpfung.</p>
+    <p>Zu ihren bekanntesten geistlichen Werken gehören <em>Scivias</em>, <em>Liber vitae meritorum</em>, <em>Liber divinorum operum</em> und ihre Briefe. In ihnen führt Hildegard den Leser zu Christus, zur Umkehr des Herzens, zur Treue zur Kirche und zu einem dankbaren Blick auf die Schöpfung als Gabe Gottes.</p>
+    <p>Am 7. Oktober 2012 erhob Papst Benedikt XVI. Hildegard zur <strong>Kirchenlehrerin der Universalkirche</strong>. Ihr Gedenktag ist der <strong>17. September</strong>.</p>
+    <div class="about-highlight">Jungfrau und Kirchenlehrerin · Gedenktag: 17. September</div>
+  </section>
+
+  <div class="ritual-divider">❦</div>
+
+  <section class="about-block">
+    <div class="about-kicker">ÜBER DIESE NOVENE</div>
+    <h3>Eine Andachtshilfe</h3>
+    <p>Diese Digitale Novene zur heiligen Hildegard von Bingen möchte das persönliche Gebet unterstützen. Im Mittelpunkt stehen Gott, die Heilige Schrift, Christus, das Wirken des Heiligen Geistes, Umkehr, Treue zur Kirche und der demütige Dienst mit den empfangenen Gaben.</p>
+    <p>Die Novene verbindet <strong>biblische Texte</strong>, <strong>traditionelle katholische Gebete</strong> wie Vaterunser, Ave Maria und Ehre sei dem Vater, kirchliche Dokumente über die heilige Hildegard, Themen aus ihren Schriften und devotional geprägte Betrachtungen, die auch von der persönlichen Glaubenserfahrung der Verehrerin <strong>Tatiana de Oliveira Machado</strong> inspiriert sind.</p>
+    <p class="editorial-note">Redaktioneller Hinweis: Die eigenen Betrachtungen und Formulierungen dieser Novene sind Andachtstexte. Sie werden nicht als wörtliche Zitate der heiligen Hildegard oder als offizielle liturgische Texte ausgegeben, sofern eine Quelle nicht ausdrücklich genannt ist.</p>
+  </section>
+
+  <div class="ritual-divider">❦</div>
+
+  <section class="about-block">
+    <div class="about-kicker">BIBLIOGRAFIE UND QUELLEN</div>
+    <h3>Kirchliche und primäre Quellen</h3>
+
+    <div class="source-card">
+      <strong>Benedikt XVI. — Apostolisches Schreiben vom 7. Oktober 2012</strong>
+      <span>Dokument zur Erhebung der heiligen Hildegard von Bingen zur Kirchenlehrerin der Universalkirche.</span>
+      <a href="https://www.vatican.va/content/benedict-xvi/de/apost_letters/documents/hf_ben-xvi_apl_20121007_ildegarda-bingen.html" target="_blank" rel="noopener">Beim Vatikan lesen ↗</a>
+    </div>
+
+    <div class="source-card">
+      <strong>Einheitsübersetzung 2016</strong>
+      <span>Für die kurzen deutschen Schriftzitate wird die revidierte Einheitsübersetzung 2016 verwendet. Die Deutsche Bischofskonferenz bezeichnet sie als den approbierten und für die katholische Kirche im deutschen Sprachraum maßgeblichen Bibeltext, insbesondere für die Liturgie.</span>
+      <a href="https://www.dbk.de/presse/aktuelles/meldung/neue-einheitsuebersetzung-der-bibel-erscheint-im-herbst" target="_blank" rel="noopener">Deutsche Bischofskonferenz ↗</a>
+    </div>
+
+    <div class="source-card">
+      <strong>Traditionelle katholische Gebete</strong>
+      <span>Vaterunser, Ave Maria und Ehre sei dem Vater folgen den gebräuchlichen katholischen Fassungen im deutschen Sprachraum. Das Deutsche Liturgische Institut dokumentiert diese Gebetsformen in seinen liturgischen Arbeitshilfen und Büchern.</span>
+      <div class="source-links">
+        <a href="https://www.liturgie.de/liturgie/pub/o_p/dok/download/ah174.pdf" target="_blank" rel="noopener">Ave Maria · Ehre sei dem Vater ↗</a>
+        <a href="https://www.liturgie.de/liturgie/pub/litbch/kindertaufe_online.pdf" target="_blank" rel="noopener">Vaterunser · Liturgische Ausgabe ↗</a>
+      </div>
+    </div>
+
+    <div class="source-card">
+      <strong>Schriften der heiligen Hildegard</strong>
+      <span><em>Scivias</em>; <em>Liber vitae meritorum</em>; <em>Liber divinorum operum</em>; <em>Epistolarium</em>. Sie bilden grundlegende Quellen für Hildegards Spiritualität und Denken.</span>
+    </div>
+  </section>
+
+  <div class="ritual-divider">❦</div>
+
+  <section class="about-block image-credits">
+    <div class="about-kicker">BILDNACHWEISE</div>
+    <h3>Illuminationen und Handschriften</h3>
+    <p>Die auf der Titelseite und an den neun Tagen verwendeten Illuminationen stammen aus Wikimedia Commons und zeigen mittelalterliche Handschriften aus der Hildegard-Tradition oder historische Reproduktionen, die gemeinfrei beziehungsweise unter CC0 zugänglich sind.</p>
+    <div class="image-credit-card"><span class="credit-days">TITEL · TAG 9</span><strong><em>Hildegard von Bingen</em> — Hildegard empfängt göttliche Inspiration und diktiert dem Schreiber Volmar</strong><a href="https://commons.wikimedia.org/wiki/File:Hildegard_von_Bingen.jpg" target="_blank" rel="noopener">Wikimedia Commons ↗</a></div>
+    <div class="image-credit-card"><span class="credit-days">TAG 1</span><strong><em>Liber scivias domini fig 01</em></strong><a href="https://commons.wikimedia.org/wiki/File:Liber_scivias_domini_fig_01.jpg" target="_blank" rel="noopener">Wikimedia Commons ↗</a></div>
+    <div class="image-credit-card"><span class="credit-days">TAGE 2 · 7</span><strong><em>Scivias, Cod. Sal. X,16, p. 4</em></strong><a href="https://commons.wikimedia.org/wiki/File:Scivias,_Cod._Sal._X,16,_p._4.jpg" target="_blank" rel="noopener">Wikimedia Commons ↗</a></div>
+    <div class="image-credit-card"><span class="credit-days">TAGE 3 · 6</span><strong><em>Hildegard von Bingen — Liber Divinorum Operum</em></strong><a href="https://commons.wikimedia.org/wiki/File:Hildegard_von_Bingen_Liber_Divinorum_Operum.jpg" target="_blank" rel="noopener">Wikimedia Commons ↗</a></div>
+  </section>
+
+  <div class="closing-banner">„Die klösterliche Liturgie und die Verinnerlichung der Heiligen Schrift gehören zu den Leitlinien ihres Denkens.“</div>
+`;
 function q(sel){return document.querySelector(sel)}
 function qall(sel){return [...document.querySelectorAll(sel)]}
 function setText(sel,val){const el=q(sel);if(el)el.textContent=val}
 function setHTML(sel,val){const el=q(sel);if(el)el.innerHTML=val}
 function bindTraditionalSpeaker(){
   const b=$("speakTraditional");
-  if(b)b.onclick=()=>speak($("traditionalPrayerText").innerText.replace(currentLang==="en"?"Listen to the full prayers":"Ouvir as orações completas",""));
+  if(b)b.onclick=()=>speakPrayerSequence(PRAYERS[currentLang].speech);
 }
 function applyLanguage(lang,{persist=true}={}){
-  currentLang=lang==="en"?"en":"pt";
-  days=currentLang==="en"?daysEN:daysPT;
+  currentLang=["pt","en","de"].includes(lang)?lang:"pt";
+  days=currentLang==="en"?daysEN:currentLang==="de"?daysDE:daysPT;
   if(persist)localStorage.setItem("hildegardaMedievalLang",currentLang);
-  document.documentElement.lang=currentLang==="en"?"en-US":"pt-BR";
+  document.documentElement.lang=currentLang==="en"?"en-US":currentLang==="de"?"de-DE":"pt-BR";
   const t=I18N[currentLang],p=PRAYERS[currentLang];
   document.title=t.title;
   const statusSpans=qall(".status-row span");if(statusSpans[0])statusSpans[0].textContent=t.status;
@@ -403,7 +563,7 @@ function applyLanguage(lang,{persist=true}={}){
   const aboutArticle=q("#aboutView > article");
   if(aboutArticle){
     if(!ABOUT_PT_HTML)ABOUT_PT_HTML=aboutArticle.innerHTML;
-    aboutArticle.innerHTML=currentLang==="en"?ABOUT_EN_HTML:ABOUT_PT_HTML;
+    aboutArticle.innerHTML=currentLang==="en"?ABOUT_EN_HTML:currentLang==="de"?ABOUT_DE_HTML:ABOUT_PT_HTML;
   }
 
   qall(".language-switch button").forEach(b=>b.classList.toggle("active",b.dataset.lang===currentLang));
@@ -440,16 +600,17 @@ function applyLanguage(lang,{persist=true}={}){
 function initLanguage(){
   const urlLang=new URLSearchParams(location.search).get("lang");
   const saved=localStorage.getItem("hildegardaMedievalLang");
-  const detected=(navigator.language||"").toLowerCase().startsWith("en")?"en":"pt";
-  applyLanguage(urlLang==="en"||urlLang==="pt"?urlLang:(saved||detected),{persist:!!saved||!!urlLang});
+  const navLang=(navigator.language||"").toLowerCase();
+  const detected=navLang.startsWith("de")?"de":navLang.startsWith("en")?"en":"pt";
+  applyLanguage(["pt","en","de"].includes(urlLang)?urlLang:(saved||detected),{persist:!!saved||!!urlLang});
   qall(".language-switch button").forEach(b=>b.addEventListener("click",()=>applyLanguage(b.dataset.lang)));
 }
 
 function installButtons(){return [$("installHomeBtn"),$("installBtn")].filter(Boolean)}
 function isStandalone(){return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone===true}
 function setInstalledUI(){
-  installButtons().forEach(b=>{b.textContent=currentLang==="en"?"✓ App installed":"✓ App instalado";b.disabled=true});
-  const h=$("installHelp"); if(h){h.hidden=false;h.textContent=currentLang==="en"?"The Novena is already installed on this device.":"A Novena já está instalada neste aparelho."}
+  installButtons().forEach(b=>{b.textContent=currentLang==="en"?"✓ App installed":currentLang==="de"?"✓ App installiert":"✓ App instalado";b.disabled=true});
+  const h=$("installHelp"); if(h){h.hidden=false;h.textContent=currentLang==="en"?"The Novena is already installed on this device.":currentLang==="de"?"Die Novene ist auf diesem Gerät bereits installiert.":"A Novena já está instalada neste aparelho."}
 }
 function showInstallHelp(){
   const h=$("installHelp"); if(!h)return;
@@ -458,11 +619,11 @@ function showInstallHelp(){
   const android=/Android/i.test(ua);
   h.hidden=false;
   if(ios){
-    h.textContent=currentLang==="en"?"In Safari: tap Share and choose “Add to Home Screen”.":"No Safari: toque em Compartilhar e escolha “Adicionar à Tela de Início”.";
+    h.textContent=currentLang==="en"?"In Safari: tap Share and choose “Add to Home Screen”.":currentLang==="de"?"In Safari: Tippe auf Teilen und wähle „Zum Home-Bildschirm“.":"No Safari: toque em Compartilhar e escolha “Adicionar à Tela de Início”.";
   }else if(android){
-    h.textContent=currentLang==="en"?"In Chrome: tap the ⋮ menu and choose “Install app” or “Add to Home screen”.":"No Chrome: toque no menu ⋮ e escolha “Instalar app” ou “Adicionar à tela inicial”.";
+    h.textContent=currentLang==="en"?"In Chrome: tap the ⋮ menu and choose “Install app” or “Add to Home screen”.":currentLang==="de"?"In Chrome: Tippe auf ⋮ und wähle „App installieren“ oder „Zum Startbildschirm hinzufügen“.":"No Chrome: toque no menu ⋮ e escolha “Instalar app” ou “Adicionar à tela inicial”.";
   }else{
-    h.textContent=currentLang==="en"?"Open the browser menu and look for “Install app” or “Add to Home screen”.":"Abra o menu do navegador e procure “Instalar aplicativo” ou “Adicionar à tela inicial”.";
+    h.textContent=currentLang==="en"?"Open the browser menu and look for “Install app” or “Add to Home screen”.":currentLang==="de"?"Öffne das Browsermenü und wähle „App installieren“ oder „Zum Startbildschirm hinzufügen“.":"Abra o menu do navegador e procure “Instalar aplicativo” ou “Adicionar à tela inicial”.";
   }
 }
 async function requestInstall(){
@@ -471,7 +632,7 @@ async function requestInstall(){
     deferredPrompt.prompt();
     const choice=await deferredPrompt.userChoice;
     if(choice && choice.outcome==="accepted"){
-      installButtons().forEach(b=>{b.textContent=currentLang==="en"?"Installing…":"Instalando…";b.disabled=true});
+      installButtons().forEach(b=>{b.textContent=currentLang==="en"?"Installing…":currentLang==="de"?"Wird installiert…":"Instalando…";b.disabled=true});
     }else{
       showInstallHelp();
     }
@@ -483,12 +644,12 @@ async function requestInstall(){
 window.addEventListener("beforeinstallprompt",e=>{
   e.preventDefault();
   deferredPrompt=e;
-  installButtons().forEach(b=>{b.disabled=false;b.textContent=currentLang==="en"?(b.id==="installBtn"?"⬇ Install on phone":"Install on phone"):(b.id==="installBtn"?"⬇ Instalar no celular":"Instalar no celular")});
+  installButtons().forEach(b=>{b.disabled=false;b.textContent=currentLang==="en"?(b.id==="installBtn"?"⬇ Install on phone":"Install on phone"):currentLang==="de"?(b.id==="installBtn"?"⬇ Auf dem Handy installieren":"Auf dem Handy installieren"):(b.id==="installBtn"?"⬇ Instalar no celular":"Instalar no celular")});
 });
 window.addEventListener("appinstalled",()=>{deferredPrompt=null;setInstalledUI()});
 installButtons().forEach(b=>b.onclick=requestInstall);
 if(isStandalone())setInstalledUI();
-if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=11").catch(()=>{});
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=12").catch(()=>{});
 initLanguage();
 renderHome();renderDay(currentDay());renderJourney();renderReminderStatus();updateRitualUI();
 
