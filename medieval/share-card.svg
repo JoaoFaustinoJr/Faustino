@@ -27,7 +27,7 @@
 
 <!-- Saint panel -->
 <rect x="38" y="68" width="330" height="450" rx="48" fill="#0f4a32" stroke="#b88a2a" stroke-width="6" filter="url(#shadow)"/>
-<image href="../assets/img/hero.jpg" x="48" y="78" width="310" height="430" preserveAspectRatio="xMidYMid slice" clip-path="url(#heroClip)"/>
+<image href="assets/img/hero.jpg" x="48" y="78" width="310" height="430" preserveAspectRatio="xMidYMid slice" clip-path="url(#heroClip)"/>
 <rect x="53" y="432" width="300" height="72" rx="18" fill="#fbefcd" fill-opacity=".94" stroke="#b88a2a" stroke-width="2"/>
 <text x="203" y="461" text-anchor="middle" font-family="Georgia,serif" font-size="25" font-weight="700" fill="#123f2b">SANTA HILDEGARDA</text>
 <text x="203" y="488" text-anchor="middle" font-family="Georgia,serif" font-size="19" font-style="italic" fill="#5e472a">Virgem e Doutora da Igreja</text>
@@ -69,7 +69,7 @@
 <!-- phone -->
 <rect x="910" y="80" width="250" height="454" rx="46" fill="#11171a" stroke="#b88a2a" stroke-width="5" filter="url(#shadow)"/>
 <rect x="922" y="92" width="226" height="430" rx="36" fill="#f8edcb"/>
-<image href="../assets/img/day1.jpg" x="932" y="108" width="205" height="390" preserveAspectRatio="xMidYMid slice" clip-path="url(#screenClip)"/>
+<image href="assets/img/day1.jpg" x="932" y="108" width="205" height="390" preserveAspectRatio="xMidYMid slice" clip-path="url(#screenClip)"/>
 <rect x="937" y="113" width="195" height="61" rx="14" fill="#fbefd0" fill-opacity=".95"/>
 <text x="1034" y="135" text-anchor="middle" font-family="Georgia,serif" font-size="14" font-weight="700" fill="#153e2b">1º DIA</text>
 <text x="1034" y="158" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="700" fill="#153e2b">A SABEDORIA DE DEUS</text>
