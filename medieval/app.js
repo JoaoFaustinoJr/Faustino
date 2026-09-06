@@ -254,7 +254,7 @@ window.addEventListener("beforeinstallprompt",e=>{
 window.addEventListener("appinstalled",()=>{deferredPrompt=null;setInstalledUI()});
 installButtons().forEach(b=>b.onclick=requestInstall);
 if(isStandalone())setInstalledUI();
-if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=8").catch(()=>{});
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=10").catch(()=>{});
 renderHome();renderDay(currentDay());renderJourney();renderReminderStatus();updateRitualUI();
 
 (function enableJourneyBookSwipe(){

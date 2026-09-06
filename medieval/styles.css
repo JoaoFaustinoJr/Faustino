@@ -205,3 +205,18 @@ blockquote{margin:14px auto;font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.05;
   .source-card strong{font-size:.78rem}
   .source-card span{font-size:.98rem}
 }
+
+
+/* v10 — créditos das imagens e manuscritos */
+.image-credits>p:first-of-type{margin-bottom:14px}
+.image-credit-card{display:grid;gap:5px;margin:9px 0;padding:12px 13px;border:1px solid rgba(184,138,42,.58);border-radius:14px;background:linear-gradient(180deg,#fff8e5,#f8ebc8)}
+.credit-days{width:max-content;max-width:100%;padding:3px 8px;border-radius:999px;background:var(--green);color:#fff3d1;font-family:Cinzel,serif;font-size:.62rem;font-weight:700;letter-spacing:.1em}
+.image-credit-card strong{font-family:Cinzel,serif;color:var(--green);font-size:.83rem;line-height:1.3}
+.image-credit-card small{font-size:.96rem;line-height:1.3;color:#62543d}
+.image-credit-card a{width:max-content;max-width:100%;color:var(--green);font-weight:700;text-decoration:none;border-bottom:1px dotted var(--gold)}
+.icon-note{margin-top:16px}
+@media(max-width:520px){
+  .image-credit-card{padding:11px}
+  .image-credit-card strong{font-size:.76rem}
+  .image-credit-card small{font-size:.91rem}
+}
