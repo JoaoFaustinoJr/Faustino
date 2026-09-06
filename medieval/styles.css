@@ -257,3 +257,16 @@ blockquote{margin:14px auto;font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.05;
   .language-switch-home .lang-caption{width:auto;text-align:initial}
   .language-switch button{padding:3px 6px}
 }
+
+/* v13 — Español + seletor de idioma ainda mais discreto */
+.language-switch{opacity:.78;gap:3px}
+.language-switch .lang-caption{font-size:.60rem;opacity:.52}
+.language-switch button{
+  min-width:27px;padding:2px 5px;font-size:.56rem;
+  border-color:rgba(184,138,42,.30);background:rgba(255,246,220,.36);opacity:.70
+}
+.language-switch button.active{
+  background:rgba(13,74,49,.055);border-color:rgba(13,74,49,.36);
+  box-shadow:inset 0 -1px 0 rgba(184,138,42,.72);opacity:.95
+}
+.language-switch-home{margin-bottom:3px}
