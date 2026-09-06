@@ -791,7 +791,7 @@ if(isStandalone())setInstalledUI();
 window.addEventListener("pagehide",stopSpeech);
 window.addEventListener("beforeunload",stopSpeech);
 document.addEventListener("visibilitychange",()=>{if(document.hidden)stopSpeech()});
-if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=13").catch(()=>{});
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=14").catch(()=>{});
 initLanguage();
 renderHome();renderDay(currentDay());renderJourney();renderReminderStatus();updateRitualUI();
 

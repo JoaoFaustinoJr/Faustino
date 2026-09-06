@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./styles.css?v=13">
+<link rel="stylesheet" href="./styles.css?v=14">
 </head>
 <body>
 <div class="app-frame">
@@ -31,12 +31,12 @@
   <main id="app">
     <section class="view active" data-view="home" id="homeView">
       <div class="status-row"><span>ORA • SABE • CONHECE • CURA • VIVE</span><span>OMNIA IN SAPIENTIA ORDINASTI</span></div>
-      <div class="language-switch language-switch-home" id="langHome" aria-label="Idioma / Language / Sprache">
+      <div class="language-switch language-switch-home" id="langHome" aria-label="Idioma / Language / Sprache / Español">
         <span class="lang-caption" aria-hidden="true">🌐</span>
-        <button type="button" data-lang="pt" class="active" title="Português">PT</button>
-        <button type="button" data-lang="en" title="English">EN</button>
-        <button type="button" data-lang="de" title="Deutsch">DE</button>
-        <button type="button" data-lang="es" title="Español">ES</button>
+        <button type="button" data-lang="pt" class="lang-chip lang-pt active" title="Português">PT</button>
+        <button type="button" data-lang="en" class="lang-chip lang-en" title="English">EN</button>
+        <button type="button" data-lang="de" class="lang-chip lang-de" title="Deutsch">DE</button>
+        <button type="button" data-lang="es" class="lang-chip lang-es" title="Español">ES</button>
       </div>
 
       <article class="home-manuscript">
@@ -343,12 +343,12 @@
     <section class="view" data-view="more" id="moreView">
       <article class="illuminated-page textual">
         <h2>Mais</h2>
-        <div class="language-switch language-switch-more" id="langMore" aria-label="Idioma / Language / Sprache">
+        <div class="language-switch language-switch-more" id="langMore" aria-label="Idioma / Language / Sprache / Español">
           <span class="lang-caption" aria-hidden="true">🌐</span>
-          <button type="button" data-lang="pt" class="active" title="Português">PT</button>
-          <button type="button" data-lang="en" title="English">EN</button>
-          <button type="button" data-lang="de" title="Deutsch">DE</button>
-          <button type="button" data-lang="es" title="Español">ES</button>
+          <button type="button" data-lang="pt" class="lang-chip lang-pt active" title="Português">PT</button>
+          <button type="button" data-lang="en" class="lang-chip lang-en" title="English">EN</button>
+          <button type="button" data-lang="de" class="lang-chip lang-de" title="Deutsch">DE</button>
+          <button type="button" data-lang="es" class="lang-chip lang-es" title="Español">ES</button>
         </div>
         <label class="field-label">Data de início
           <input type="date" id="startDate">
@@ -384,6 +384,6 @@
     <button class="nav-item" data-go="more"><span>•••</span><b>Mais</b></button>
   </nav>
 </div>
-<script src="./app.js?v=13"></script>
+<script src="./app.js?v=14"></script>
 </body>
 </html>

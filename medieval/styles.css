@@ -270,3 +270,42 @@ blockquote{margin:14px auto;font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.05;
   box-shadow:inset 0 -1px 0 rgba(184,138,42,.72);opacity:.95
 }
 .language-switch-home{margin-bottom:3px}
+
+/* v14 — acentos cromáticos inspirados nas bandeiras, em tons envelhecidos */
+.lang-chip{
+  position:relative;
+  overflow:hidden;
+  padding-bottom:6px !important;
+}
+.lang-chip::after{
+  content:"";
+  position:absolute;
+  left:5px;
+  right:5px;
+  bottom:2px;
+  height:2px;
+  border-radius:999px;
+  opacity:.82;
+  filter:saturate(.72);
+}
+.lang-pt::after{
+  background:linear-gradient(90deg,#315c43 0 58%,#b89a39 58% 100%);
+}
+.lang-en::after{
+  background:linear-gradient(90deg,#415578 0 58%,#8f4240 58% 100%);
+}
+.lang-de::after{
+  background:linear-gradient(90deg,#3b3935 0 33%,#844039 33% 66%,#b08f37 66% 100%);
+}
+.lang-es::after{
+  background:linear-gradient(90deg,#91423e 0 50%,#b8993b 50% 100%);
+}
+.lang-chip.active::after{
+  height:3px;
+  opacity:.96;
+  filter:saturate(.82);
+}
+.language-switch-home .lang-chip:hover,
+.language-switch-more .lang-chip:hover{
+  opacity:.96;
+}
