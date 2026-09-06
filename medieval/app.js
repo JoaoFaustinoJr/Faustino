@@ -12,7 +12,7 @@ const days=[
 {title:"A Humildade e o Serviço",verse:"“Quem quiser ser o primeiro, seja o último de todos e o servo de todos.” (Mc 9,35)",med:"Que Santa Hildegarda nos ensine a colocar nossos dons a serviço dos outros, com humildade e amor.",ref:"O dom floresce plenamente quando se transforma em serviço.",theme:"humilitas",motto:"HUMILITAS",latin:"Servire in caritate.",left:"Servir dá forma concreta ao amor.",right:"Humildade é fazer do dom uma oferta.",symbol:"❀",word:"SERVIÇO"},
 {title:"A Entrega Total a Deus",verse:"“Tudo vem de Ti, Senhor, e das Tuas mãos o recebemos.” (1Cr 29,14)",med:"Entreguemos nossa vida, família, necessidades e intenções ao Senhor, pela intercessão de Santa Hildegarda.",ref:"No último dia, a oração torna-se entrega: confiar o caminho inteiro às mãos de Deus.",theme:"oblatio",motto:"OBLATIO",latin:"Totum Deo.",left:"Tudo recebemos; tudo podemos oferecer.",right:"A jornada termina em confiança e gratidão.",symbol:"✥",word:"ENTREGA"}
 ];
-let selected=1,deferredPrompt=null,sx=0,sy=0;
+let selected=1,deferredPrompt=null,sx=0,sy=0,homeSx=0,homeSy=0;
 function load(){try{return JSON.parse(localStorage.getItem(stateKey)||'{"start":"","done":[],"intention":""}')}catch{return{start:"",done:[],intention:""}}}
 function save(s){localStorage.setItem(stateKey,JSON.stringify(s))}
 function isoToday(){const d=new Date(),z=d.getTimezoneOffset()*60000;return new Date(d-z).toISOString().slice(0,10)}
@@ -43,10 +43,32 @@ function renderJourney(){const s=load();$("journeyList").innerHTML=days.map((d,i
 function go(name){document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.dataset.view===name));document.querySelectorAll(".nav-item").forEach(b=>b.classList.toggle("active",b.dataset.go===name));if(name==="journey")renderJourney();window.scrollTo({top:0,behavior:"smooth"})}
 document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
 $("startPrayerBtn").onclick=()=>{renderDay(currentDay());go("prayers")};
+
+// A capa também passa a funcionar como a primeira página do livro.
+// Deslizar para a esquerda abre diretamente a oração do dia.
+$("homeView").addEventListener("touchstart",e=>{
+  const t=e.changedTouches[0]; homeSx=t.clientX; homeSy=t.clientY;
+},{passive:true});
+$("homeView").addEventListener("touchend",e=>{
+  const t=e.changedTouches[0],dx=t.clientX-homeSx,dy=t.clientY-homeSy;
+  if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.2 && dx<0){
+    renderDay(currentDay());
+    go("prayers");
+  }
+},{passive:true});
+
 $("prevDay").onclick=()=>turn(-1);$("nextDay").onclick=()=>turn(1);
 function turn(dir){const n=Math.max(1,Math.min(9,selected+dir));if(n===selected)return;const p=$("bookPage");p.animate([{transform:"translateX(0)",opacity:1},{transform:`translateX(${dir>0?-30:30}px)`,opacity:.25}],{duration:180}).onfinish=()=>{renderDay(n);p.animate([{transform:`translateX(${dir>0?30:-30}px)`,opacity:.25},{transform:"translateX(0)",opacity:1}],{duration:180})}}
 $("prayersView").addEventListener("touchstart",e=>{const t=e.changedTouches[0];sx=t.clientX;sy=t.clientY},{passive:true});
-$("prayersView").addEventListener("touchend",e=>{const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.2)turn(dx<0?1:-1)},{passive:true});
+$("prayersView").addEventListener("touchend",e=>{
+  const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;
+  if(!(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.2))return;
+  // No primeiro dia, voltar para a direita retorna à capa.
+  if(dx>0 && selected===1){go("home");return}
+  // No nono dia, avançar para a esquerda abre a jornada.
+  if(dx<0 && selected===9){renderJourney();go("journey");return}
+  turn(dx<0?1:-1);
+},{passive:true});
 $("doneBtn").onclick=()=>{const s=load();if(!s.done.includes(selected))s.done.push(selected);save(s);renderHome();renderDay(selected);renderJourney()};
 $("intentionText").value=load().intention||"";
 $("saveIntention").onclick=()=>{const s=load();s.intention=$("intentionText").value.trim();save(s);$("intentionStatus").textContent="Intenção guardada neste aparelho."};
@@ -69,3 +91,15 @@ window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPro
 $("installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$("installBtn").hidden=true}};
 if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js").catch(()=>{});
 renderHome();renderDay(currentDay());renderJourney();
+
+(function enableJourneyBookSwipe(){
+  let jx=0,jy=0;
+  const v=$("journeyView");
+  v.addEventListener("touchstart",e=>{const t=e.changedTouches[0];jx=t.clientX;jy=t.clientY},{passive:true});
+  v.addEventListener("touchend",e=>{
+    const t=e.changedTouches[0],dx=t.clientX-jx,dy=t.clientY-jy;
+    if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.2&&dx>0){
+      renderDay(9);go("prayers");
+    }
+  },{passive:true});
+})();
