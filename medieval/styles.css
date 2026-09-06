@@ -101,3 +101,43 @@ blockquote{margin:14px auto;font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.05;
   .illuminated-page{padding:16px 14px 22px}
   .music-dock{bottom:67px;grid-template-columns:1fr 42px 96px}
 }
+
+/* v2 — páginas iluminadas por tema */
+.day-folio{isolation:isolate;padding-top:18px}
+.day-folio:after{content:"";position:absolute;inset:14px;border:1px solid rgba(13,74,49,.16);border-radius:16px;pointer-events:none;z-index:-1}
+.corner-rose{position:absolute;color:var(--gold);font-size:1.55rem;line-height:1;z-index:2;text-shadow:0 1px #fff6d7}
+.corner-rose.tl{top:14px;left:16px}.corner-rose.tr{top:14px;right:16px}.corner-rose.bl{bottom:14px;left:16px}.corner-rose.br{bottom:14px;right:16px}
+.folio-topline{display:flex;justify-content:center;align-items:center;gap:9px;flex-wrap:wrap;padding:6px 44px 13px;color:var(--green);font-family:Cinzel,serif;text-align:center;border-bottom:1px solid rgba(184,138,42,.55);margin-bottom:14px}
+.folio-topline span{font-size:.78rem;letter-spacing:.16em;font-weight:700}
+.folio-topline b{color:var(--gold)}
+.folio-topline em{font-family:"Cormorant Garamond",serif;font-size:1rem;color:#6d552a}
+.marginalia-grid{display:grid;grid-template-columns:88px minmax(0,1fr) 88px;gap:12px;align-items:stretch;margin-bottom:10px}
+.marginalia{border:1px solid rgba(184,138,42,.58);border-radius:44px 12px 44px 12px;background:linear-gradient(180deg,#fff6dc,#f3dfad);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 7px;text-align:center;color:#5b4829}
+.marginalia span{font-size:1.5rem;color:var(--gold)}
+.marginalia p{margin:7px 0 0;font-size:.86rem;line-height:1.16;font-style:italic}
+.folio-caption{display:flex;justify-content:center;align-items:center;gap:12px;color:var(--green);font-family:Cinzel,serif;letter-spacing:.18em;font-size:.82rem;margin:10px 0 2px}
+.folio-caption span{color:var(--gold);font-size:1rem}
+.illuminated-dropcap:first-letter{float:left;font-family:Cinzel,serif;font-size:3.6rem;line-height:.82;margin:.12rem .45rem 0 0;color:#c29637;text-shadow:1px 1px 0 #fff7df,-1px -1px 0 #6e501b}
+.prayer-sequence{text-align:center;margin:16px 0 10px;padding:9px 10px;border-top:1px solid rgba(184,138,42,.6);border-bottom:1px solid rgba(184,138,42,.6);font-family:Cinzel,serif;font-size:.78rem;letter-spacing:.05em;color:#6d5529}
+.prayer-sequence span{color:var(--green);padding:0 5px}.prayer-sequence b{color:var(--gold);padding:0 4px}
+.folio-footer{display:flex;justify-content:center;gap:10px;align-items:center;flex-wrap:wrap;margin:20px 18px 2px;padding-top:10px;border-top:1px solid rgba(184,138,42,.42);font-family:Cinzel,serif;font-size:.66rem;letter-spacing:.17em;color:#725c32}
+.folio-footer b{color:var(--gold)}
+.day-folio[data-theme="lux"] .page-image-wrap{box-shadow:0 0 0 4px #fff3bd,0 0 32px rgba(214,180,84,.34)}
+.day-folio[data-theme="providentia"] .marginalia{background:linear-gradient(180deg,#f5efd8,#e7dfbc)}
+.day-folio[data-theme="sanitas"] .folio-caption,.day-folio[data-theme="creatio"] .folio-caption{color:#246342}
+.day-folio[data-theme="fortitudo"] .page-image-wrap{border-color:#31563d}
+.day-folio[data-theme="fides"] .prayer-sequence{background:rgba(13,74,49,.055)}
+.day-folio[data-theme="humilitas"] .marginalia{border-radius:12px 44px 12px 44px}
+.day-folio[data-theme="oblatio"] .folio-topline{border-bottom:2px double var(--gold)}
+.journey-row{transition:transform .16s ease,box-shadow .16s ease}
+.journey-row:active{transform:scale(.99)}
+.journey-row.done{box-shadow:inset 4px 0 0 var(--green)}
+.journey-row .meta small{font-size:.92rem;line-height:1.15}
+@media(max-width:620px){
+  .marginalia-grid{grid-template-columns:1fr}
+  .marginalia{min-height:auto;border-radius:12px;padding:9px 12px;display:grid;grid-template-columns:24px 1fr;gap:6px;text-align:left}
+  .marginalia p{font-size:.92rem;margin:0}
+  .right-note{display:none}
+  .folio-topline{padding-left:24px;padding-right:24px}
+  .folio-caption{font-size:.72rem;letter-spacing:.12em}
+}

@@ -67,14 +67,25 @@
         <button class="icon-btn" id="nextDay" aria-label="Próximo dia">→</button>
       </div>
 
-      <article class="illuminated-page" id="bookPage">
-        <div class="page-image-wrap"><img id="dayArt" src="../assets/img/day1.jpg" alt="Arte do primeiro dia"></div>
+      <article class="illuminated-page day-folio" id="bookPage" data-theme="sapientia">
+        <span class="corner-rose tl">✤</span><span class="corner-rose tr">✤</span>
+        <span class="corner-rose bl">✤</span><span class="corner-rose br">✤</span>
+        <div class="folio-topline">
+          <span id="dayMotto">SAPIENTIA</span><b>✦</b><em id="dayLatin">In lumine Sapientiae ambulamus.</em>
+        </div>
+        <div class="marginalia-grid">
+          <aside class="marginalia left-note"><span id="leftGlyph">✥</span><p id="leftNote">A sabedoria nasce do silêncio que escuta.</p></aside>
+          <div class="page-image-wrap"><img id="dayArt" src="../assets/img/day1.jpg" alt="Arte do primeiro dia"></div>
+          <aside class="marginalia right-note"><span id="rightGlyph">❦</span><p id="rightNote">Buscar a verdade com humildade.</p></aside>
+        </div>
+        <div class="folio-caption"><span id="daySymbol">✦</span><strong id="dayThemeWord">SABEDORIA</strong><span>✦</span></div>
         <blockquote class="verse" id="verse"></blockquote>
-        <p class="meditation" id="meditation"></p>
+        <p class="meditation illuminated-dropcap" id="meditation"></p>
         <div class="reflection-box">
           <h3>Reflexão do dia</h3>
           <p id="reflection"></p>
         </div>
+        <div class="prayer-sequence" aria-label="Sequência de orações tradicionais"><span>☩</span> Pai-Nosso <b>•</b> Ave-Maria <b>•</b> Glória <span>☩</span></div>
         <details class="prayer-details">
           <summary>Orações tradicionais completas</summary>
           <div id="traditionalPrayerText" class="prayer-text">
@@ -91,6 +102,7 @@
           <button class="primary-cta compact" id="doneBtn">Marcar dia como rezado</button>
           <button class="soft-btn" id="speakDay">🔊 Ouvir reflexão</button>
         </div>
+        <div class="folio-footer"><span>VIRIDITAS</span><b>❦</b><span>SAPIENTIA</span><b>❦</b><span>VITA</span></div>
       </article>
     </section>
 

@@ -1,4 +1,4 @@
-const CACHE="hildegarda-medieval-v1";
+const CACHE="hildegarda-medieval-v2";
 const A=["./","./index.html","./styles.css","./app.js","./manifest.webmanifest","../assets/icons/hildegarda-official.png","../assets/img/hero.jpg",
 "../assets/img/day1.jpg","../assets/img/day2.jpg","../assets/img/day3.jpg","../assets/img/day4.jpg","../assets/img/day5.jpg","../assets/img/day6.jpg","../assets/img/day7.jpg","../assets/img/day8.jpg","../assets/img/day9.jpg"];
 self.addEventListener("install",e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(A)).then(()=>self.skipWaiting())));
