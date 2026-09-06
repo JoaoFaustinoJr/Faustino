@@ -11,8 +11,8 @@
 <path d="M26 82 C95 18 155 18 220 55 M974 55 C1048 17 1110 28 1170 80" fill="none" stroke="#315d3d" stroke-width="8" stroke-linecap="round"/>
 <path d="M26 548 C105 607 160 597 220 568 M980 567 C1047 607 1113 594 1170 548" fill="none" stroke="#315d3d" stroke-width="8" stroke-linecap="round"/>
 <circle cx="91" cy="66" r="7" fill="#b58a2c"/><circle cx="1107" cy="66" r="7" fill="#b58a2c"/>
-<rect x="48" y="112" width="305" height="375" rx="52" fill="#17492f" stroke="#b58a2c" stroke-width="7"/>
-<image href="./assets/icons/hildegarda-official.png" x="58" y="122" width="285" height="355" preserveAspectRatio="xMidYMid slice" clip-path="url(#iconClip)"/>
+<rect x="48" y="112" width="305" height="375" rx="52" fill="#f7efd8" stroke="#b58a2c" stroke-width="7"/>
+<image href="./assets/img/hero.jpg" x="58" y="122" width="285" height="355" preserveAspectRatio="xMidYMid slice" clip-path="url(#iconClip)"/>
 
 <text x="610" y="75" text-anchor="middle" font-family="Georgia,serif" font-size="32" font-weight="700" fill="#203d2c">NOVENA DIGITAL DE</text>
 <text x="610" y="132" text-anchor="middle" font-family="Georgia,serif" font-size="58" font-weight="700" fill="#17492f">SANTA HILDEGARDA</text>
