@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f4a32">
+<title>Novena Iluminada — Santa Hildegarda de Bingen</title>
+<meta name="description" content="Novena medieval digital de Santa Hildegarda de Bingen: 9 dias de oração, reflexão, intenção e música.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Novena Iluminada — Santa Hildegarda de Bingen">
+<meta property="og:description" content="Uma novena digital em estilo de manuscrito iluminado medieval.">
+<meta property="og:image" content="https://joaofaustinojr.github.io/Faustino/share-card.png?v=17">
+<meta property="og:url" content="https://joaofaustinojr.github.io/Faustino/medieval/">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="../assets/icons/hildegarda-official.png" type="image/png">
+<link rel="apple-touch-icon" href="../assets/icons/hildegarda-official.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div class="app-frame">
+  <div class="side-illumination left" aria-hidden="true"></div>
+  <div class="side-illumination right" aria-hidden="true"></div>
+
+  <main id="app">
+    <section class="view active" data-view="home" id="homeView">
+      <div class="status-row"><span>ORA • SABE • CONHECE • CURA • VIVE</span><span>OMNIA IN SAPIENTIA ORDINASTI</span></div>
+
+      <article class="home-manuscript">
+        <div class="portrait-frame">
+          <img src="../assets/img/hero.jpg" alt="Santa Hildegarda de Bingen" class="hero-image">
+          <span class="star s1">✦</span><span class="star s2">✧</span><span class="star s3">✦</span>
+        </div>
+
+        <div class="title-block">
+          <div class="kicker">NOVENA DIGITAL DE</div>
+          <h1>SANTA HILDEGARDA<br>DE BINGEN</h1>
+          <p class="subtitle">Virgem e Doutora da Igreja</p>
+          <div class="ornament">❦ ✦ ❦</div>
+          <blockquote>“Ó Sabedoria,<br>que tudo ordenas com suavidade...”</blockquote>
+          <p class="dedication"><strong>Tatiana de Oliveira Machado</strong><br><em>devota de Santa Hildegarda de Bingen</em></p>
+        </div>
+
+        <div class="progress-box">
+          <strong id="homeDayLabel">Dia 1 de 9</strong>
+          <div class="day-dots" id="homeDots"></div>
+        </div>
+
+        <button class="primary-cta" id="startPrayerBtn"><span>🙏</span> Iniciar oração de hoje <b>›</b></button>
+
+        <div class="quick-grid">
+          <button class="quick-card" id="musicQuick"><span>♫</span><b>Música</b></button>
+          <button class="quick-card" data-go="intention"><span>♥</span><b>Minha intenção</b></button>
+          <button class="quick-card" data-go="journey"><span>⌁</span><b>Minha jornada</b></button>
+        </div>
+
+        <div class="book-hint">⌑ <em>deslize como as páginas de um livro</em> ⌑</div>
+      </article>
+    </section>
+
+    <section class="view" data-view="prayers" id="prayersView">
+      <div class="page-toolbar">
+        <button class="icon-btn" id="prevDay" aria-label="Dia anterior">←</button>
+        <div><span id="dayNo">1º DIA</span><h2 id="dayTitle">A Sabedoria de Deus</h2></div>
+        <button class="icon-btn" id="nextDay" aria-label="Próximo dia">→</button>
+      </div>
+
+      <article class="illuminated-page" id="bookPage">
+        <div class="page-image-wrap"><img id="dayArt" src="../assets/img/day1.jpg" alt="Arte do primeiro dia"></div>
+        <blockquote class="verse" id="verse"></blockquote>
+        <p class="meditation" id="meditation"></p>
+        <div class="reflection-box">
+          <h3>Reflexão do dia</h3>
+          <p id="reflection"></p>
+        </div>
+        <details class="prayer-details">
+          <summary>Orações tradicionais completas</summary>
+          <div id="traditionalPrayerText" class="prayer-text">
+            <h4>Pai-Nosso</h4>
+            <p>Pai nosso que estais nos céus, santificado seja o vosso nome; venha a nós o vosso reino; seja feita a vossa vontade, assim na terra como no céu. O pão nosso de cada dia nos dai hoje; perdoai-nos as nossas ofensas, assim como nós perdoamos a quem nos tem ofendido; e não nos deixeis cair em tentação, mas livrai-nos do mal. Amém.</p>
+            <h4>Ave-Maria</h4>
+            <p>Ave Maria, cheia de graça, o Senhor é convosco; bendita sois vós entre as mulheres e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora de nossa morte. Amém.</p>
+            <h4>Glória</h4>
+            <p>Glória ao Pai, ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém.</p>
+            <button class="soft-btn" id="speakTraditional">🔊 Ouvir as orações completas</button>
+          </div>
+        </details>
+        <div class="page-actions">
+          <button class="primary-cta compact" id="doneBtn">Marcar dia como rezado</button>
+          <button class="soft-btn" id="speakDay">🔊 Ouvir reflexão</button>
+        </div>
+      </article>
+    </section>
+
+    <section class="view" data-view="wisdom" id="wisdomView">
+      <article class="illuminated-page textual">
+        <div class="mini-seal">V</div>
+        <h2>Sabedoria e Viriditas</h2>
+        <p>Santa Hildegarda de Bingen foi monja beneditina, mística, teóloga, compositora e Doutora da Igreja. Esta novena propõe nove dias de oração, Palavra de Deus, reflexão e entrega pessoal.</p>
+        <div class="viriditas">
+          <strong>VIRIDITAS</strong>
+          <span>A força vivificante de Deus que tudo cria, sustenta e renova.</span>
+        </div>
+        <h3>Oração inicial</h3>
+        <div id="initialText" class="prayer-text">Ó Santa Hildegarda de Bingen, virgem e Doutora da Igreja, mulher de profunda fé e de ardente amor a Deus, que ouvistes a voz do Senhor na oração e contemplastes os mistérios da criação e da salvação, ensinai-me a buscar a Verdade com humildade e a amar a Deus sobre todas as coisas. Intercedei por mim junto ao Senhor, para que eu receba as graças de que mais necessito, cresça na sabedoria, na paz, na saúde do corpo e da alma, e no serviço generoso à Igreja e aos irmãos. Amém.</div>
+        <button class="soft-btn speak" data-target="initialText">🔊 Ouvir oração inicial</button>
+        <h3>Oração final</h3>
+        <div id="finalText" class="prayer-text">Ó Deus, que concedestes a Santa Hildegarda de Bingen a luz do Espírito Santo para contemplar vossos mistérios e manifestar vossa glória na criação, concedei-nos, por sua intercessão, a graça de buscar sempre a vossa Sabedoria, de amar a Igreja e de viver em fidelidade ao Evangelho. Por Cristo, nosso Senhor. Amém.</div>
+        <button class="soft-btn speak" data-target="finalText">🔊 Ouvir oração final</button>
+      </article>
+    </section>
+
+    <section class="view" data-view="intention" id="intentionView">
+      <article class="illuminated-page intention-page">
+        <div class="lily-mark">✽</div>
+        <h2>Minha intenção</h2>
+        <p>Apresente a Deus, por intercessão de Santa Hildegarda, a sua intenção para esta novena.</p>
+        <textarea id="intentionText" rows="7" placeholder="Escreva aqui a sua intenção..."></textarea>
+        <p class="small-note">Deus conhece o seu coração.</p>
+        <button class="primary-cta compact" id="saveIntention">🔒 Guardar intenção</button>
+        <div class="status" id="intentionStatus"></div>
+      </article>
+    </section>
+
+    <section class="view" data-view="journey" id="journeyView">
+      <article class="illuminated-page journey-page">
+        <h2>Minha Jornada de Oração</h2>
+        <p class="centered">9 dias com Santa Hildegarda de Bingen</p>
+        <div id="journeyList" class="journey-list"></div>
+        <div class="completion-card"><span>▣</span><div><small>Conclusão da novena</small><strong id="endDateLabel">—</strong></div></div>
+        <div class="closing-banner">Santa Hildegarda de Bingen, rogai por nós!</div>
+      </article>
+    </section>
+
+    <section class="view" data-view="more" id="moreView">
+      <article class="illuminated-page textual">
+        <h2>Mais</h2>
+        <label class="field-label">Data de início
+          <input type="date" id="startDate">
+        </label>
+        <div class="stack">
+          <button class="soft-btn" id="saveStart">Salvar início</button>
+          <button class="soft-btn" id="calendarBtn">Adicionar à Google Agenda</button>
+          <button class="soft-btn" id="shareBtn">Compartilhar no WhatsApp</button>
+          <button class="soft-btn" id="installBtn" hidden>Instalar no celular</button>
+          <button class="soft-btn danger" id="resetProgress">Reiniciar progresso</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <div class="music-dock" id="musicDock">
+    <div><small>Música de Santa Hildegarda</small><strong>O frondens virga</strong></div>
+    <button id="musicBtn">▶</button>
+    <input id="volume" type="range" min="0" max="1" step=".05" value=".28" aria-label="Volume">
+    <audio id="music" preload="metadata" loop playsinline>
+      <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ad/O_frondens_2.ogg/O_frondens_2.ogg.mp3" type="audio/mpeg">
+      <source src="https://upload.wikimedia.org/wikipedia/commons/a/ad/O_frondens_2.ogg" type="audio/ogg">
+    </audio>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Navegação principal">
+    <button class="nav-item active" data-go="home"><span>⌂</span><b>Início</b></button>
+    <button class="nav-item" data-go="prayers"><span>▤</span><b>Orações</b></button>
+    <button class="nav-item" data-go="wisdom"><span>❧</span><b>Sabedoria</b></button>
+    <button class="nav-item" data-go="intention"><span>♡</span><b>Intenção</b></button>
+    <button class="nav-item" data-go="more"><span>•••</span><b>Mais</b></button>
+  </nav>
+</div>
+<script src="./app.js"></script>
+</body>
+</html>
