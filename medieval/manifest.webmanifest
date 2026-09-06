@@ -1,8 +1,8 @@
 {
   "id":"./",
-  "name":"Novena Iluminada de Santa Hildegarda de Bingen",
-  "short_name":"Santa Hildegarda",
-  "description":"Novena digital em estilo de manuscrito iluminado medieval.",
+  "name":"Novena Iluminada · Saint Hildegard of Bingen",
+  "short_name":"Hildegarda",
+  "description":"Novena digital bilíngue (Português/English) em estilo de manuscrito iluminado medieval.",
   "start_url":"./?source=pwa",
   "scope":"./",
   "display":"standalone",

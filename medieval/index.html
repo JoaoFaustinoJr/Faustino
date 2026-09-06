@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./styles.css?v=10">
+<link rel="stylesheet" href="./styles.css?v=11">
 </head>
 <body>
 <div class="app-frame">
@@ -31,6 +31,11 @@
   <main id="app">
     <section class="view active" data-view="home" id="homeView">
       <div class="status-row"><span>ORA • SABE • CONHECE • CURA • VIVE</span><span>OMNIA IN SAPIENTIA ORDINASTI</span></div>
+      <div class="language-switch language-switch-home" id="langHome" aria-label="Idioma / Language">
+        <span>Idioma · Language</span>
+        <button type="button" data-lang="pt" class="active">PT</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
 
       <article class="home-manuscript">
         <div class="portrait-frame">
@@ -261,6 +266,15 @@
             <strong>Orações tradicionais católicas</strong>
             <span>Pai-Nosso, Ave-Maria e Glória, em formulações de uso devocional corrente na Igreja Católica.</span>
           </div>
+
+          <div class="source-card" id="englishCatholicSources">
+            <strong>Referência católica para a edição em inglês</strong>
+            <span>As orações tradicionais em inglês seguem as formulações publicadas pela United States Conference of Catholic Bishops (USCCB). As breves citações bíblicas em inglês seguem a New American Bible, Revised Edition (NABRE), publicada no portal bíblico da USCCB.</span>
+            <div class="source-links">
+              <a href="https://www.usccb.org/prayers/prayers-rosary" target="_blank" rel="noopener">USCCB · Prayers of the Rosary ↗</a>
+              <a href="https://bible.usccb.org/" target="_blank" rel="noopener">USCCB · NABRE Bible ↗</a>
+            </div>
+          </div>
         </section>
 
         <div class="ritual-divider">❦</div>
@@ -327,6 +341,11 @@
     <section class="view" data-view="more" id="moreView">
       <article class="illuminated-page textual">
         <h2>Mais</h2>
+        <div class="language-switch language-switch-more" id="langMore" aria-label="Idioma / Language">
+          <span>Idioma · Language</span>
+          <button type="button" data-lang="pt" class="active">Português</button>
+          <button type="button" data-lang="en">English</button>
+        </div>
         <label class="field-label">Data de início
           <input type="date" id="startDate">
         </label>
@@ -361,6 +380,6 @@
     <button class="nav-item" data-go="more"><span>•••</span><b>Mais</b></button>
   </nav>
 </div>
-<script src="./app.js?v=10"></script>
+<script src="./app.js?v=11"></script>
 </body>
 </html>
