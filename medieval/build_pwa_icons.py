@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageOps
 from pathlib import Path
 
 root=Path(__file__).resolve().parents[1]
-src_path=root/"assets/icons/hildegarda-official.png"
+src_path=root/"assets/img/hero.jpg"
 out_dir=Path(__file__).resolve().parent/"icons"
 out_dir.mkdir(parents=True,exist_ok=True)
 
