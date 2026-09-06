@@ -1,6 +1,6 @@
 {
   "name": "Novena a Santa Hildegarda de Bingen",
-  "short_name": "Hildegarda",
+  "short_name": "Santa Hildegarda",
   "description": "Nove dias de oração, música e reflexão com Santa Hildegarda de Bingen.",
   "start_url": "./?pwa=1",
   "scope": "./",
@@ -9,13 +9,7 @@
   "theme_color": "#173f2b",
   "icons": [
     {
-      "src": "./assets/icons/hildegarda-official.png?v=14",
-      "sizes": "160x160",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icon.svg?v=14",
+      "src": "./icon.svg?v=15",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
