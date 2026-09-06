@@ -1,7 +1,6 @@
-const CACHE="hildegarda-v14";
+const CACHE="hildegarda-v15";
 const A=[
-"./","./index.html","./styles.css","./app.js","./manifest.webmanifest","./icon.svg?v=14",
-"./assets/icons/hildegarda-official.png?v=14",
+"./","./index.html","./styles.css","./app.js","./manifest.webmanifest?v=15","./icon.svg?v=15",
 "./assets/img/hero.jpg",
 "./assets/img/day1.jpg","./assets/img/day2.jpg","./assets/img/day3.jpg",
 "./assets/img/day4.jpg","./assets/img/day5.jpg","./assets/img/day6.jpg",
