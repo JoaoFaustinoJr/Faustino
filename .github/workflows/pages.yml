@@ -60,7 +60,10 @@ jobs:
           rsvg-convert -w 1200 -h 630 share-card.svg -o share-card.png
           test -s share-card.png
           file share-card.png
-          ls -lh share-card.png
+          rsvg-convert -w 1200 -h 630 medieval/share-card.svg -o medieval/share-card.png
+          test -s medieval/share-card.png
+          file medieval/share-card.png
+          ls -lh share-card.png medieval/share-card.png
 
       - name: Configurar Pages
         uses: actions/configure-pages@v5
