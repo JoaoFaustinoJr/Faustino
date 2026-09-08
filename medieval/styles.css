@@ -501,3 +501,96 @@ blockquote{margin:14px auto;font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.05;
 
 /* v23 — identidade católica explícita */
 .about-block strong{color:var(--green)}
+
+/* v24 — capítulos editoriais de Santa Hildegarda */
+.saint-lead{
+  padding-bottom:18px;
+}
+.saint-intro{
+  font-size:1.08em;
+  line-height:1.56;
+}
+.saint-pullquote{
+  margin:18px auto 12px;
+  padding:14px 16px;
+  max-width:560px;
+  text-align:center;
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.5rem;
+  font-weight:700;
+  font-style:italic;
+  color:var(--green);
+  border-top:1px solid rgba(184,138,42,.48);
+  border-bottom:1px solid rgba(184,138,42,.48);
+}
+.saint-chapters{
+  display:grid;
+  gap:14px;
+  margin:2px 0 4px;
+}
+.saint-chapter{
+  position:relative;
+  display:grid;
+  grid-template-columns:54px 1fr;
+  gap:14px;
+  padding:17px 16px 16px;
+  border:1px solid rgba(184,138,42,.42);
+  border-radius:16px;
+  background:linear-gradient(180deg,rgba(255,251,238,.92),rgba(246,235,205,.72));
+  box-shadow:0 4px 13px rgba(63,48,18,.05);
+}
+.chapter-number{
+  width:46px;height:46px;
+  display:grid;place-items:center;
+  border:1px solid rgba(184,138,42,.64);
+  border-radius:50%;
+  font-family:Cinzel,serif;
+  font-weight:800;
+  color:var(--green);
+  background:rgba(255,248,222,.9);
+}
+.chapter-copy h3{margin-top:3px;margin-bottom:9px}
+.chapter-copy p{margin:8px 0;line-height:1.5}
+.doctor-chapter{
+  border-color:rgba(13,74,49,.55);
+  background:
+    radial-gradient(circle at 90% 0,rgba(184,138,42,.16),transparent 34%),
+    linear-gradient(180deg,rgba(245,239,214,.96),rgba(229,237,222,.82));
+  box-shadow:inset 0 0 0 2px rgba(255,252,239,.55),0 6px 18px rgba(13,74,49,.08);
+}
+.doctor-seal{
+  background:var(--green);
+  color:#fff3ce;
+  border-color:#b88a2a;
+  box-shadow:inset 0 0 0 2px rgba(255,239,192,.22);
+}
+.doctor-reasons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin:13px 0 10px;
+}
+.doctor-reasons span{
+  padding:5px 8px;
+  border-radius:999px;
+  border:1px solid rgba(13,74,49,.28);
+  background:rgba(13,74,49,.06);
+  font-family:Cinzel,serif;
+  font-size:.66rem;
+  font-weight:800;
+  color:var(--green);
+}
+.chapter-link{
+  display:inline-block;
+  margin-top:3px;
+  color:var(--green);
+  font-weight:800;
+  text-decoration:none;
+  border-bottom:1px dotted var(--gold);
+}
+@media(max-width:520px){
+  .saint-chapter{grid-template-columns:40px 1fr;gap:10px;padding:14px 12px}
+  .chapter-number{width:36px;height:36px;font-size:.8rem}
+  .saint-pullquote{font-size:1.28rem;padding:12px 10px}
+  .chapter-copy p{line-height:1.46}
+}
