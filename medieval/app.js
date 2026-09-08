@@ -400,6 +400,10 @@ function speakJaculatory(){
   speakPrayerSequence([jac,jac,jac],{rate:.72,pause:950,musicLevel:.035});
 }
 document.querySelectorAll(".speak").forEach(b=>b.onclick=()=>speak($(b.dataset.target).innerText));
+$("speakInitial").onclick=()=>speakPrayerSequence(
+  [PERSIGNATION[currentLang].text,PRAYERS[currentLang].initial],
+  {rate:.76,pause:720,musicLevel:.045}
+);
 $("speakDay").onclick=()=>{const d=days[selected-1];speak(d.title+". "+d.verse+" "+d.med+" "+d.ref)};
 $("speakTraditional").onclick=()=>speakPrayerSequence(PRAYERS[currentLang].speech);
 $("speakJaculatory").onclick=speakJaculatory;
@@ -476,13 +480,32 @@ const PRAYERS={
   }
 };
 
+const PERSIGNATION={
+  pt:{
+    title:"☩ PERSIGNAÇÃO",
+    text:"Pelo sinal da Santa Cruz, livrai-nos, Deus, nosso Senhor, dos nossos inimigos. Em nome do Pai, e do Filho, e do Espírito Santo. Amém."
+  },
+  en:{
+    title:"☩ SIGN OF THE CROSS",
+    text:"By the sign of the Holy Cross, deliver us from our enemies, O Lord our God. In the name of the Father, and of the Son, and of the Holy Spirit. Amen."
+  },
+  de:{
+    title:"☩ KREUZZEICHEN",
+    text:"Durch das Zeichen des heiligen Kreuzes befreie uns, Herr, unser Gott, von unseren Feinden. Im Namen des Vaters und des Sohnes und des Heiligen Geistes. Amen."
+  },
+  es:{
+    title:"☩ PERSIGNACIÓN",
+    text:"Por la señal de la Santa Cruz, de nuestros enemigos líbranos, Señor, Dios nuestro. En el nombre del Padre, y del Hijo, y del Espíritu Santo. Amén."
+  }
+};
+
 const I18N={
   pt:{
     title:"Novena Iluminada — Santa Hildegarda de Bingen",status:"ORA • SABE • CONHECE • CURA • VIVE",kicker:"NOVENA DIGITAL DE",saint:"SANTA HILDEGARDA<br>DE BINGEN",subtitle:"Virgem e Doutora da Igreja",quote:"“Ó Sabedoria,<br>que tudo ordenas com suavidade...”",devotee:"devota de Santa Hildegarda de Bingen",
     music:"Música",intention:"Minha intenção",journey:"Minha jornada",installLead:"Leve a novena com você",installSub:"Instale no celular e abra como um aplicativo.",bookHint:"deslize como as páginas de um livro",
     reflection:"Reflexão do dia",sequence:"<span>☩</span> Pai-Nosso <b>•</b> Ave-Maria <b>•</b> Glória <span>☩</span>",fullPrayers:"Orações tradicionais completas",listenReflection:"🔊 Ouvir reflexão",
     wisdomTitle:"Sabedoria e Viriditas",wisdomIntro:"Santa Hildegarda de Bingen foi monja beneditina, mística, teóloga, compositora e Doutora da Igreja. Esta novena propõe nove dias de oração, Palavra de Deus, reflexão e entrega pessoal.",viriditas:"A força vivificante de Deus que tudo cria, sustenta e renova.",
-    ritualGuide:"Cada dia da novena começa com a Oração Inicial, segue pela reflexão do dia e se encerra com a Oração Final.",opening:"Oração inicial",closing:"Oração final",step1:"Oração inicial",step2:"Reflexão do dia",step3:"Oração final",
+    ritualGuide:"Cada dia da novena começa com a persignação e a Oração Inicial, segue pela reflexão do dia e se encerra com a Oração Final.",opening:"Oração inicial",closing:"Oração final",step1:"Oração inicial",step2:"Reflexão do dia",step3:"Oração final",
     stage1:"ETAPA 1 DE 3 · PREPARAÇÃO",stage3:"ETAPA 3 DE 3 · CONCLUSÃO",listenOpening:"🔊 Ouvir oração inicial",continueDay:"Prosseguir para a reflexão do dia ›",listenClosing:"🔊 Ouvir oração final",finish:"Amém · Concluir a oração de hoje",
     intentionTitle:"Minha intenção",intentionIntro:"Apresente a Deus, por intercessão de Santa Hildegarda, a sua intenção para esta novena.",intentionPlaceholder:"Escreva aqui a sua intenção...",heart:"Deus conhece o seu coração.",saveIntention:"🔒 Guardar intenção",
     journeyTitle:"Minha Jornada de Oração",journeySub:"9 dias com Santa Hildegarda de Bingen",completion:"Conclusão da novena",prayForUs:"Santa Hildegarda de Bingen, rogai por nós!",
@@ -495,7 +518,7 @@ const I18N={
     music:"Music",intention:"My intention",journey:"My journey",installLead:"Take the novena with you",installSub:"Install it on your phone and open it like an app.",bookHint:"swipe as if turning the pages of a book",
     reflection:"Reflection of the day",sequence:"<span>☩</span> Our Father <b>•</b> Hail Mary <b>•</b> Glory Be <span>☩</span>",fullPrayers:"Traditional Catholic prayers",listenReflection:"🔊 Listen to reflection",
     wisdomTitle:"Wisdom and Viriditas",wisdomIntro:"Saint Hildegard of Bingen was a Benedictine nun, mystic, theologian, composer, and Doctor of the Church. This novena offers nine days of prayer, the Word of God, reflection, and personal surrender.",viriditas:"The life-giving power of God that creates, sustains, and renews all things.",
-    ritualGuide:"Each day of the novena begins with the Opening Prayer, continues with the reflection of the day, and concludes with the Closing Prayer.",opening:"Opening Prayer",closing:"Closing Prayer",step1:"Opening prayer",step2:"Reflection of the day",step3:"Closing prayer",
+    ritualGuide:"Each day of the novena begins with the Sign of the Cross and the Opening Prayer, continues with the reflection of the day, and concludes with the Closing Prayer.",opening:"Opening Prayer",closing:"Closing Prayer",step1:"Opening prayer",step2:"Reflection of the day",step3:"Closing prayer",
     stage1:"STEP 1 OF 3 · PREPARATION",stage3:"STEP 3 OF 3 · CONCLUSION",listenOpening:"🔊 Listen to opening prayer",continueDay:"Continue to the reflection of the day ›",listenClosing:"🔊 Listen to closing prayer",finish:"Amen · Complete today’s prayer",
     intentionTitle:"My intention",intentionIntro:"Present your intention to God, through the intercession of Saint Hildegard, for this novena.",intentionPlaceholder:"Write your intention here...",heart:"God knows your heart.",saveIntention:"🔒 Save intention",
     journeyTitle:"My Prayer Journey",journeySub:"9 days with Saint Hildegard of Bingen",completion:"Novena completion",prayForUs:"Saint Hildegard of Bingen, pray for us!",
@@ -508,7 +531,7 @@ const I18N={
     music:"Musik",intention:"Mein Anliegen",journey:"Mein Gebetsweg",installLead:"Nimm die Novene mit",installSub:"Installiere sie auf deinem Handy und öffne sie wie eine App.",bookHint:"wische wie beim Umblättern eines Buches",
     reflection:"Betrachtung des Tages",sequence:"<span>☩</span> Vaterunser <b>•</b> Ave Maria <b>•</b> Ehre sei dem Vater <span>☩</span>",fullPrayers:"Traditionelle katholische Gebete",listenReflection:"🔊 Betrachtung anhören",
     wisdomTitle:"Weisheit und Viriditas",wisdomIntro:"Die heilige Hildegard von Bingen war Benediktinerin, Mystikerin, Theologin, Komponistin und Kirchenlehrerin. Diese Novene führt durch neun Tage mit Gebet, Wort Gottes, Betrachtung und persönlicher Hingabe.",viriditas:"Die lebensspendende Kraft Gottes, die alles erschafft, trägt und erneuert.",
-    ritualGuide:"Jeder Tag der Novene beginnt mit dem Eröffnungsgebet, führt durch die Betrachtung des Tages und endet mit dem Schlussgebet.",opening:"Eröffnungsgebet",closing:"Schlussgebet",step1:"Eröffnungsgebet",step2:"Betrachtung des Tages",step3:"Schlussgebet",
+    ritualGuide:"Jeder Tag der Novene beginnt mit dem Kreuzzeichen und dem Eröffnungsgebet, führt durch die Betrachtung des Tages und endet mit dem Schlussgebet.",opening:"Eröffnungsgebet",closing:"Schlussgebet",step1:"Eröffnungsgebet",step2:"Betrachtung des Tages",step3:"Schlussgebet",
     stage1:"SCHRITT 1 VON 3 · VORBEREITUNG",stage3:"SCHRITT 3 VON 3 · ABSCHLUSS",listenOpening:"🔊 Eröffnungsgebet anhören",continueDay:"Zur Betrachtung des Tages ›",listenClosing:"🔊 Schlussgebet anhören",finish:"Amen · Heutiges Gebet abschließen",
     intentionTitle:"Mein Anliegen",intentionIntro:"Bringe Gott durch die Fürsprache der heiligen Hildegard dein Anliegen für diese Novene dar.",intentionPlaceholder:"Schreibe hier dein Anliegen …",heart:"Gott kennt dein Herz.",saveIntention:"🔒 Anliegen speichern",
     journeyTitle:"Mein Gebetsweg",journeySub:"9 Tage mit der heiligen Hildegard von Bingen",completion:"Abschluss der Novene",prayForUs:"Heilige Hildegard von Bingen, bitte für uns!",
@@ -781,7 +804,7 @@ function applyLanguage(lang,{persist=true}={}){
   setText("#wisdomView h2",t.wisdomTitle);setText("#wisdomView > article > p",t.wisdomIntro);setText("#wisdomView .viriditas span",t.viriditas);setText("#wisdomView .ritual-guide span",t.ritualGuide);
   const rsteps=qall("#wisdomView .ritual-step small");if(rsteps[0])rsteps[0].textContent=t.step1;if(rsteps[1])rsteps[1].textContent=t.step2;if(rsteps[2])rsteps[2].textContent=t.step3;
   const psteps=qall("#prayersView .ritual-step small");if(psteps[0])psteps[0].textContent=t.step1;if(psteps[1])psteps[1].textContent=t.step2;if(psteps[2])psteps[2].textContent=t.step3;
-  setText("#initialSection .ritual-kicker",t.stage1);setText("#initialSection h3",t.opening);setText("#initialText",p.initial);setText('#initialSection .speak',t.listenOpening);setText("#beginDayBtn",t.continueDay);
+  setText("#initialSection .ritual-kicker",t.stage1);setText("#initialSection h3",t.opening);setText("#persignationTitle",PERSIGNATION[currentLang].title);setText("#persignationText",PERSIGNATION[currentLang].text);setText("#initialText",p.initial);setText("#speakInitial",t.listenOpening);setText("#beginDayBtn",t.continueDay);
   setText("#finalSection .ritual-kicker",t.stage3);setText("#finalSection h3",t.closing);setText("#finalText",p.final);setText('#finalSection .speak',t.listenClosing);setText("#finishPrayerBtn",t.finish);
 
   setText("#intentionView h2",t.intentionTitle);setText("#intentionView article > p:not(.small-note)",t.intentionIntro);$("intentionText").placeholder=t.intentionPlaceholder;setText("#intentionView .small-note",t.heart);setText("#saveIntention",t.saveIntention);
@@ -855,7 +878,7 @@ if(isStandalone())setInstalledUI();
 window.addEventListener("pagehide",stopSpeech);
 window.addEventListener("beforeunload",stopSpeech);
 document.addEventListener("visibilitychange",()=>{if(document.hidden)stopSpeech()});
-if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=15").catch(()=>{});
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=16").catch(()=>{});
 initLanguage();
 renderHome();renderDay(currentDay());renderJourney();renderReminderStatus();updateRitualUI();
 

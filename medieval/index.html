@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./styles.css?v=15">
+<link rel="stylesheet" href="./styles.css?v=16">
 </head>
 <body>
 <div class="app-frame">
@@ -162,9 +162,13 @@
         <section class="ritual-section" id="initialSection">
           <div class="ritual-kicker">ETAPA 1 DE 3 · PREPARAÇÃO</div>
           <h3>Oração inicial</h3>
+          <div class="persignation-card" id="persignationCard">
+            <div class="persignation-kicker" id="persignationTitle">☩ PERSIGNAÇÃO</div>
+            <p id="persignationText">Pelo sinal da Santa Cruz, livrai-nos, Deus, nosso Senhor, dos nossos inimigos. Em nome do Pai, e do Filho, e do Espírito Santo. Amém.</p>
+          </div>
           <div id="initialText" class="prayer-text">Ó Santa Hildegarda de Bingen, virgem e Doutora da Igreja, mulher de profunda fé e de ardente amor a Deus, que ouvistes a voz do Senhor na oração e contemplastes os mistérios da criação e da salvação, ensinai-me a buscar a Verdade com humildade e a amar a Deus sobre todas as coisas. Intercedei por mim junto ao Senhor, para que eu receba as graças de que mais necessito, cresça na sabedoria, na paz, na saúde do corpo e da alma, e no serviço generoso à Igreja e aos irmãos. Amém.</div>
           <div class="ritual-actions">
-            <button class="soft-btn speak" data-target="initialText">🔊 Ouvir oração inicial</button>
+            <button class="soft-btn" id="speakInitial">🔊 Ouvir oração inicial</button>
             <button class="primary-cta compact" id="beginDayBtn">Prosseguir para a reflexão do dia ›</button>
           </div>
         </section>
@@ -393,6 +397,6 @@
     <button class="nav-item" data-go="more"><span>•••</span><b>Mais</b></button>
   </nav>
 </div>
-<script src="./app.js?v=15"></script>
+<script src="./app.js?v=16"></script>
 </body>
 </html>
