@@ -743,6 +743,35 @@ const ABOUT_EN_HTML=`
     <p>On October 7, 2012, Pope Benedict XVI proclaimed Saint Hildegard a <strong>Doctor of the Universal Church</strong>. In 2021, her celebration was inscribed in the General Roman Calendar as an optional memorial on <strong>September 17</strong>.</p>
     <div class="about-highlight">Virgin and Doctor of the Church · Optional memorial: September 17</div>
   </section>
+  <div class="ritual-divider">❦</div>
+
+  <section class="about-block hildegard-deep">
+    <div class="about-kicker">MYSTIC · CREATION · WISDOM</div>
+    <h3>A spirituality that contemplates God through creation</h3>
+    <details class="about-topic" open><summary>✦ Mystic and visionary</summary><div class="about-topic-body"><p>From an early age, Hildegard described visionary experiences that she understood as an interior light received from God. She did not present them as private revelations detached from the Church: they were submitted to ecclesial discernment. During the Synod of Trier in 1147–1148, Pope Eugene III became acquainted with her writings and allowed her to continue recording them.</p><p>Her major visionary works use symbolic language to lead the reader toward Christ, conversion, and contemplation of God's work.</p></div></details>
+    <details class="about-topic"><summary>❦ Viriditas: life-giving vitality from God</summary><div class="about-topic-body"><p><em>Viriditas</em> evokes greenness, vigor, fertility, and the vitality creation receives from God. In Hildegard's spirituality it can also express inner renewal and spiritual fruitfulness.</p><p><strong>Creation is not God.</strong> It is creature and gift. Plants, animals, the human body, the cosmos, and music can direct the gaze toward the Creator without being confused with Him.</p></div></details>
+    <details class="about-topic"><summary>🌿 Plants, nature, and health</summary><div class="about-topic-body"><p>Hildegard was an exceptional observer of the natural world in the context of the twelfth century. Texts traditionally associated with <em>Physica</em> and <em>Causae et Curae</em> discuss plants, trees, animals, stones, food, the human body, illness, and medieval therapeutic practices.</p><p class="editorial-note"><strong>Health note:</strong> these writings belong to medieval medicine and have historical and cultural value. They do not replace modern medical diagnosis or treatment.</p></div></details>
+    <details class="about-topic"><summary>🕊️ Holy Spirit, creation, and discernment</summary><div class="about-topic-body"><p>For Hildegard, prayer, creation, music, the body, and moral life find their unity in God. She understood her gifts as a responsibility to serve the Church, conversion, and the good of others.</p></div></details>
+    <details class="about-topic"><summary>🎵 Music: theology in song</summary><div class="about-topic-body"><p>Hildegard composed antiphons, responsories, hymns, and other sacred pieces preserved in the tradition of the <em>Symphonia harmoniae caelestium revelationum</em>. Her music was conceived as praise and prayer.</p></div></details>
+    <details class="about-topic"><summary>✚ Reputation for holiness, healings, and miracles</summary><div class="about-topic-body"><p>Medieval tradition preserved accounts of healings, graces, and extraordinary events associated with Hildegard's life and intercession. These belong to the hagiographical and devotional tradition surrounding her centuries-old reputation for holiness.</p></div></details>
+  </section>
+
+  <div class="ritual-divider">❦</div>
+
+  <section class="about-block public-domain-library">
+    <div class="about-kicker">HISTORICAL LIBRARY</div>
+    <h3>Read Saint Hildegard in public-domain editions</h3>
+    <p>These links lead to historical scans and transcriptions. Many are in Latin or historical translations.</p>
+    <div class="work-card"><strong><em>Scivias</em></strong><span>Her great visionary work on creation, redemption, the Church, and Christian life.</span></div>
+    <div class="work-card"><strong><em>Liber vitae meritorum</em></strong><span>A moral work contrasting virtues and vices.</span></div>
+    <div class="work-card"><strong><em>Liber divinorum operum</em></strong><span>Visions concerning creation, cosmos, the human person, and salvation history.</span></div>
+    <div class="work-card"><strong><em>Physica</em> and <em>Causae et Curae</em></strong><span>Texts associated with nature and medieval medicine.</span></div>
+    <div class="work-card"><strong><em>Symphonia harmoniae caelestium revelationum</em></strong><span>Sacred compositions and religious poetry.</span></div>
+    <div class="source-card public-link"><strong>Collected works — Patrologia Latina, vol. 197 (1855)</strong><span>Historical edition digitized by Google Books.</span><a href="https://books.google.com/books?id=_iRKAAAAcAAJ" target="_blank" rel="noopener">Open historical edition ↗</a></div>
+    <div class="source-card public-link"><strong>Latin Wikisource — Hildegardis Bingensis</strong><span>Latin texts from several works, including visionary, natural, and musical writings.</span><a href="https://la.wikisource.org/wiki/Scriptor:Hildegardis_Bingensis" target="_blank" rel="noopener">Read on Wikisource ↗</a></div>
+    <div class="source-card public-link"><strong>Hildegard's hymns — Latin texts</strong><span>Public-domain texts of hymns, including pieces addressed to the Holy Spirit.</span><a href="https://la.wikisource.org/wiki/Hymni_(Hildegardis)" target="_blank" rel="noopener">Open hymns ↗</a></div>
+  </section>
+
 
   <div class="ritual-divider">❦</div>
 
@@ -836,6 +865,30 @@ const ABOUT_DE_HTML=`
     <p>Am 7. Oktober 2012 erhob Papst Benedikt XVI. Hildegard zur <strong>Kirchenlehrerin der Universalkirche</strong>. Ihr Gedenktag ist der <strong>17. September</strong>.</p>
     <div class="about-highlight">Jungfrau und Kirchenlehrerin · Gedenktag: 17. September</div>
   </section>
+  <div class="ritual-divider">❦</div>
+  <section class="about-block hildegard-deep">
+    <div class="about-kicker">MYSTIK · SCHÖPFUNG · WEISHEIT</div>
+    <h3>Eine Spiritualität, die in der Schöpfung auf Gott verweist</h3>
+    <details class="about-topic" open><summary>✦ Mystikerin und Visionärin</summary><div class="about-topic-body"><p>Hildegard berichtete seit jungen Jahren von Visionen, die sie als inneres, von Gott empfangenes Licht verstand. Sie stellte diese Erfahrungen nicht außerhalb der Kirche: ihre Schriften wurden kirchlich geprüft. Beim Trierer Synod 1147–1148 wurde Papst Eugen III. mit ihren Texten bekannt und erlaubte ihr, weiterzuschreiben.</p></div></details>
+    <details class="about-topic"><summary>❦ Viriditas: lebensspendende Kraft von Gott</summary><div class="about-topic-body"><p><em>Viriditas</em> bezeichnet Grün, Lebenskraft und Fruchtbarkeit. Bei Hildegard kann der Begriff die von Gott empfangene Lebendigkeit der Schöpfung sowie geistliche Erneuerung ausdrücken.</p><p><strong>Die Schöpfung ist nicht Gott.</strong> Sie ist Geschöpf und Gabe und kann den Blick zum Schöpfer führen.</p></div></details>
+    <details class="about-topic"><summary>🌿 Pflanzen, Natur und Gesundheit</summary><div class="about-topic-body"><p>Die mit <em>Physica</em> und <em>Causae et Curae</em> verbundenen Texte behandeln Pflanzen, Tiere, Steine, Ernährung, Körper, Krankheit und mittelalterliche Heilpraxis.</p><p class="editorial-note"><strong>Gesundheitshinweis:</strong> Diese Texte gehören zur mittelalterlichen Medizin und ersetzen keine heutige medizinische Diagnose oder Behandlung.</p></div></details>
+    <details class="about-topic"><summary>🕊️ Heiliger Geist und Unterscheidung</summary><div class="about-topic-body"><p>Für Hildegard finden Gebet, Schöpfung, Musik, Leib und sittliches Leben ihre Einheit in Gott. Empfangene Gaben sollen der Kirche, der Umkehr und dem Wohl der Menschen dienen.</p></div></details>
+    <details class="about-topic"><summary>🎵 Musik als gesungene Theologie</summary><div class="about-topic-body"><p>Hildegard komponierte Antiphonen, Responsorien, Hymnen und andere geistliche Stücke aus der Tradition der <em>Symphonia harmoniae caelestium revelationum</em>.</p></div></details>
+    <details class="about-topic"><summary>✚ Heiligkeitsruf, Heilungen und Wunder</summary><div class="about-topic-body"><p>Die mittelalterliche Tradition bewahrte Berichte über Heilungen, Gnaden und außergewöhnliche Ereignisse im Zusammenhang mit Hildegards Leben und Fürsprache. Sie gehören zur hagiographischen und devotionalen Überlieferung ihres Heiligkeitsrufes.</p></div></details>
+  </section>
+  <div class="ritual-divider">❦</div>
+  <section class="about-block public-domain-library">
+    <div class="about-kicker">HISTORISCHE BIBLIOTHEK</div>
+    <h3>Hildegard in gemeinfreien historischen Ausgaben lesen</h3>
+    <p>Die folgenden Links führen zu historischen Digitalisaten und Transkriptionen, vielfach in lateinischer Sprache.</p>
+    <div class="work-card"><strong><em>Scivias</em></strong><span>Visionäres Hauptwerk über Schöpfung, Erlösung, Kirche und christliches Leben.</span></div>
+    <div class="work-card"><strong><em>Liber vitae meritorum</em></strong><span>Werk über Tugenden, Laster und Umkehr.</span></div>
+    <div class="work-card"><strong><em>Liber divinorum operum</em></strong><span>Schöpfung, Kosmos, Mensch und Heilsgeschichte.</span></div>
+    <div class="work-card"><strong><em>Physica</em> und <em>Causae et Curae</em></strong><span>Naturkunde und mittelalterliche Medizin.</span></div>
+    <div class="source-card public-link"><strong>Gesammelte Werke — Patrologia Latina, Bd. 197 (1855)</strong><span>Historische Ausgabe bei Google Books.</span><a href="https://books.google.com/books?id=_iRKAAAAcAAJ" target="_blank" rel="noopener">Historische Ausgabe öffnen ↗</a></div>
+    <div class="source-card public-link"><strong>Lateinische Wikisource — Hildegardis Bingensis</strong><span>Lateinische Texte mehrerer Werke und Hymnen.</span><a href="https://la.wikisource.org/wiki/Scriptor:Hildegardis_Bingensis" target="_blank" rel="noopener">Bei Wikisource lesen ↗</a></div>
+  </section>
+
 
   <div class="ritual-divider">❦</div>
 
@@ -906,6 +959,30 @@ const ABOUT_ES_HTML=`
     <p>El 7 de octubre de 2012, el papa Benedicto XVI proclamó a santa Hildegarda <strong>Doctora de la Iglesia universal</strong>. Su memoria facultativa se celebra el <strong>17 de septiembre</strong>.</p>
     <div class="about-highlight">Virgen y Doctora de la Iglesia · Memoria facultativa: 17 de septiembre</div>
   </section>
+  <div class="ritual-divider">❦</div>
+  <section class="about-block hildegard-deep">
+    <div class="about-kicker">MÍSTICA · CREACIÓN · SABIDURÍA</div>
+    <h3>Una espiritualidad que contempla a Dios en la creación</h3>
+    <details class="about-topic" open><summary>✦ Mística y visionaria</summary><div class="about-topic-body"><p>Desde joven, Hildegarda relató experiencias visionarias que comprendía como una luz interior recibida de Dios. No las presentó al margen de la Iglesia: sus escritos fueron sometidos a discernimiento eclesial. Durante el Sínodo de Tréveris de 1147–1148, el papa Eugenio III conoció sus escritos y le permitió continuar registrándolos.</p></div></details>
+    <details class="about-topic"><summary>❦ Viriditas: vitalidad recibida de Dios</summary><div class="about-topic-body"><p><em>Viriditas</em> evoca verdor, vigor y fecundidad. En la espiritualidad de Hildegarda expresa la vitalidad que la creación recibe de Dios y puede simbolizar renovación interior.</p><p><strong>La creación no es Dios.</strong> Es criatura y don, y puede conducir la mirada hacia el Creador.</p></div></details>
+    <details class="about-topic"><summary>🌿 Plantas, naturaleza y salud</summary><div class="about-topic-body"><p>Los textos vinculados a <em>Physica</em> y <em>Causae et Curae</em> tratan de plantas, animales, piedras, alimentación, cuerpo humano, enfermedad y prácticas terapéuticas medievales.</p><p class="editorial-note"><strong>Nota de salud:</strong> pertenecen a la medicina medieval y no sustituyen el diagnóstico ni el tratamiento médico actuales.</p></div></details>
+    <details class="about-topic"><summary>🕊️ Espíritu Santo y discernimiento</summary><div class="about-topic-body"><p>Para Hildegarda, oración, creación, música, cuerpo y vida moral encuentran su unidad en Dios. Los dones recibidos deben servir a la Iglesia, a la conversión y al bien de las personas.</p></div></details>
+    <details class="about-topic"><summary>🎵 Música: teología cantada</summary><div class="about-topic-body"><p>Hildegarda compuso antífonas, responsorios, himnos y otras piezas sagradas conservadas en la tradición de la <em>Symphonia harmoniae caelestium revelationum</em>.</p></div></details>
+    <details class="about-topic"><summary>✚ Fama de santidad, curaciones y milagros</summary><div class="about-topic-body"><p>La tradición medieval conservó relatos de curaciones, gracias y hechos extraordinarios vinculados con su vida e intercesión. Forman parte de la tradición hagiográfica y devocional que acompañó su antigua fama de santidad.</p></div></details>
+  </section>
+  <div class="ritual-divider">❦</div>
+  <section class="about-block public-domain-library">
+    <div class="about-kicker">BIBLIOTECA HISTÓRICA</div>
+    <h3>Leer a santa Hildegarda en ediciones de dominio público</h3>
+    <p>Estos enlaces llevan a digitalizaciones y transcripciones históricas, muchas en latín o en traducciones antiguas.</p>
+    <div class="work-card"><strong><em>Scivias</em></strong><span>Su gran obra visionaria sobre creación, redención, Iglesia y vida cristiana.</span></div>
+    <div class="work-card"><strong><em>Liber vitae meritorum</em></strong><span>Obra moral sobre virtudes, vicios y conversión.</span></div>
+    <div class="work-card"><strong><em>Liber divinorum operum</em></strong><span>Creación, cosmos, ser humano e historia de la salvación.</span></div>
+    <div class="work-card"><strong><em>Physica</em> y <em>Causae et Curae</em></strong><span>Naturaleza y medicina medieval.</span></div>
+    <div class="source-card public-link"><strong>Obras reunidas — Patrologia Latina, vol. 197 (1855)</strong><span>Edición histórica digitalizada por Google Books.</span><a href="https://books.google.com/books?id=_iRKAAAAcAAJ" target="_blank" rel="noopener">Abrir edición histórica ↗</a></div>
+    <div class="source-card public-link"><strong>Wikisource Latina — Hildegardis Bingensis</strong><span>Textos latinos de varias obras e himnos.</span><a href="https://la.wikisource.org/wiki/Scriptor:Hildegardis_Bingensis" target="_blank" rel="noopener">Leer en Wikisource ↗</a></div>
+  </section>
+
   <div class="ritual-divider">❦</div>
   <section class="about-block">
     <div class="about-kicker">SOBRE ESTA NOVENA</div>
@@ -1055,7 +1132,7 @@ if(isStandalone())setInstalledUI();
 window.addEventListener("pagehide",stopSpeech);
 window.addEventListener("beforeunload",stopSpeech);
 document.addEventListener("visibilitychange",()=>{if(document.hidden)stopSpeech()});
-if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=21").catch(()=>{});
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=22").catch(()=>{});
 initLanguage();
 renderHome();renderDay(currentDay());renderJourney();renderReminderStatus();updateRitualUI();
 

@@ -439,3 +439,62 @@ blockquote{margin:14px auto;font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.05;
 /* v20 — espera segura para retomada do TTS */
 
 /* v21 — continuar cria nova sessão TTS */
+
+/* v22 — seção Sobre ampliada */
+.about-topic{
+  margin:10px 0;
+  border:1px solid rgba(184,138,42,.46);
+  border-radius:14px;
+  background:rgba(255,250,233,.72);
+  overflow:hidden;
+}
+.about-topic summary{
+  list-style:none;
+  cursor:pointer;
+  padding:13px 14px;
+  font-family:Cinzel,serif;
+  font-weight:800;
+  font-size:.78rem;
+  letter-spacing:.035em;
+  color:var(--green);
+  background:linear-gradient(180deg,rgba(255,249,227,.95),rgba(242,230,193,.78));
+}
+.about-topic summary::-webkit-details-marker{display:none}
+.about-topic summary::after{
+  content:"＋";
+  float:right;
+  color:#9f7924;
+  font-family:Inter,sans-serif;
+}
+.about-topic[open] summary::after{content:"−"}
+.about-topic-body{
+  padding:2px 14px 13px;
+  border-top:1px solid rgba(184,138,42,.24);
+}
+.about-topic-body p{margin:10px 0}
+.public-domain-library>p{margin-bottom:12px}
+.work-card{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  margin:9px 0;
+  padding:12px 13px;
+  border-left:3px solid rgba(13,74,49,.68);
+  border-radius:9px;
+  background:rgba(13,74,49,.045);
+}
+.work-card strong{
+  font-family:Cinzel,serif;
+  color:var(--green);
+  font-size:.84rem;
+}
+.work-card span{line-height:1.42}
+.source-card.public-link{
+  border-color:rgba(13,74,49,.30);
+  background:linear-gradient(180deg,rgba(248,241,217,.78),rgba(255,251,238,.86));
+}
+@media(max-width:520px){
+  .about-topic summary{font-size:.72rem;padding:12px}
+  .about-topic-body{padding:1px 12px 11px}
+  .work-card{padding:11px}
+}
