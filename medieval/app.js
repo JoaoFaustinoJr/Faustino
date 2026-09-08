@@ -47,6 +47,59 @@ const daysES=[
 {title:"La entrega total a Dios",verse:"«Todo viene de ti y te damos lo que hemos recibido de tus manos.» (1 Cr 29,14)",med:"Entreguemos nuestra vida, nuestra familia, nuestras necesidades e intenciones al Señor, por intercesión de santa Hildegarda.",ref:"En el último día, la oración se hace entrega: confiamos todo el camino a las manos de Dios.",theme:"oblatio",motto:"OBLATIO",latin:"Totum Deo.",left:"Todo lo hemos recibido; todo puede ser ofrecido.",right:"El camino termina en confianza y gratitud.",symbol:"✥",word:"ENTREGA"}
 ];
 
+const JACULATORIES={
+  pt:[
+    "Santa Hildegarda, discípula da Sabedoria divina, rogai por nós.",
+    "Santa Hildegarda, iluminada pela luz de Deus, rogai por nós.",
+    "Santa Hildegarda, confiante na Providência divina, rogai por nós.",
+    "Santa Hildegarda, intercedei por nossa saúde do corpo e da alma.",
+    "Santa Hildegarda, forte nas provações, rogai por nós.",
+    "Santa Hildegarda, contemplativa das maravilhas da criação, rogai por nós.",
+    "Santa Hildegarda, filha fiel da Igreja, rogai por nós.",
+    "Santa Hildegarda, exemplo de humildade e serviço, rogai por nós.",
+    "Santa Hildegarda, inteiramente entregue a Deus, rogai por nós."
+  ],
+  en:[
+    "Saint Hildegard, disciple of Divine Wisdom, pray for us.",
+    "Saint Hildegard, enlightened by the light of God, pray for us.",
+    "Saint Hildegard, trusting in Divine Providence, pray for us.",
+    "Saint Hildegard, intercede for the health of our bodies and souls.",
+    "Saint Hildegard, steadfast in trials, pray for us.",
+    "Saint Hildegard, contemplative of the wonders of creation, pray for us.",
+    "Saint Hildegard, faithful daughter of the Church, pray for us.",
+    "Saint Hildegard, example of humility and service, pray for us.",
+    "Saint Hildegard, wholly given to God, pray for us."
+  ],
+  de:[
+    "Heilige Hildegard, Schülerin der göttlichen Weisheit, bitte für uns.",
+    "Heilige Hildegard, vom Licht Gottes erleuchtet, bitte für uns.",
+    "Heilige Hildegard, voll Vertrauen auf die göttliche Vorsehung, bitte für uns.",
+    "Heilige Hildegard, tritt für die Gesundheit unseres Leibes und unserer Seele ein.",
+    "Heilige Hildegard, stark in Prüfungen, bitte für uns.",
+    "Heilige Hildegard, die du die Wunder der Schöpfung betrachtet hast, bitte für uns.",
+    "Heilige Hildegard, treue Tochter der Kirche, bitte für uns.",
+    "Heilige Hildegard, Vorbild in Demut und Dienst, bitte für uns.",
+    "Heilige Hildegard, ganz Gott hingegeben, bitte für uns."
+  ],
+  es:[
+    "Santa Hildegarda, discípula de la Sabiduría divina, ruega por nosotros.",
+    "Santa Hildegarda, iluminada por la luz de Dios, ruega por nosotros.",
+    "Santa Hildegarda, confiada en la Divina Providencia, ruega por nosotros.",
+    "Santa Hildegarda, intercede por la salud de nuestro cuerpo y de nuestra alma.",
+    "Santa Hildegarda, fuerte en las pruebas, ruega por nosotros.",
+    "Santa Hildegarda, contemplativa de las maravillas de la creación, ruega por nosotros.",
+    "Santa Hildegarda, hija fiel de la Iglesia, ruega por nosotros.",
+    "Santa Hildegarda, ejemplo de humildad y servicio, ruega por nosotros.",
+    "Santa Hildegarda, enteramente entregada a Dios, ruega por nosotros."
+  ]
+};
+const JAC_UI={
+  pt:{title:"JACULATÓRIA DO DIA",repeat:"Rezar 3 vezes",listen:"🔊 Ouvir a jaculatória"},
+  en:{title:"ASPIRATION OF THE DAY",repeat:"Pray 3 times",listen:"🔊 Listen to the aspiration"},
+  de:{title:"STOSSGEBET DES TAGES",repeat:"3-mal beten",listen:"🔊 Stoßgebet anhören"},
+  es:{title:"JACULATORIA DEL DÍA",repeat:"Rezar 3 veces",listen:"🔊 Escuchar la jaculatoria"}
+};
+
 let days=daysPT;
 
 let selected=1,deferredPrompt=null,sx=0,sy=0,homeSx=0,homeSy=0,currentLang="pt";
@@ -117,6 +170,12 @@ function renderDay(n){
   $("verse").textContent=d.verse;
   $("meditation").textContent=d.med;
   $("reflection").textContent=d.ref;
+  const jac=JACULATORIES[currentLang]?.[selected-1]||JACULATORIES.pt[selected-1];
+  const jacUi=JAC_UI[currentLang]||JAC_UI.pt;
+  $("jaculatoryText").textContent=jac;
+  $("jaculatoryTitle").textContent=jacUi.title;
+  $("jaculatoryRepeat").textContent=jacUi.repeat;
+  $("speakJaculatory").textContent=jacUi.listen;
   $("dayArt").src=CLASSIC_IMAGES[selected-1];
   $("dayArt").alt=currentLang==="en"?"Artwork for Day "+selected+" — "+d.title:currentLang==="de"?"Bild zu Tag "+selected+" — "+d.title:currentLang==="es"?"Imagen del Día "+selected+" — "+d.title:"Arte do "+selected+"º dia — "+d.title;
   $("dayMotto").textContent=d.motto;
@@ -313,7 +372,7 @@ function speak(text){
   speechSynthesis.speak(u);
 }
 
-function speakPrayerSequence(parts){
+function speakPrayerSequence(parts,{rate=.76,pause=560,musicLevel=.045}={}){
   if(!("speechSynthesis" in window)){
     alert(currentLang==="en"?"Read-aloud is not available in this browser.":currentLang==="de"?"Vorlesen ist in diesem Browser nicht verfügbar.":currentLang==="es"?"La lectura en voz alta no está disponible en este navegador.":"Leitura em voz alta não disponível neste navegador.");
     return;
@@ -322,23 +381,28 @@ function speakPrayerSequence(parts){
   const token=prayerSequenceToken;
   const list=(parts||[]).map(speechFriendly).filter(Boolean);
   const voice=chooseVoice(speechSynthesis.getVoices());
-  duckMusicForSpeech(.045);
+  duckMusicForSpeech(musicLevel);
   let i=0;
   const finish=()=>{if(token===prayerSequenceToken)restoreMusicAfterSpeech()};
   const next=()=>{
     if(token!==prayerSequenceToken)return;
     if(i>=list.length){finish();return}
     const u=new SpeechSynthesisUtterance(list[i++]);
-    u.lang=speechLocale();u.voice=voice;u.rate=.76;u.pitch=.98;
-    u.onend=()=>setTimeout(()=>{if(token===prayerSequenceToken)next()},560);
+    u.lang=speechLocale();u.voice=voice;u.rate=rate;u.pitch=.98;
+    u.onend=()=>setTimeout(()=>{if(token===prayerSequenceToken)next()},pause);
     u.onerror=finish;
     speechSynthesis.speak(u);
   };
   next();
 }
+function speakJaculatory(){
+  const jac=JACULATORIES[currentLang]?.[selected-1]||JACULATORIES.pt[selected-1];
+  speakPrayerSequence([jac,jac,jac],{rate:.72,pause:950,musicLevel:.035});
+}
 document.querySelectorAll(".speak").forEach(b=>b.onclick=()=>speak($(b.dataset.target).innerText));
 $("speakDay").onclick=()=>{const d=days[selected-1];speak(d.title+". "+d.verse+" "+d.med+" "+d.ref)};
 $("speakTraditional").onclick=()=>speakPrayerSequence(PRAYERS[currentLang].speech);
+$("speakJaculatory").onclick=speakJaculatory;
 const music=$("music"),dock=$("musicDock");
 const musicPrefKey="hildegardaMedievalMusicWanted";
 const musicVolumeKey="hildegardaMedievalMusicVolume";
@@ -791,7 +855,7 @@ if(isStandalone())setInstalledUI();
 window.addEventListener("pagehide",stopSpeech);
 window.addEventListener("beforeunload",stopSpeech);
 document.addEventListener("visibilitychange",()=>{if(document.hidden)stopSpeech()});
-if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=14").catch(()=>{});
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=15").catch(()=>{});
 initLanguage();
 renderHome();renderDay(currentDay());renderJourney();renderReminderStatus();updateRitualUI();
 
