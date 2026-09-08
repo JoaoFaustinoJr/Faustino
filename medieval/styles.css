@@ -400,3 +400,33 @@ blockquote{margin:14px auto;font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.05;
   .persignation-card{padding:11px 12px 10px}
   .persignation-card p{font-size:1.06rem}
 }
+
+/* v17 — controles de leitura pausar/continuar/reiniciar */
+.soft-btn.speech-active{
+  border-color:rgba(13,74,49,.68);
+  background:linear-gradient(180deg,#f3ead0,#e9dbb4);
+  color:var(--green);
+  font-weight:800;
+}
+.soft-btn.speech-paused{
+  box-shadow:inset 0 0 0 2px rgba(184,138,42,.22);
+}
+.speech-restart{
+  margin-left:6px;
+  padding-inline:11px;
+  min-width:auto;
+  font-size:.78rem;
+  white-space:nowrap;
+  border-style:dashed;
+}
+.ritual-actions .speech-restart,
+.page-actions .speech-restart{
+  flex:0 0 auto;
+}
+@media(max-width:520px){
+  .speech-restart{
+    margin-left:4px;
+    padding:8px 9px;
+    font-size:.72rem;
+  }
+}

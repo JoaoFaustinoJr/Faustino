@@ -337,14 +337,63 @@ $("shareBtn").onclick=()=>{
 };
 let speechDuckVolume=null;
 let prayerSequenceToken=0;
+let activeSpeechJob=null;
+
+const SPEECH_UI={
+  pt:{pause:"Pausar",resume:"Continuar",restart:"Reiniciar"},
+  en:{pause:"Pause",resume:"Continue",restart:"Restart"},
+  de:{pause:"Pause",resume:"Fortsetzen",restart:"Neu starten"},
+  es:{pause:"Pausar",resume:"Continuar",restart:"Reiniciar"}
+};
+function speechUi(){return SPEECH_UI[currentLang]||SPEECH_UI.pt}
+function rememberSpeechBase(button){
+  if(button && (!activeSpeechJob || activeSpeechJob.button!==button))button.dataset.speechBase=button.textContent.trim();
+}
+function setSpeechButtonState(button,state){
+  if(!button)return;
+  const ui=speechUi(),base=button.dataset.speechBase||button.textContent.trim();
+  if(!button.dataset.speechBase)button.dataset.speechBase=base;
+  button.classList.toggle("speech-active",state==="playing"||state==="paused");
+  button.classList.toggle("speech-paused",state==="paused");
+  button.setAttribute("aria-pressed",state==="paused"?"true":"false");
+  button.textContent=state==="playing"?"⏸ "+ui.pause:state==="paused"?"▶ "+ui.resume:base;
+  let restart=button.parentElement?.querySelector('.speech-restart[data-speech-for="'+button.id+'"]');
+  if(state==="idle"){
+    if(restart)restart.remove();
+    return;
+  }
+  if(!restart && button.id){
+    restart=document.createElement("button");
+    restart.type="button";
+    restart.className="soft-btn speech-restart";
+    restart.dataset.speechFor=button.id;
+    button.insertAdjacentElement("afterend",restart);
+    restart.onclick=()=>{
+      const job=activeSpeechJob;
+      if(job && job.button===button)job.restart();
+    };
+  }
+  if(restart)restart.textContent="↺ "+ui.restart;
+}
 function restoreMusicAfterSpeech(){
   if(speechDuckVolume!==null && typeof music!=="undefined" && music){
     music.volume=speechDuckVolume;speechDuckVolume=null;
   }
 }
+function finishSpeechJob(job){
+  if(!job || activeSpeechJob!==job)return;
+  if(job.timer){clearTimeout(job.timer);job.timer=null}
+  setSpeechButtonState(job.button,"idle");
+  activeSpeechJob=null;
+  restoreMusicAfterSpeech();
+}
 function stopSpeech(){
   prayerSequenceToken++;
+  const job=activeSpeechJob;
+  if(job?.timer){clearTimeout(job.timer);job.timer=null}
+  activeSpeechJob=null;
   if("speechSynthesis" in window)window.speechSynthesis.cancel();
+  if(job?.button)setSpeechButtonState(job.button,"idle");
   restoreMusicAfterSpeech();
 }
 function duckMusicForSpeech(level){
@@ -359,54 +408,95 @@ function speechFriendly(text){return text
   .replace(/\s+/g," ").trim()}
 function speechLocale(){return currentLang==="en"?"en-US":currentLang==="de"?"de-DE":currentLang==="es"?"es-ES":"pt-BR"}
 function chooseVoice(v){const l=speechLocale().toLowerCase();return v.find(x=>x.lang?.toLowerCase()===l)||v.find(x=>x.lang?.toLowerCase().startsWith(l.slice(0,2)))||null}
-function speak(text){
-  if(!("speechSynthesis" in window)){
-    alert(currentLang==="en"?"Read-aloud is not available in this browser.":currentLang==="de"?"Vorlesen ist in diesem Browser nicht verfügbar.":currentLang==="es"?"La lectura en voz alta no está disponible en este navegador.":"Leitura em voz alta não disponível neste navegador.");
-    return;
-  }
-  stopSpeech();
-  const u=new SpeechSynthesisUtterance(speechFriendly(text));
-  u.lang=speechLocale();u.rate=.88;u.voice=chooseVoice(speechSynthesis.getVoices());
-  duckMusicForSpeech(.06);
-  u.onend=u.onerror=restoreMusicAfterSpeech;
-  speechSynthesis.speak(u);
+function speechUnavailable(){
+  alert(currentLang==="en"?"Read-aloud is not available in this browser.":currentLang==="de"?"Vorlesen ist in diesem Browser nicht verfügbar.":currentLang==="es"?"La lectura en voz alta no está disponible en este navegador.":"Leitura em voz alta não disponível neste navegador.");
 }
-
-function speakPrayerSequence(parts,{rate=.76,pause=560,musicLevel=.045}={}){
-  if(!("speechSynthesis" in window)){
-    alert(currentLang==="en"?"Read-aloud is not available in this browser.":currentLang==="de"?"Vorlesen ist in diesem Browser nicht verfügbar.":currentLang==="es"?"La lectura en voz alta no está disponible en este navegador.":"Leitura em voz alta não disponível neste navegador.");
-    return;
-  }
-  stopSpeech();
-  const token=prayerSequenceToken;
+function startSpeechJob(parts,{rate=.88,pitch=1,pause=0,musicLevel=.06}={},button=null){
+  if(!("speechSynthesis" in window)){speechUnavailable();return}
   const list=(parts||[]).map(speechFriendly).filter(Boolean);
+  if(!list.length)return;
+  stopSpeech();
+  rememberSpeechBase(button);
+  const token=prayerSequenceToken;
   const voice=chooseVoice(speechSynthesis.getVoices());
+  const job={
+    token,button,list,rate,pitch,pause,musicLevel,index:0,
+    paused:false,between:false,timer:null,utterance:null,next:null,
+    restart:null
+  };
+  activeSpeechJob=job;
+  job.restart=()=>startSpeechJob(list,{rate,pitch,pause,musicLevel},button);
+  setSpeechButtonState(button,"playing");
   duckMusicForSpeech(musicLevel);
-  let i=0;
-  const finish=()=>{if(token===prayerSequenceToken)restoreMusicAfterSpeech()};
+
   const next=()=>{
-    if(token!==prayerSequenceToken)return;
-    if(i>=list.length){finish();return}
-    const u=new SpeechSynthesisUtterance(list[i++]);
-    u.lang=speechLocale();u.voice=voice;u.rate=rate;u.pitch=.98;
-    u.onend=()=>setTimeout(()=>{if(token===prayerSequenceToken)next()},pause);
-    u.onerror=finish;
+    if(activeSpeechJob!==job || token!==prayerSequenceToken)return;
+    if(job.paused){job.between=true;return}
+    if(job.index>=list.length){finishSpeechJob(job);return}
+    job.between=false;
+    const u=new SpeechSynthesisUtterance(list[job.index++]);
+    job.utterance=u;
+    u.lang=speechLocale();u.voice=voice;u.rate=rate;u.pitch=pitch;
+    u.onend=()=>{
+      if(activeSpeechJob!==job || token!==prayerSequenceToken)return;
+      job.utterance=null;job.between=true;
+      if(job.index>=list.length){finishSpeechJob(job);return}
+      if(job.paused)return;
+      job.timer=setTimeout(()=>{job.timer=null;next()},pause);
+    };
+    u.onerror=()=>finishSpeechJob(job);
     speechSynthesis.speak(u);
   };
+  job.next=next;
   next();
 }
-function speakJaculatory(){
-  const jac=JACULATORIES[currentLang]?.[selected-1]||JACULATORIES.pt[selected-1];
-  speakPrayerSequence([jac,jac,jac],{rate:.72,pause:950,musicLevel:.035});
+function toggleSpeechControl(button,starter){
+  const job=activeSpeechJob;
+  if(job && job.button===button){
+    if(job.paused){
+      job.paused=false;
+      setSpeechButtonState(button,"playing");
+      duckMusicForSpeech(job.musicLevel);
+      if(speechSynthesis.paused)speechSynthesis.resume();
+      else if(job.between)job.next();
+    }else{
+      job.paused=true;
+      if(job.timer){clearTimeout(job.timer);job.timer=null;job.between=true}
+      if(speechSynthesis.speaking && !speechSynthesis.paused)speechSynthesis.pause();
+      restoreMusicAfterSpeech();
+      setSpeechButtonState(button,"paused");
+    }
+    return;
+  }
+  starter();
 }
-document.querySelectorAll(".speak").forEach(b=>b.onclick=()=>speak($(b.dataset.target).innerText));
-$("speakInitial").onclick=()=>speakPrayerSequence(
-  [PERSIGNATION[currentLang].text,PRAYERS[currentLang].initial],
-  {rate:.76,pause:720,musicLevel:.045}
-);
-$("speakDay").onclick=()=>{const d=days[selected-1];speak(d.title+". "+d.verse+" "+d.med+" "+d.ref)};
-$("speakTraditional").onclick=()=>speakPrayerSequence(PRAYERS[currentLang].speech);
-$("speakJaculatory").onclick=speakJaculatory;
+function bindSpeechControl(button,starter){
+  if(!button)return;
+  rememberSpeechBase(button);
+  button.onclick=()=>toggleSpeechControl(button,starter);
+}
+function speak(text,button=null){startSpeechJob([text],{rate:.88,pitch:1,pause:0,musicLevel:.06},button)}
+function speakPrayerSequence(parts,{rate=.76,pause=560,musicLevel=.045}={},button=null){
+  startSpeechJob(parts,{rate,pitch:.98,pause,musicLevel},button);
+}
+function speakJaculatory(button){
+  const jac=JACULATORIES[currentLang]?.[selected-1]||JACULATORIES.pt[selected-1];
+  speakPrayerSequence([jac,jac,jac],{rate:.72,pause:950,musicLevel:.035},button);
+}
+function bindStaticSpeechControls(){
+  const initial=$("speakInitial");
+  bindSpeechControl(initial,()=>speakPrayerSequence(
+    [PERSIGNATION[currentLang].text,PRAYERS[currentLang].initial],
+    {rate:.76,pause:720,musicLevel:.045},initial
+  ));
+  const day=$("speakDay");
+  bindSpeechControl(day,()=>{const d=days[selected-1];speak(d.title+". "+d.verse+" "+d.med+" "+d.ref,day)});
+  const jac=$("speakJaculatory");
+  bindSpeechControl(jac,()=>speakJaculatory(jac));
+  const final=$("speakFinal");
+  bindSpeechControl(final,()=>speak(PRAYERS[currentLang].final,final));
+}
+bindStaticSpeechControls();
 const music=$("music"),dock=$("musicDock");
 const musicPrefKey="hildegardaMedievalMusicWanted";
 const musicVolumeKey="hildegardaMedievalMusicVolume";
@@ -774,7 +864,7 @@ function setText(sel,val){const el=q(sel);if(el)el.textContent=val}
 function setHTML(sel,val){const el=q(sel);if(el)el.innerHTML=val}
 function bindTraditionalSpeaker(){
   const b=$("speakTraditional");
-  if(b)b.onclick=()=>speakPrayerSequence(PRAYERS[currentLang].speech);
+  if(b)bindSpeechControl(b,()=>speakPrayerSequence(PRAYERS[currentLang].speech,{rate:.76,pause:560,musicLevel:.045},b));
 }
 function applyLanguage(lang,{persist=true}={}){
   stopSpeech();
@@ -805,7 +895,7 @@ function applyLanguage(lang,{persist=true}={}){
   const rsteps=qall("#wisdomView .ritual-step small");if(rsteps[0])rsteps[0].textContent=t.step1;if(rsteps[1])rsteps[1].textContent=t.step2;if(rsteps[2])rsteps[2].textContent=t.step3;
   const psteps=qall("#prayersView .ritual-step small");if(psteps[0])psteps[0].textContent=t.step1;if(psteps[1])psteps[1].textContent=t.step2;if(psteps[2])psteps[2].textContent=t.step3;
   setText("#initialSection .ritual-kicker",t.stage1);setText("#initialSection h3",t.opening);setText("#persignationTitle",PERSIGNATION[currentLang].title);setText("#persignationText",PERSIGNATION[currentLang].text);setText("#initialText",p.initial);setText("#speakInitial",t.listenOpening);setText("#beginDayBtn",t.continueDay);
-  setText("#finalSection .ritual-kicker",t.stage3);setText("#finalSection h3",t.closing);setText("#finalText",p.final);setText('#finalSection .speak',t.listenClosing);setText("#finishPrayerBtn",t.finish);
+  setText("#finalSection .ritual-kicker",t.stage3);setText("#finalSection h3",t.closing);setText("#finalText",p.final);setText("#speakFinal",t.listenClosing);setText("#finishPrayerBtn",t.finish);
 
   setText("#intentionView h2",t.intentionTitle);setText("#intentionView article > p:not(.small-note)",t.intentionIntro);$("intentionText").placeholder=t.intentionPlaceholder;setText("#intentionView .small-note",t.heart);setText("#saveIntention",t.saveIntention);
   setText("#journeyView h2",t.journeyTitle);setText("#journeyView .centered",t.journeySub);setText("#journeyView .completion-card small",t.completion);setText("#journeyView .closing-banner",t.prayForUs);
@@ -816,6 +906,8 @@ function applyLanguage(lang,{persist=true}={}){
 
   const nav=qall(".bottom-nav .nav-item b");[t.navHome,t.navPrayers,t.navWisdom,t.navIntention,t.navMore].forEach((x,i)=>{if(nav[i])nav[i].textContent=x});
   setText("#musicDock small",t.musicLabel);
+
+  bindStaticSpeechControls();
 
   setText("#aboutView > article > h2",t.aboutTitle);
   const src=$("englishCatholicSources");if(src){setText("#englishCatholicSources strong",t.langSourceTitle);setText("#englishCatholicSources > span",t.langSourceText);}
@@ -878,7 +970,7 @@ if(isStandalone())setInstalledUI();
 window.addEventListener("pagehide",stopSpeech);
 window.addEventListener("beforeunload",stopSpeech);
 document.addEventListener("visibilitychange",()=>{if(document.hidden)stopSpeech()});
-if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=16").catch(()=>{});
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=17").catch(()=>{});
 initLanguage();
 renderHome();renderDay(currentDay());renderJourney();renderReminderStatus();updateRitualUI();
 
