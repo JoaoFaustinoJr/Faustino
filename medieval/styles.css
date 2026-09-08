@@ -498,3 +498,6 @@ blockquote{margin:14px auto;font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.05;
   .about-topic-body{padding:1px 12px 11px}
   .work-card{padding:11px}
 }
+
+/* v23 — identidade católica explícita */
+.about-block strong{color:var(--green)}
