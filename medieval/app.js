@@ -483,9 +483,6 @@ function startSpeechJob(parts,{rate=.88,pitch=1,pause=0,musicLevel=.06}={},butto
     if(activeSpeechJob!==job || token!==prayerSequenceToken || job.paused)return;
     if(job.index>=job.chunks.length){finishSpeechJob(job);return}
     const entry=job.chunks[job.index];
-    // Garante que um estado pausado residual do mecanismo nativo não bloqueie
-    // uma nova fala em navegadores Android.
-    try{if(speechSynthesis.paused)speechSynthesis.resume()}catch{}
     const u=new SpeechSynthesisUtterance(entry.text);
     const serial=++job.serial;
     job.utterance=u;
@@ -528,14 +525,47 @@ function resumeSpeechJob(job){
   job.paused=false;
   setSpeechButtonState(job.button,"playing");
   duckMusicForSpeech(job.musicLevel);
+
   /*
-   * No Chrome/Android, speechSynthesis.speak() pode ser bloqueado quando
-   * disparado por setTimeout após o toque. A retomada agora começa
-   * sincronamente dentro do próprio segundo clique do usuário.
-   * Como o cancel() aconteceu no clique anterior (Pausar), a fila já está
-   * limpa e o mesmo trecho pode ser enfileirado imediatamente.
+   * Chrome/Android pode manter o mecanismo de fala marcado como "speaking"
+   * por alguns centésimos após cancel(). Se um novo utterance entra nesse
+   * intervalo, ele pode simplesmente ser ignorado.
+   *
+   * Por isso, a retomada da v20 espera o mecanismo realmente ficar ocioso
+   * antes de recolocar o mesmo trecho na fila.
    */
-  job.next();
+  try{speechSynthesis.cancel()}catch{}
+  job.serial++;
+  job.utterance=null;
+
+  let tries=0;
+  const resumeWhenIdle=()=>{
+    if(activeSpeechJob!==job || job.paused)return;
+    const idle=!speechSynthesis.speaking && !speechSynthesis.pending;
+    if(idle){
+      job.next();
+      return;
+    }
+    tries++;
+    if(tries>=15){
+      // Última limpeza da fila e uma pequena janela adicional.
+      try{speechSynthesis.cancel()}catch{}
+      job.timer=setTimeout(()=>{
+        job.timer=null;
+        if(activeSpeechJob===job && !job.paused)job.next();
+      },220);
+      return;
+    }
+    job.timer=setTimeout(()=>{
+      job.timer=null;
+      resumeWhenIdle();
+    },90);
+  };
+
+  job.timer=setTimeout(()=>{
+    job.timer=null;
+    resumeWhenIdle();
+  },180);
 }
 function toggleSpeechControl(button,starter){
   const job=activeSpeechJob;
@@ -1046,7 +1076,7 @@ if(isStandalone())setInstalledUI();
 window.addEventListener("pagehide",stopSpeech);
 window.addEventListener("beforeunload",stopSpeech);
 document.addEventListener("visibilitychange",()=>{if(document.hidden)stopSpeech()});
-if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=19").catch(()=>{});
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=20").catch(()=>{});
 initLanguage();
 renderHome();renderDay(currentDay());renderJourney();renderReminderStatus();updateRitualUI();
 
