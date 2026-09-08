@@ -462,9 +462,11 @@ function buildSpeechChunks(parts,betweenParts=0){
   if(chunks.length)chunks[chunks.length-1].pauseAfter=0;
   return {source,chunks};
 }
-function startSpeechJob(parts,{rate=.88,pitch=1,pause=0,musicLevel=.06}={},button=null){
+function startSpeechJob(parts,{rate=.88,pitch=1,pause=0,musicLevel=.06,resumeChunks=null}={},button=null){
   if(!("speechSynthesis" in window)){speechUnavailable();return}
-  const built=buildSpeechChunks(parts,pause);
+  const built=resumeChunks
+    ?{source:(parts||[]).map(speechFriendly).filter(Boolean),chunks:resumeChunks.map(x=>({...x}))}
+    :buildSpeechChunks(parts,pause);
   if(!built.chunks.length)return;
   stopSpeech();
   rememberSpeechBase(button);
@@ -522,50 +524,27 @@ function pauseSpeechJob(job){
 }
 function resumeSpeechJob(job){
   if(!job || activeSpeechJob!==job || !job.paused)return;
-  job.paused=false;
-  setSpeechButtonState(job.button,"playing");
-  duckMusicForSpeech(job.musicLevel);
 
   /*
-   * Chrome/Android pode manter o mecanismo de fala marcado como "speaking"
-   * por alguns centésimos após cancel(). Se um novo utterance entra nesse
-   * intervalo, ele pode simplesmente ser ignorado.
-   *
-   * Por isso, a retomada da v20 espera o mecanismo realmente ficar ocioso
-   * antes de recolocar o mesmo trecho na fila.
+   * v21: em vez de tentar "acordar" a mesma sessão cancelada, criamos
+   * uma nova sessão de fala a partir do trecho que ficou pendente.
+   * É o mesmo caminho já comprovado pelo botão Ouvir, portanto não depende
+   * do estado interno pause/resume do TTS do Chrome/Android.
    */
-  try{speechSynthesis.cancel()}catch{}
-  job.serial++;
-  job.utterance=null;
-
-  let tries=0;
-  const resumeWhenIdle=()=>{
-    if(activeSpeechJob!==job || job.paused)return;
-    const idle=!speechSynthesis.speaking && !speechSynthesis.pending;
-    if(idle){
-      job.next();
-      return;
-    }
-    tries++;
-    if(tries>=15){
-      // Última limpeza da fila e uma pequena janela adicional.
-      try{speechSynthesis.cancel()}catch{}
-      job.timer=setTimeout(()=>{
-        job.timer=null;
-        if(activeSpeechJob===job && !job.paused)job.next();
-      },220);
-      return;
-    }
-    job.timer=setTimeout(()=>{
-      job.timer=null;
-      resumeWhenIdle();
-    },90);
+  const remaining=job.chunks.slice(job.index).map(x=>({...x}));
+  const source=[...job.sourceParts];
+  const opts={
+    rate:job.rate,
+    pitch:job.pitch,
+    pause:job.pause,
+    musicLevel:job.musicLevel,
+    resumeChunks:remaining
   };
+  const button=job.button;
 
-  job.timer=setTimeout(()=>{
-    job.timer=null;
-    resumeWhenIdle();
-  },180);
+  // startSpeechJob encerra com segurança a sessão pausada anterior
+  // e imediatamente cria outra, mantendo o mesmo botão e o mesmo ponto.
+  startSpeechJob(source,opts,button);
 }
 function toggleSpeechControl(button,starter){
   const job=activeSpeechJob;
@@ -1076,7 +1055,7 @@ if(isStandalone())setInstalledUI();
 window.addEventListener("pagehide",stopSpeech);
 window.addEventListener("beforeunload",stopSpeech);
 document.addEventListener("visibilitychange",()=>{if(document.hidden)stopSpeech()});
-if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=20").catch(()=>{});
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=21").catch(()=>{});
 initLanguage();
 renderHome();renderDay(currentDay());renderJourney();renderReminderStatus();updateRitualUI();
 
