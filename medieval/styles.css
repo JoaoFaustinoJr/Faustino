@@ -430,3 +430,6 @@ blockquote{margin:14px auto;font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.05;
     font-size:.72rem;
   }
 }
+
+/* v18 — retomada robusta de áudio no Android */
+.speech-active::before{content:"";display:inline-block}

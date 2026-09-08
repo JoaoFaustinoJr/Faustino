@@ -383,6 +383,7 @@ function restoreMusicAfterSpeech(){
 function finishSpeechJob(job){
   if(!job || activeSpeechJob!==job)return;
   if(job.timer){clearTimeout(job.timer);job.timer=null}
+  if("speechSynthesis" in window)window.speechSynthesis.cancel();
   setSpeechButtonState(job.button,"idle");
   activeSpeechJob=null;
   restoreMusicAfterSpeech();
@@ -391,6 +392,7 @@ function stopSpeech(){
   prayerSequenceToken++;
   const job=activeSpeechJob;
   if(job?.timer){clearTimeout(job.timer);job.timer=null}
+  if(job){job.serial++;job.utterance=null}
   activeSpeechJob=null;
   if("speechSynthesis" in window)window.speechSynthesis.cancel();
   if(job?.button)setSpeechButtonState(job.button,"idle");
@@ -402,7 +404,7 @@ function duckMusicForSpeech(level){
     music.volume=Math.min(music.volume,level);
   }
 }
-function speechFriendly(text){return text
+function speechFriendly(text){return String(text||"")
   .replace(/\((?:Sl|Jo|Mc|Fl|Pd|Cr|1Pd|1Cr|2Cr|Rm|Mt|Lc|At|Is|Gn|Ex|Ps|Jn|Mk|Phil|Pt|Chr|Petr|Joh|Sal|Flp|Pe|1\s*Pt|1\s*Chr|1\s*Petr|1\s*Pe|1\s*Cr|1\s*Chr)[^)]*\)/gi,"")
   .replace(/\b(?:Sl|Jo|Mc|Fl|Pd|Cr|1Pd|1Cr|2Cr|Ps|Jn|Mk|Phil|Petr|Joh|Sal|Flp|Pe|1\s*Pt|1\s*Chr|1\s*Petr|1\s*Pe|1\s*Cr)\s*\d+[,:.]?\d*/gi,"")
   .replace(/\s+/g," ").trim()}
@@ -411,61 +413,132 @@ function chooseVoice(v){const l=speechLocale().toLowerCase();return v.find(x=>x.
 function speechUnavailable(){
   alert(currentLang==="en"?"Read-aloud is not available in this browser.":currentLang==="de"?"Vorlesen ist in diesem Browser nicht verfügbar.":currentLang==="es"?"La lectura en voz alta no está disponible en este navegador.":"Leitura em voz alta não disponível neste navegador.");
 }
+
+/*
+ * Android/Chrome nem sempre retoma corretamente speechSynthesis.pause().
+ * Em vez de depender do pause nativo, a leitura é dividida em trechos curtos.
+ * Ao pausar, cancelamos somente o trecho atual; ao continuar, ele é retomado
+ * a partir do início desse mesmo trecho. Isso torna o comportamento previsível.
+ */
+function splitSpeechText(text,maxLen=150){
+  const clean=speechFriendly(text);
+  if(!clean)return[];
+  const first=(clean.match(/[^.!?;:]+[.!?;:]?|[^.!?;:]+$/g)||[clean]).map(x=>x.trim()).filter(Boolean);
+  const out=[];
+  for(const piece of first){
+    if(piece.length<=maxLen){out.push(piece);continue}
+    const commaParts=(piece.match(/[^,]+,?|[^,]+$/g)||[piece]).map(x=>x.trim()).filter(Boolean);
+    let buf="";
+    for(const part of commaParts){
+      const candidate=(buf+" "+part).trim();
+      if(candidate.length<=maxLen){buf=candidate;continue}
+      if(buf)out.push(buf);
+      if(part.length<=maxLen){buf=part;continue}
+      const words=part.split(/\s+/);
+      let chunk="";
+      for(const word of words){
+        const c=(chunk+" "+word).trim();
+        if(c.length<=maxLen)chunk=c;
+        else{if(chunk)out.push(chunk);chunk=word}
+      }
+      buf=chunk;
+    }
+    if(buf)out.push(buf);
+  }
+  return out;
+}
+function buildSpeechChunks(parts,betweenParts=0){
+  const source=(parts||[]).map(speechFriendly).filter(Boolean);
+  const chunks=[];
+  source.forEach((part,partIndex)=>{
+    const split=splitSpeechText(part);
+    split.forEach((text,i)=>{
+      chunks.push({
+        text,
+        pauseAfter:i===split.length-1 && partIndex<source.length-1?betweenParts:110
+      });
+    });
+  });
+  if(chunks.length)chunks[chunks.length-1].pauseAfter=0;
+  return {source,chunks};
+}
 function startSpeechJob(parts,{rate=.88,pitch=1,pause=0,musicLevel=.06}={},button=null){
   if(!("speechSynthesis" in window)){speechUnavailable();return}
-  const list=(parts||[]).map(speechFriendly).filter(Boolean);
-  if(!list.length)return;
+  const built=buildSpeechChunks(parts,pause);
+  if(!built.chunks.length)return;
   stopSpeech();
   rememberSpeechBase(button);
   const token=prayerSequenceToken;
   const voice=chooseVoice(speechSynthesis.getVoices());
   const job={
-    token,button,list,rate,pitch,pause,musicLevel,index:0,
-    paused:false,between:false,timer:null,utterance:null,next:null,
-    restart:null
+    token,button,sourceParts:built.source,chunks:built.chunks,rate,pitch,pause,musicLevel,
+    index:0,paused:false,timer:null,utterance:null,next:null,restart:null,serial:0
   };
   activeSpeechJob=job;
-  job.restart=()=>startSpeechJob(list,{rate,pitch,pause,musicLevel},button);
+  job.restart=()=>startSpeechJob(job.sourceParts,{rate,pitch,pause,musicLevel},button);
   setSpeechButtonState(button,"playing");
   duckMusicForSpeech(musicLevel);
 
   const next=()=>{
-    if(activeSpeechJob!==job || token!==prayerSequenceToken)return;
-    if(job.paused){job.between=true;return}
-    if(job.index>=list.length){finishSpeechJob(job);return}
-    job.between=false;
-    const u=new SpeechSynthesisUtterance(list[job.index++]);
+    if(activeSpeechJob!==job || token!==prayerSequenceToken || job.paused)return;
+    if(job.index>=job.chunks.length){finishSpeechJob(job);return}
+    const entry=job.chunks[job.index];
+    const u=new SpeechSynthesisUtterance(entry.text);
+    const serial=++job.serial;
     job.utterance=u;
     u.lang=speechLocale();u.voice=voice;u.rate=rate;u.pitch=pitch;
     u.onend=()=>{
-      if(activeSpeechJob!==job || token!==prayerSequenceToken)return;
-      job.utterance=null;job.between=true;
-      if(job.index>=list.length){finishSpeechJob(job);return}
+      if(activeSpeechJob!==job || token!==prayerSequenceToken || job.utterance!==u || serial!==job.serial)return;
+      job.utterance=null;
+      job.index++;
+      if(job.index>=job.chunks.length){finishSpeechJob(job);return}
       if(job.paused)return;
-      job.timer=setTimeout(()=>{job.timer=null;next()},pause);
+      job.timer=setTimeout(()=>{job.timer=null;next()},entry.pauseAfter);
     };
-    u.onerror=()=>finishSpeechJob(job);
+    u.onerror=()=>{
+      if(activeSpeechJob!==job || job.utterance!==u || serial!==job.serial)return;
+      job.utterance=null;
+      if(job.paused)return;
+      finishSpeechJob(job);
+    };
     speechSynthesis.speak(u);
   };
   job.next=next;
   next();
 }
+function pauseSpeechJob(job){
+  if(!job || activeSpeechJob!==job || job.paused)return;
+  job.paused=true;
+  if(job.timer){clearTimeout(job.timer);job.timer=null}
+  /*
+   * Invalida o utterance antes de cancelá-lo. Assim, onend/onerror disparados
+   * pelo cancelamento não avançam o índice nem encerram a sessão.
+   */
+  job.serial++;
+  job.utterance=null;
+  if("speechSynthesis" in window)window.speechSynthesis.cancel();
+  restoreMusicAfterSpeech();
+  setSpeechButtonState(job.button,"paused");
+}
+function resumeSpeechJob(job){
+  if(!job || activeSpeechJob!==job || !job.paused)return;
+  job.paused=false;
+  setSpeechButtonState(job.button,"playing");
+  duckMusicForSpeech(job.musicLevel);
+  /*
+   * Pequeno atraso após cancel() evita a falha de retomada observada no
+   * SpeechSynthesis do Chrome/Android. O mesmo trecho é recomeçado.
+   */
+  job.timer=setTimeout(()=>{
+    job.timer=null;
+    if(activeSpeechJob===job && !job.paused)job.next();
+  },120);
+}
 function toggleSpeechControl(button,starter){
   const job=activeSpeechJob;
   if(job && job.button===button){
-    if(job.paused){
-      job.paused=false;
-      setSpeechButtonState(button,"playing");
-      duckMusicForSpeech(job.musicLevel);
-      if(speechSynthesis.paused)speechSynthesis.resume();
-      else if(job.between)job.next();
-    }else{
-      job.paused=true;
-      if(job.timer){clearTimeout(job.timer);job.timer=null;job.between=true}
-      if(speechSynthesis.speaking && !speechSynthesis.paused)speechSynthesis.pause();
-      restoreMusicAfterSpeech();
-      setSpeechButtonState(button,"paused");
-    }
+    if(job.paused)resumeSpeechJob(job);
+    else pauseSpeechJob(job);
     return;
   }
   starter();
@@ -970,7 +1043,7 @@ if(isStandalone())setInstalledUI();
 window.addEventListener("pagehide",stopSpeech);
 window.addEventListener("beforeunload",stopSpeech);
 document.addEventListener("visibilitychange",()=>{if(document.hidden)stopSpeech()});
-if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=17").catch(()=>{});
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js?v=18").catch(()=>{});
 initLanguage();
 renderHome();renderDay(currentDay());renderJourney();renderReminderStatus();updateRitualUI();
 
