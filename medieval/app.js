@@ -213,9 +213,7 @@ function openRitualStep(step,day,review){
   if(step==="day"){
     renderDay(day);go("prayers");return;
   }
-  go("wisdom");
-  const target=step==="initial"?$("initialSection"):$("finalSection");
-  setTimeout(()=>target?.scrollIntoView({behavior:"smooth",block:"start"}),180);
+  go(step==="initial"?"initial":"final");
 }
 function startOrResumePrayer(){
   const r=activeRitual();
@@ -224,6 +222,12 @@ function startOrResumePrayer(){
   openRitualStep("initial",day,s.done.includes(day));
 }
 $("startPrayerBtn").onclick=startOrResumePrayer;
+$("initialBackHome")?.addEventListener("click",()=>go("home"));
+$("finalBackDay")?.addEventListener("click",()=>{
+  const r=activeRitual();
+  const day=r?.day||selected||currentDay();
+  renderDay(day);go("prayers");
+});
 $("beginDayBtn").onclick=()=>{
   const r=activeRitual();
   const day=r?.day||currentDay();
@@ -251,6 +255,12 @@ $("homeView").addEventListener("touchend",e=>{
     startOrResumePrayer();
   }
 },{passive:true});
+
+(function enableRitualPageSwipe(){
+  const bind=(id,onLeft,onRight)=>{const view=$(id);if(!view)return;let x=0,y=0;view.addEventListener("touchstart",e=>{const t=e.changedTouches[0];x=t.clientX;y=t.clientY},{passive:true});view.addEventListener("touchend",e=>{const t=e.changedTouches[0],dx=t.clientX-x,dy=t.clientY-y;if(!(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.2))return;if(dx<0)onLeft?.();else onRight?.()},{passive:true})};
+  bind("initialPrayerView",()=>{const r=activeRitual();openRitualStep("day",r?.day||currentDay(),r?.review)},()=>go("home"));
+  bind("finalPrayerView",()=>{},()=>{const r=activeRitual();const day=r?.day||selected||currentDay();renderDay(day);go("prayers")});
+})();
 
 $("prevDay").onclick=()=>turn(-1);$("nextDay").onclick=()=>turn(1);
 function turn(dir){stopSpeech();const n=Math.max(1,Math.min(9,selected+dir));if(n===selected)return;const p=$("bookPage");p.animate([{transform:"translateX(0)",opacity:1},{transform:`translateX(${dir>0?-30:30}px)`,opacity:.25}],{duration:180}).onfinish=()=>{renderDay(n);p.animate([{transform:`translateX(${dir>0?30:-30}px)`,opacity:.25},{transform:"translateX(0)",opacity:1}],{duration:180})}}
