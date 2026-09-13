@@ -1,0 +1,30 @@
+name: Aplicar ritual UI v29
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.ritual-ui-v29-trigger'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Aplicar correção visual
+        run: python3 scripts/apply_ritual_ui_v29.py
+      - name: Validar e publicar alteração no código
+        run: |
+          grep -q 'v29 — páginas rituais iluminadas + player compacto' medieval/styles.css
+          if git diff --quiet -- medieval/styles.css; then
+            echo 'Nenhuma alteração necessária.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add medieval/styles.css
+          git commit -m 'Refina páginas de oração e corrige sobreposição do player'
+          git push
