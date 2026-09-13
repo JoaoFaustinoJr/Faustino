@@ -3,7 +3,8 @@ name: Hildegarda ritual pages v28
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
       - '.hildegarda-v28-trigger'
 
@@ -14,164 +15,20 @@ jobs:
   reorganize:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Reorganizar fluxo da novena
-        shell: python
-        run: |
-          from pathlib import Path
-          import re
+      - name: Checkout
+        uses: actions/checkout@v4
 
-          index_path = Path('medieval/index.html')
-          app_path = Path('medieval/app.js')
-          html = index_path.read_text(encoding='utf-8')
-          js = app_path.read_text(encoding='utf-8')
+      - name: Aplicar reorganizacao
+        run: python scripts/reorganize_hildegarda_v28.py
 
-          if 'data-view="initial"' not in html:
-              initial_pat = re.compile(r'\n\s*<section class="ritual-section" id="initialSection">.*?</section>', re.S)
-              final_pat = re.compile(r'\n\s*<section class="ritual-section" id="finalSection">.*?</section>', re.S)
-              im = initial_pat.search(html)
-              fm = final_pat.search(html)
-              if not im or not fm:
-                  raise SystemExit('Não foi possível localizar as seções de oração no index.html')
-              initial_section = im.group(0).strip()
-              final_section = fm.group(0).strip()
-
-              html = html[:fm.start()] + html[fm.end():]
-              im2 = initial_pat.search(html)
-              html = html[:im2.start()] + html[im2.end():]
-
-              wisdom_start = html.find('<section class="view" data-view="wisdom"')
-              prayers_start = html.find('<section class="view" data-view="prayers"')
-              if wisdom_start < 0 or prayers_start < 0:
-                  raise SystemExit('Views principais não encontradas')
-
-              wisdom_end = html.find('</article>\n    </section>', wisdom_start)
-              if wisdom_end < 0:
-                  raise SystemExit('Fim da view Sabedoria não encontrado')
-              wisdom_end += len('</article>\n    </section>')
-              wisdom = html[wisdom_start:wisdom_end]
-
-              wisdom = re.sub(
-                  r'\n\s*<div class="ritual-progress" aria-label="Etapas da oração">.*?</div>\s*',
-                  '\n', wisdom, count=1, flags=re.S
-              )
-              wisdom = re.sub(r'\n\s*<div class="ritual-divider">❦</div>\s*', '\n', wisdom, count=1)
-              html = html[:wisdom_start] + wisdom + html[wisdom_end:]
-
-              initial_view = f'''
-    <section class="view ritual-page-view" data-view="initial" id="initialPrayerView">
-      <div class="page-toolbar">
-        <button class="icon-btn" id="initialBackHome" aria-label="Voltar ao início">←</button>
-        <div><span>ETAPA 1 DE 3</span><h2>Oração Inicial</h2></div>
-        <span class="mini-seal" aria-hidden="true">I</span>
-      </div>
-      <div class="ritual-progress" aria-label="Etapas da oração">
-        <span class="ritual-step" data-ritual-step="initial"><b>1</b><small>Oração inicial</small></span>
-        <span class="ritual-step" data-ritual-step="day"><b>2</b><small>Reflexão do dia</small></span>
-        <span class="ritual-step" data-ritual-step="final"><b>3</b><small>Oração final</small></span>
-      </div>
-      <article class="illuminated-page textual ritual-page">
-        {initial_section}
-      </article>
-    </section>
-'''
-
-              final_view = f'''
-    <section class="view ritual-page-view" data-view="final" id="finalPrayerView">
-      <div class="page-toolbar">
-        <button class="icon-btn" id="finalBackDay" aria-label="Voltar à reflexão">←</button>
-        <div><span>ETAPA 3 DE 3</span><h2>Oração Final</h2></div>
-        <span class="mini-seal" aria-hidden="true">III</span>
-      </div>
-      <div class="ritual-progress" aria-label="Etapas da oração">
-        <span class="ritual-step" data-ritual-step="initial"><b>1</b><small>Oração inicial</small></span>
-        <span class="ritual-step" data-ritual-step="day"><b>2</b><small>Reflexão do dia</small></span>
-        <span class="ritual-step" data-ritual-step="final"><b>3</b><small>Oração final</small></span>
-      </div>
-      <article class="illuminated-page textual ritual-page">
-        {final_section}
-      </article>
-    </section>
-'''
-
-              prayers_start = html.find('<section class="view" data-view="prayers"')
-              html = html[:prayers_start] + initial_view + '\n    ' + html[prayers_start:]
-              wisdom_start = html.find('<section class="view" data-view="wisdom"')
-              html = html[:wisdom_start] + final_view + '\n    ' + html[wisdom_start:]
-
-              html = html.replace('./app.js?v=27', './app.js?v=28')
-              html = html.replace('./styles.css?v=24', './styles.css?v=28')
-
-          old = '''  go("wisdom");
-  const target=step==="initial"?$("initialSection"):$("finalSection");
-  setTimeout(()=>target?.scrollIntoView({behavior:"smooth",block:"start"}),180);'''
-          new = '''  go(step==="initial"?"initial":"final");'''
-          if old in js:
-              js = js.replace(old, new, 1)
-          elif 'go(step==="initial"?"initial":"final");' not in js:
-              raise SystemExit('Trecho openRitualStep não encontrado no app.js')
-
-          marker = '$("startPrayerBtn").onclick=startOrResumePrayer;'
-          addition = '''$("startPrayerBtn").onclick=startOrResumePrayer;
-$("initialBackHome")?.addEventListener("click",()=>go("home"));
-$("finalBackDay")?.addEventListener("click",()=>{
-  const r=activeRitual();
-  const day=r?.day||selected||currentDay();
-  renderDay(day);
-  go("prayers");
-});'''
-          if '$("initialBackHome")?.addEventListener' not in js:
-              if marker not in js:
-                  raise SystemExit('Marcador do botão inicial não encontrado no app.js')
-              js = js.replace(marker, addition, 1)
-
-          swipe_marker = '$("prevDay").onclick=()=>turn(-1);$("nextDay").onclick=()=>turn(1);'
-          swipe_code = '''(function enableRitualPageSwipe(){
-  const bind=(id,onLeft,onRight)=>{
-    const view=$(id); if(!view)return;
-    let x=0,y=0;
-    view.addEventListener("touchstart",e=>{const t=e.changedTouches[0];x=t.clientX;y=t.clientY},{passive:true});
-    view.addEventListener("touchend",e=>{
-      const t=e.changedTouches[0],dx=t.clientX-x,dy=t.clientY-y;
-      if(!(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.2))return;
-      if(dx<0)onLeft?.(); else onRight?.();
-    },{passive:true});
-  };
-  bind("initialPrayerView",()=>{
-    const r=activeRitual(); openRitualStep("day",r?.day||currentDay(),r?.review);
-  },()=>go("home"));
-  bind("finalPrayerView",()=>{},()=>{
-    const r=activeRitual(); const day=r?.day||selected||currentDay(); renderDay(day); go("prayers");
-  });
-})();
-
-$("prevDay").onclick=()=>turn(-1);$("nextDay").onclick=()=>turn(1);'''
-          if 'enableRitualPageSwipe' not in js:
-              if swipe_marker not in js:
-                  raise SystemExit('Marcador de navegação dos dias não encontrado no app.js')
-              js = js.replace(swipe_marker, swipe_code, 1)
-
-          index_path.write_text(html, encoding='utf-8')
-          app_path.write_text(js, encoding='utf-8')
-
-      - name: Validar estrutura
-        shell: bash
-        run: |
-          grep -q 'data-view="initial"' medieval/index.html
-          grep -q 'data-view="final"' medieval/index.html
-          grep -q 'go(step==="initial"?"initial":"final");' medieval/app.js
-          test "$(grep -o 'id="initialSection"' medieval/index.html | wc -l)" -eq 1
-          test "$(grep -o 'id="finalSection"' medieval/index.html | wc -l)" -eq 1
-
-      - name: Commit da reorganização
-        shell: bash
+      - name: Commit
         run: |
           if git diff --quiet -- medieval/index.html medieval/app.js; then
-            echo 'Nenhuma alteração necessária.'
+            echo "Nenhuma alteracao necessaria."
             exit 0
           fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add medieval/index.html medieval/app.js
-          git commit -m 'Separa orações inicial e final em páginas próprias'
+          git commit -m "Separa oracoes inicial e final em paginas proprias"
           git push
