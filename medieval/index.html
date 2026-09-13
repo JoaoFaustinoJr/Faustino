@@ -41,6 +41,19 @@
     box-shadow:0 3px 10px rgba(73,54,20,.09);
   }
 }
+
+/* v26 — retorno direto entre Jornada e dia escolhido */
+.journey-return{
+  display:inline-flex;align-items:center;gap:6px;margin:8px 0 10px;
+  border:1px solid rgba(184,138,42,.48);border-radius:999px;
+  background:rgba(255,248,226,.82);color:var(--green);
+  padding:7px 11px;font:700 .72rem Inter,sans-serif;cursor:pointer;
+  box-shadow:0 2px 8px rgba(72,53,19,.05);
+}
+.journey-return:active{transform:translateY(1px)}
+.journey-return:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media(hover:hover){.journey-return:hover{border-color:rgba(13,74,49,.48);background:rgba(238,239,215,.9)}}
+
 </style>
 </head>
 <body>
@@ -99,6 +112,7 @@
     </section>
 
     <section class="view" data-view="prayers" id="prayersView">
+      <button type="button" class="journey-return" id="backToJourney">← Minha jornada</button>
       <div class="page-toolbar">
         <button class="icon-btn" id="prevDay" aria-label="Dia anterior">←</button>
         <div><span id="dayNo">1º DIA</span><h2 id="dayTitle">A Sabedoria de Deus</h2></div>
@@ -484,7 +498,7 @@
     <button class="nav-item" data-go="more"><span>•••</span><b>Mais</b></button>
   </nav>
 </div>
-<script src="./app.js?v=24"></script>
+<script src="./app.js?v=26"></script>
 <script>
 (() => {
   function navigateRitualStep(el){
@@ -497,6 +511,20 @@
     const review=r&&r.day===day?r.review:!!s.done?.includes(day);
     openRitualStep(step,day,review);
   }
+  const journeyLabels={pt:"← Minha jornada",en:"← My journey",de:"← Meine Gebetsreise",es:"← Mi camino"};
+  const backToJourney=document.getElementById("backToJourney");
+  function updateJourneyReturnLabel(){
+    if(!backToJourney)return;
+    const lang=(document.documentElement.lang||"pt").slice(0,2);
+    backToJourney.textContent=journeyLabels[lang]||journeyLabels.pt;
+    backToJourney.setAttribute("aria-label",backToJourney.textContent.replace("← ",""));
+  }
+  if(backToJourney){
+    backToJourney.addEventListener("click",()=>{if(typeof go==="function")go("journey")});
+    updateJourneyReturnLabel();
+    new MutationObserver(updateJourneyReturnLabel).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+  }
+
   document.querySelectorAll("[data-ritual-step]").forEach(el=>{
     el.classList.add("ritual-step-nav");
     el.setAttribute("role","button");
