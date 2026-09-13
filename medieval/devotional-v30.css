@@ -1,0 +1,133 @@
+/* v30 — protagonismo das orações próprias e reflexão apoiada na Igreja */
+.proper-prayer-card{
+  position:relative;
+  margin:20px 0 22px;
+  padding:22px 18px 20px;
+  border:3px solid var(--green);
+  outline:2px solid var(--gold);
+  outline-offset:-7px;
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 50% 0,rgba(223,190,96,.26),transparent 38%),
+    linear-gradient(180deg,#fff9e6,#f3dfab);
+  box-shadow:0 11px 26px rgba(13,74,49,.16),inset 0 0 0 1px rgba(255,255,255,.7);
+}
+.proper-prayer-card:before,.proper-prayer-card:after{
+  content:"❦";
+  position:absolute;
+  top:11px;
+  color:var(--gold);
+  font-size:1rem;
+}
+.proper-prayer-card:before{left:14px}
+.proper-prayer-card:after{right:14px;transform:scaleX(-1)}
+.proper-prayer-label{
+  max-width:88%;
+  margin:0 auto 6px;
+  text-align:center;
+  color:var(--green);
+  font:800 .76rem/1.25 Cinzel,serif;
+  letter-spacing:.11em;
+}
+.proper-prayer-subtitle{
+  margin:0 auto 16px;
+  text-align:center;
+  color:#7d6125;
+  font:700 1rem/1.2 "Cormorant Garamond",serif;
+  font-style:italic;
+}
+.proper-prayer-card #initialText,
+.proper-prayer-card #finalText{
+  margin:0!important;
+  padding:18px 16px 18px 18px!important;
+  border:1px solid rgba(184,138,42,.55)!important;
+  border-left:5px solid var(--green)!important;
+  border-radius:12px!important;
+  background:rgba(255,252,239,.82)!important;
+  box-shadow:inset 0 0 18px rgba(202,158,51,.08)!important;
+  font-size:1.3rem!important;
+  line-height:1.56!important;
+}
+.proper-prayer-card #initialText::first-letter,
+.proper-prayer-card #finalText::first-letter{
+  color:var(--green)!important;
+  text-shadow:1px 1px 0 #ddb653!important;
+}
+
+.reflection-box{
+  position:relative;
+  padding-top:18px;
+}
+.reflection-box h3{
+  margin-bottom:5px;
+}
+.reflection-box h3:after{
+  content:"À luz da Palavra e da Igreja";
+  display:block;
+  margin-top:6px;
+  color:#826725;
+  font:700 .68rem/1.2 Cinzel,serif;
+  letter-spacing:.09em;
+}
+#reflection{
+  font-size:1.16rem;
+  line-height:1.58;
+}
+.reflection-church-source{
+  margin:12px 0 17px;
+  padding:14px 15px;
+  border:1px solid rgba(13,74,49,.34);
+  border-radius:16px;
+  background:linear-gradient(180deg,rgba(239,242,219,.92),rgba(249,239,205,.9));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.58);
+}
+.church-source-kicker{
+  margin-bottom:10px;
+  text-align:center;
+  color:var(--green);
+  font:800 .65rem/1.2 Cinzel,serif;
+  letter-spacing:.11em;
+}
+.keep-heart{
+  display:grid;
+  gap:4px;
+  margin-bottom:11px;
+  padding:10px 11px;
+  border-left:3px solid var(--gold);
+  background:rgba(255,250,232,.62);
+}
+.keep-heart strong,
+.church-sources>strong{
+  color:var(--green);
+  font-family:Cinzel,serif;
+  font-size:.7rem;
+  letter-spacing:.06em;
+}
+.keep-heart span{
+  font-size:1.05rem;
+  line-height:1.38;
+  font-style:italic;
+  color:#4b3f2c;
+}
+.church-sources{
+  display:grid;
+  gap:6px;
+}
+.church-sources a{
+  color:var(--green);
+  font:700 .72rem/1.35 Inter,sans-serif;
+  text-decoration:none;
+  border-bottom:1px dotted rgba(184,138,42,.72);
+  padding-bottom:3px;
+}
+
+@media(max-width:560px){
+  .proper-prayer-card{margin:18px 0 20px;padding:20px 14px 16px;border-radius:20px}
+  .proper-prayer-label{font-size:.67rem;letter-spacing:.08em}
+  .proper-prayer-subtitle{font-size:.94rem;margin-bottom:13px}
+  .proper-prayer-card #initialText,
+  .proper-prayer-card #finalText{font-size:1.17rem!important;line-height:1.5!important;padding:16px 13px 17px 15px!important}
+  #reflection{font-size:1.1rem;line-height:1.52}
+  .reflection-church-source{padding:12px 12px}
+  .keep-heart span{font-size:1rem}
+}
