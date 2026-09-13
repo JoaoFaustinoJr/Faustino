@@ -1,4 +1,4 @@
-const CACHE="hildegarda-medieval-v27";
+const CACHE="hildegarda-medieval-v28";
 const APP_SHELL=[
   "./","./index.html","./styles.css?v=24","./app.js?v=27","./playlist.js?v=27",
   "./manifest.webmanifest?v=7","./santa-hildegarda-icon.svg?v=7",
