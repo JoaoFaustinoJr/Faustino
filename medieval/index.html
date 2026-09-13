@@ -484,7 +484,7 @@
     <div><small>Música de Santa Hildegarda</small><strong>O frondens virga</strong></div>
     <button id="musicBtn">▶</button>
     <input id="volume" type="range" min="0" max="1" step=".05" value=".28" aria-label="Volume">
-    <audio id="music" preload="metadata" loop playsinline>
+    <audio id="music" preload="metadata" playsinline>
       <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ad/O_frondens_2.ogg/O_frondens_2.ogg.mp3" type="audio/mpeg">
       <source src="https://upload.wikimedia.org/wikipedia/commons/a/ad/O_frondens_2.ogg" type="audio/ogg">
     </audio>
@@ -498,7 +498,8 @@
     <button class="nav-item" data-go="more"><span>•••</span><b>Mais</b></button>
   </nav>
 </div>
-<script src="./app.js?v=26"></script>
+<script src="./app.js?v=27"></script>
+<script src="./playlist.js?v=27"></script>
 <script>
 (() => {
   function navigateRitualStep(el){
