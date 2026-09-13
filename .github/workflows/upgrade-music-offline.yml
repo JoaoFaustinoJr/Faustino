@@ -23,27 +23,36 @@ jobs:
         run: |
           set -euo pipefail
 
+          mkdir -p medieval/audio
+          curl --fail --location --retry 3 --retry-delay 2 \
+            "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ad/O_frondens_2.ogg/O_frondens_2.ogg.mp3" \
+            -o medieval/audio/o-frondens-virga.mp3
+
+          if ! curl --fail --location --retry 3 --retry-delay 2 \
+            "https://drive.usercontent.google.com/download?id=1iCMCz2cZX08lVIxcerhcaiW7ADbkI5VF&export=download&confirm=t" \
+            -o medieval/audio/o-virtus-sapientiae.mp3; then
+            curl --fail --location --retry 3 --retry-delay 2 \
+              "https://drive.google.com/uc?export=download&id=1iCMCz2cZX08lVIxcerhcaiW7ADbkI5VF" \
+              -o medieval/audio/o-virtus-sapientiae.mp3
+          fi
+
+          test -s medieval/audio/o-frondens-virga.mp3
+          test -s medieval/audio/o-virtus-sapientiae.mp3
+          file medieval/audio/o-frondens-virga.mp3 | grep -Eqi "MPEG|Audio"
+          file medieval/audio/o-virtus-sapientiae.mp3 | grep -Eqi "MPEG|Audio"
+
           cat > medieval/playlist.js <<'EOF'
           (() => {
             const music = document.getElementById("music");
             const dock = document.getElementById("musicDock");
             const playBtn = document.getElementById("musicBtn");
-            const volume = document.getElementById("volume");
             if (!music || !dock || !playBtn) return;
 
             const TRACK_KEY = "hildegardaMedievalTrack";
             const WANTED_KEY = "hildegardaMedievalMusicWanted";
             const tracks = [
-              {
-                title: "O frondens virga",
-                src: "./audio/o-frondens-virga.mp3",
-                credit: "Makemi · Wikimedia Commons · CC BY-SA 3.0"
-              },
-              {
-                title: "O virtus Sapientiae",
-                src: "./audio/o-virtus-sapientiae.mp3",
-                credit: "San Francisco Girls Chorus · Creative Commons Attribution"
-              }
+              {title:"O frondens virga",src:"./audio/o-frondens-virga.mp3",credit:"Makemi · Wikimedia Commons · CC BY-SA 3.0"},
+              {title:"O virtus Sapientiae",src:"./audio/o-virtus-sapientiae.mp3",credit:"San Francisco Girls Chorus · Creative Commons Attribution"}
             ];
 
             let index = Number.parseInt(localStorage.getItem(TRACK_KEY) || "0", 10);
@@ -87,85 +96,80 @@ jobs:
             `;
             document.head.appendChild(style);
 
-            function wanted(){ return localStorage.getItem(WANTED_KEY) === "1"; }
+            function wanted(){return localStorage.getItem(WANTED_KEY)==="1"}
             function updateMeta(){
-              const t = tracks[index];
-              if (label) label.textContent = "Música de Santa Hildegarda";
-              if (title) title.textContent = t.title;
-              credit.textContent = t.credit;
-              const count = nav.querySelector(".track-count");
-              if (count) count.textContent = `${index + 1}/${tracks.length}`;
-              dock.title = `${t.title} — ${t.credit}`;
+              const t=tracks[index];
+              if(label)label.textContent="Música de Santa Hildegarda";
+              if(title)title.textContent=t.title;
+              credit.textContent=t.credit;
+              const count=nav.querySelector(".track-count");
+              if(count)count.textContent=`${index+1}/${tracks.length}`;
+              dock.title=`${t.title} — ${t.credit}`;
             }
-            function setTrack(nextIndex, shouldPlay = false){
-              index = (nextIndex + tracks.length) % tracks.length;
-              localStorage.setItem(TRACK_KEY, String(index));
+            function setTrack(nextIndex,shouldPlay=false){
+              index=(nextIndex+tracks.length)%tracks.length;
+              localStorage.setItem(TRACK_KEY,String(index));
               updateMeta();
-              changingTrack = true;
-              music.src = tracks[index].src;
+              changingTrack=true;
+              music.src=tracks[index].src;
               music.load();
-              changingTrack = false;
-              if (shouldPlay) {
-                localStorage.setItem(WANTED_KEY, "1");
-                music.play().catch(() => {});
+              changingTrack=false;
+              if(shouldPlay){
+                localStorage.setItem(WANTED_KEY,"1");
+                music.play().catch(()=>{});
               }
             }
-            function step(dir, forcePlay = false){
-              const wasPlaying = !music.paused || wanted();
-              setTrack(index + dir, forcePlay || wasPlaying);
+            function step(dir,forcePlay=false){
+              const wasPlaying=!music.paused||wanted();
+              setTrack(index+dir,forcePlay||wasPlaying);
             }
 
-            nav.addEventListener("click", (event) => {
-              const button = event.target.closest("button[data-dir]");
-              if (!button) return;
+            nav.addEventListener("click",event=>{
+              const button=event.target.closest("button[data-dir]");
+              if(!button)return;
               event.preventDefault();
               event.stopPropagation();
-              step(Number(button.dataset.dir), true);
+              step(Number(button.dataset.dir),true);
+            });
+            music.addEventListener("ended",()=>step(1,true));
+            music.addEventListener("error",()=>{
+              if(changingTrack)return;
+              const next=(index+1)%tracks.length;
+              if(next!==index)setTrack(next,wanted());
             });
 
-            music.addEventListener("ended", () => step(1, true));
-            music.addEventListener("error", () => {
-              if (changingTrack) return;
-              const attempted = index;
-              const next = (index + 1) % tracks.length;
-              if (next !== attempted) setTrack(next, wanted());
-            });
-
-            setTrack(index, false);
+            setTrack(index,false);
             updateMeta();
 
-            // Mantém a opção de ouvir música evidente na tela inicial.
-            const quick = document.getElementById("musicQuick");
-            const quickText = quick?.querySelector("b");
-            if (quickText && (document.documentElement.lang || "pt").startsWith("pt")) quickText.textContent = "Ouvir música";
-
-            // A seleção acompanha mudanças de idioma sem interferir no player.
-            new MutationObserver(() => {
-              if (!quickText) return;
-              const lang = (document.documentElement.lang || "pt").slice(0,2);
-              quickText.textContent = lang === "en" ? "Listen" : lang === "de" ? "Musik hören" : lang === "es" ? "Escuchar" : "Ouvir música";
-            }).observe(document.documentElement, {attributes:true, attributeFilter:["lang"]});
+            const quick=document.getElementById("musicQuick");
+            const quickText=quick?.querySelector("b");
+            function updateQuickLabel(){
+              if(!quickText)return;
+              const lang=(document.documentElement.lang||"pt").slice(0,2);
+              quickText.textContent=lang==="en"?"Listen":lang==="de"?"Musik hören":lang==="es"?"Escuchar":"Ouvir música";
+            }
+            updateQuickLabel();
+            new MutationObserver(updateQuickLabel).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
           })();
           EOF
 
           python3 - <<'PY'
           from pathlib import Path
-          import re
+          import re, sys
 
-          index_path = Path("medieval/index.html")
-          index = index_path.read_text(encoding="utf-8")
-          index = index.replace('id="music" preload="metadata" loop playsinline', 'id="music" preload="metadata" playsinline')
-          index = re.sub(r'<script src="\./app\.js\?v=\d+"></script>', '<script src="./app.js?v=27"></script>\n<script src="./playlist.js?v=27"></script>', index, count=1)
-          # Proteção contra duplicação se o workflow for reexecutado.
-          index = index.replace('<script src="./playlist.js?v=27"></script>\n<script src="./playlist.js?v=27"></script>', '<script src="./playlist.js?v=27"></script>')
-          index_path.write_text(index, encoding="utf-8")
+          index_path=Path("medieval/index.html")
+          index=index_path.read_text(encoding="utf-8")
+          index=index.replace('id="music" preload="metadata" loop playsinline','id="music" preload="metadata" playsinline')
+          index=re.sub(r'<script src="\./app\.js\?v=\d+"></script>', '<script src="./app.js?v=27"></script>\n<script src="./playlist.js?v=27"></script>', index, count=1)
+          index=index.replace('<script src="./playlist.js?v=27"></script>\n<script src="./playlist.js?v=27"></script>','<script src="./playlist.js?v=27"></script>')
+          index_path.write_text(index,encoding="utf-8")
 
-          app_path = Path("medieval/app.js")
-          app = app_path.read_text(encoding="utf-8")
-          app = re.sub(r'\./sw\.js\?v=\d+', './sw.js?v=27', app)
-          app_path.write_text(app, encoding="utf-8")
+          app_path=Path("medieval/app.js")
+          app=app_path.read_text(encoding="utf-8")
+          app=re.sub(r'\./sw\.js\?v=\d+','./sw.js?v=27',app)
+          app_path.write_text(app,encoding="utf-8")
 
-          sw = '''const CACHE="hildegarda-medieval-v27";
+          sw='''const CACHE="hildegarda-medieval-v27";
           const APP_SHELL=[
             "./","./index.html","./styles.css?v=24","./app.js?v=27","./playlist.js?v=27",
             "./manifest.webmanifest?v=7","./santa-hildegarda-icon.svg?v=7",
@@ -174,20 +178,12 @@ jobs:
             "../assets/img/day4.jpg","../assets/img/day5.jpg","../assets/img/day6.jpg","../assets/img/day7.jpg",
             "../assets/img/day8.jpg","../assets/img/day9.jpg"
           ];
-
-          self.addEventListener("install",event=>{
-            event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()));
-          });
-
-          self.addEventListener("activate",event=>{
-            event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()));
-          });
-
+          self.addEventListener("install",event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting())));
+          self.addEventListener("activate",event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
           self.addEventListener("fetch",event=>{
             if(event.request.method!=="GET")return;
             const url=new URL(event.request.url);
             if(url.origin!==self.location.origin)return;
-
             if(event.request.mode==="navigate"){
               event.respondWith((async()=>{
                 try{
@@ -196,81 +192,41 @@ jobs:
                   cache.put("./index.html",fresh.clone()).catch(()=>{});
                   return fresh;
                 }catch{
-                  return (await caches.match("./index.html")) || (await caches.match("./"));
+                  return (await caches.match("./index.html"))||(await caches.match("./"));
                 }
               })());
               return;
             }
-
             event.respondWith((async()=>{
               const cached=await caches.match(event.request);
               try{
                 const fresh=await fetch(event.request);
-                if(fresh && fresh.ok){
+                if(fresh&&fresh.ok){
                   const cache=await caches.open(CACHE);
                   cache.put(event.request,fresh.clone()).catch(()=>{});
                 }
                 return fresh;
               }catch{
-                return cached || Response.error();
+                return cached||Response.error();
               }
             })());
           });
           '''
-          Path("medieval/sw.js").write_text(sw, encoding="utf-8")
+          Path("medieval/sw.js").write_text(sw,encoding="utf-8")
 
-          pages_path = Path(".github/workflows/pages.yml")
-          pages = pages_path.read_text(encoding="utf-8")
-          marker = "      - name: Preparar imagens clássicas individuais\n"
-          music_step = '''      - name: Preparar músicas de Santa Hildegarda para uso offline
-                shell: bash
-                run: |
-                  set -euo pipefail
-                  mkdir -p medieval/audio
-                  curl --fail --location --retry 3 --retry-delay 2 \
-                    "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ad/O_frondens_2.ogg/O_frondens_2.ogg.mp3" \
-                    -o medieval/audio/o-frondens-virga.mp3
-                  if ! curl --fail --location --retry 3 --retry-delay 2 \
-                    "https://drive.usercontent.google.com/download?id=1iCMCz2cZX08lVIxcerhcaiW7ADbkI5VF&export=download&confirm=t" \
-                    -o medieval/audio/o-virtus-sapientiae.mp3; then
-                    curl --fail --location --retry 3 --retry-delay 2 \
-                      "https://drive.google.com/uc?export=download&id=1iCMCz2cZX08lVIxcerhcaiW7ADbkI5VF" \
-                      -o medieval/audio/o-virtus-sapientiae.mp3
-                  fi
-                  test -s medieval/audio/o-frondens-virga.mp3
-                  test -s medieval/audio/o-virtus-sapientiae.mp3
-                  file medieval/audio/o-frondens-virga.mp3 | grep -Eqi "MPEG|Audio"
-                  file medieval/audio/o-virtus-sapientiae.mp3 | grep -Eqi "MPEG|Audio"
-                  ls -lh medieval/audio
-
-          '''
-          # Corrige a indentação do bloco gerado acima para o YAML do workflow.
-          music_step = music_step.replace("                shell:", "        shell:").replace("                run:", "        run:").replace("                  ", "          ")
-          if "Preparar músicas de Santa Hildegarda para uso offline" not in pages:
-              if marker not in pages:
-                  raise SystemExit("Marcador do workflow Pages não encontrado")
-              pages = pages.replace(marker, music_step + marker, 1)
-          pages_path.write_text(pages, encoding="utf-8")
-          PY
-
-          python3 - <<'PY'
-          from pathlib import Path
-          import re, sys
-          index=Path("medieval/index.html").read_text(encoding="utf-8")
-          app=Path("medieval/app.js").read_text(encoding="utf-8")
-          sw=Path("medieval/sw.js").read_text(encoding="utf-8")
-          pages=Path(".github/workflows/pages.yml").read_text(encoding="utf-8")
           checks={
-            "playlist_link": './playlist.js?v=27' in index,
-            "no_audio_loop": 'id="music" preload="metadata" loop' not in index,
-            "sw_registration": './sw.js?v=27' in app,
-            "offline_navigation": 'event.request.mode==="navigate"' in sw and 'caches.match("./index.html")' in sw,
-            "audio_cached": './audio/o-frondens-virga.mp3' in sw and './audio/o-virtus-sapientiae.mp3' in sw,
-            "audio_build": 'Preparar músicas de Santa Hildegarda para uso offline' in pages,
+            "playlist_link":'./playlist.js?v=27' in index,
+            "no_audio_loop":'id="music" preload="metadata" loop' not in index,
+            "sw_registration":'./sw.js?v=27' in app,
+            "offline_navigation":'event.request.mode==="navigate"' in sw and 'caches.match("./index.html")' in sw,
+            "audio_cached":'./audio/o-frondens-virga.mp3' in sw and './audio/o-virtus-sapientiae.mp3' in sw,
           }
           print(checks)
-          if not all(checks.values()): sys.exit(1)
+          if not all(checks.values()):sys.exit(1)
           PY
+
+          node --check medieval/playlist.js
+          ls -lh medieval/audio
 
       - name: Commitar atualização
         shell: bash
@@ -278,7 +234,6 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm .github/workflows/upgrade-music-offline.yml
-          git add medieval/index.html medieval/app.js medieval/sw.js medieval/playlist.js .github/workflows/pages.yml
+          git add medieval/index.html medieval/app.js medieval/sw.js medieval/playlist.js medieval/audio/o-frondens-virga.mp3 medieval/audio/o-virtus-sapientiae.mp3
           git commit -m "Adicionar playlist de Santa Hildegarda e reforçar modo offline"
           git push origin HEAD:main
