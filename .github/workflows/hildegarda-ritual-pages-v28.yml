@@ -1,10 +1,11 @@
 name: Hildegarda ritual pages v28
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/hildegarda-ritual-pages-v28.yml'
+      - '.hildegarda-v28-trigger'
 
 permissions:
   contents: write
@@ -50,7 +51,6 @@ jobs:
               wisdom_end += len('</article>\n    </section>')
               wisdom = html[wisdom_start:wisdom_end]
 
-              # A Sabedoria permanece como conteúdo editorial; o fluxo litúrgico sai desta página.
               wisdom = re.sub(
                   r'\n\s*<div class="ritual-progress" aria-label="Etapas da oração">.*?</div>\s*',
                   '\n', wisdom, count=1, flags=re.S
@@ -99,7 +99,6 @@ jobs:
               wisdom_start = html.find('<section class="view" data-view="wisdom"')
               html = html[:wisdom_start] + final_view + '\n    ' + html[wisdom_start:]
 
-              # Cache-busting da nova organização.
               html = html.replace('./app.js?v=27', './app.js?v=28')
               html = html.replace('./styles.css?v=24', './styles.css?v=28')
 
@@ -126,7 +125,6 @@ $("finalBackDay")?.addEventListener("click",()=>{
                   raise SystemExit('Marcador do botão inicial não encontrado no app.js')
               js = js.replace(marker, addition, 1)
 
-          # Navegação por gesto conserva a sensação de livro: capa -> inicial -> dia -> final.
           swipe_marker = '$("prevDay").onclick=()=>turn(-1);$("nextDay").onclick=()=>turn(1);'
           swipe_code = '''(function enableRitualPageSwipe(){
   const bind=(id,onLeft,onRight)=>{
