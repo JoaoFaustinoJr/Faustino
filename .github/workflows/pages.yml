@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -22,17 +22,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Aplicar reorganização das páginas de oração
-        run: |
-          python scripts/reorganize_hildegarda_v28.py
-          if ! git diff --quiet -- medieval/index.html medieval/app.js; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add medieval/index.html medieval/app.js
-            git commit -m "Separa orações inicial e final em páginas próprias"
-            git push
-          fi
 
       - name: Preparar imagens clássicas individuais
         shell: bash
