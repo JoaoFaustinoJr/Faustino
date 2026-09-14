@@ -141,3 +141,105 @@
     updateSource(n);
   }).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
 })();
+
+/* v31 — invocação tradicional ao Divino Espírito Santo */
+(() => {
+  const prayers = {
+    pt: {
+      title: "INVOCAÇÃO AO DIVINO ESPÍRITO SANTO",
+      latin: "VENI, SANCTE SPIRITUS",
+      text: "Vinde, Espírito Santo, enchei os corações dos vossos fiéis e acendei neles o fogo do vosso amor. Enviai o vosso Espírito e tudo será criado. E renovareis a face da terra. Oremos: Ó Deus, que instruístes os corações dos vossos fiéis com a luz do Espírito Santo, fazei que apreciemos retamente todas as coisas segundo o mesmo Espírito e gozemos sempre da sua consolação. Por Cristo, nosso Senhor. Amém.",
+      listen: "🔊 Ouvir oração ao Espírito Santo",
+      note: "Oração tradicional católica de invocação ao Espírito Santo"
+    },
+    en: {
+      title: "INVOCATION OF THE HOLY SPIRIT",
+      latin: "VENI, SANCTE SPIRITUS",
+      text: "Come, Holy Spirit, fill the hearts of your faithful and kindle in them the fire of your love. Send forth your Spirit and they shall be created. And you shall renew the face of the earth. Let us pray: O God, who by the light of the Holy Spirit did instruct the hearts of the faithful, grant that by the same Holy Spirit we may be truly wise and ever rejoice in his consolations. Through Christ our Lord. Amen.",
+      listen: "🔊 Listen to the prayer to the Holy Spirit",
+      note: "Traditional Catholic invocation of the Holy Spirit"
+    },
+    de: {
+      title: "ANRUFUNG DES HEILIGEN GEISTES",
+      latin: "VENI, SANCTE SPIRITUS",
+      text: "Komm, Heiliger Geist, erfülle die Herzen deiner Gläubigen und entzünde in ihnen das Feuer deiner Liebe. Sende aus deinen Geist, und alles wird neu geschaffen. Und du wirst das Angesicht der Erde erneuern. Lasset uns beten: O Gott, du hast die Herzen deiner Gläubigen durch die Erleuchtung des Heiligen Geistes gelehrt. Gib, dass wir in diesem Geist erkennen, was recht ist, und uns allezeit seines Trostes erfreuen. Durch Christus, unseren Herrn. Amen.",
+      listen: "🔊 Gebet zum Heiligen Geist anhören",
+      note: "Traditionelles katholisches Gebet zur Anrufung des Heiligen Geistes"
+    },
+    es: {
+      title: "INVOCACIÓN AL DIVINO ESPÍRITU SANTO",
+      latin: "VENI, SANCTE SPIRITUS",
+      text: "Ven, Espíritu Santo, llena los corazones de tus fieles y enciende en ellos el fuego de tu amor. Envía tu Espíritu y todo será creado. Y renovarás la faz de la tierra. Oremos: Oh Dios, que has instruido los corazones de tus fieles con la luz del Espíritu Santo, concédenos que, animados y guiados por este mismo Espíritu, sepamos discernir lo que es recto y gocemos siempre de sus consuelos. Por Cristo nuestro Señor. Amén.",
+      listen: "🔊 Escuchar la oración al Espíritu Santo",
+      note: "Oración católica tradicional de invocación al Espíritu Santo"
+    }
+  };
+
+  function currentLang(){
+    return (document.documentElement.lang || "pt").slice(0,2).toLowerCase();
+  }
+
+  function injectStyles(){
+    if (document.getElementById("holySpiritV31Styles")) return;
+    const style = document.createElement("style");
+    style.id = "holySpiritV31Styles";
+    style.textContent = `
+      .holy-spirit-card{position:relative;margin:14px 0 18px;padding:18px 18px 16px;border:1px solid rgba(184,138,42,.65);border-radius:18px;background:linear-gradient(145deg,rgba(255,249,228,.96),rgba(244,239,214,.92));box-shadow:0 5px 18px rgba(72,53,19,.08);overflow:hidden}
+      .holy-spirit-card:before,.holy-spirit-card:after{position:absolute;color:rgba(184,138,42,.52);font-family:Cormorant Garamond,serif;font-size:2.2rem;line-height:1;content:"❦"}
+      .holy-spirit-card:before{top:7px;left:10px}.holy-spirit-card:after{right:10px;bottom:7px;transform:rotate(180deg)}
+      .holy-spirit-symbol{width:44px;height:44px;margin:0 auto 8px;display:grid;place-items:center;border:1px solid rgba(184,138,42,.7);border-radius:50%;background:rgba(255,255,255,.42);color:var(--gold,#b88a2a);font-family:Cinzel,serif;font-size:1.3rem;box-shadow:inset 0 0 0 4px rgba(184,138,42,.08)}
+      .holy-spirit-title{text-align:center;font:700 .79rem Cinzel,serif;letter-spacing:.075em;color:var(--green,#0d4a31);margin-bottom:3px}
+      .holy-spirit-latin{text-align:center;font:600 .72rem Cormorant Garamond,serif;letter-spacing:.16em;color:#9a7021;margin-bottom:12px}
+      .holy-spirit-text{font:600 1.04rem/1.55 Cormorant Garamond,serif;color:#273c31;text-align:justify;margin:0 auto;max-width:46rem}
+      .holy-spirit-note{text-align:center;margin:10px 0 9px;font:600 .68rem/1.3 Inter,sans-serif;color:#7c6842}
+      .holy-spirit-listen{display:block;margin:4px auto 0}
+      @media(max-width:520px){.holy-spirit-card{padding:17px 15px 15px}.holy-spirit-text{font-size:1rem;line-height:1.52}}
+    `;
+    document.head.appendChild(style);
+  }
+
+  function ensureCard(){
+    const anchor = document.getElementById("persignationCard");
+    if (!anchor) return null;
+    let card = document.getElementById("holySpiritPrayerCard");
+    if (card) return card;
+    card = document.createElement("section");
+    card.id = "holySpiritPrayerCard";
+    card.className = "holy-spirit-card";
+    card.setAttribute("aria-labelledby","holySpiritPrayerTitle");
+    card.innerHTML = `
+      <div class="holy-spirit-symbol" aria-hidden="true">✦</div>
+      <div class="holy-spirit-title" id="holySpiritPrayerTitle"></div>
+      <div class="holy-spirit-latin">VENI, SANCTE SPIRITUS</div>
+      <p class="holy-spirit-text" id="holySpiritPrayerText"></p>
+      <div class="holy-spirit-note" id="holySpiritPrayerNote"></div>
+      <button type="button" class="soft-btn holy-spirit-listen" id="speakHolySpirit"></button>`;
+    anchor.insertAdjacentElement("afterend", card);
+    card.querySelector("#speakHolySpirit")?.addEventListener("click", () => {
+      const t = prayers[currentLang()] || prayers.pt;
+      if (!("speechSynthesis" in window)) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(t.text);
+      const locale = {pt:"pt-BR",en:"en-US",de:"de-DE",es:"es-ES"}[currentLang()] || "pt-BR";
+      utter.lang = locale;
+      utter.rate = .9;
+      window.speechSynthesis.speak(utter);
+    });
+    return card;
+  }
+
+  function renderHolySpirit(){
+    injectStyles();
+    const card = ensureCard();
+    if (!card) return;
+    const t = prayers[currentLang()] || prayers.pt;
+    card.querySelector("#holySpiritPrayerTitle").textContent = t.title;
+    card.querySelector(".holy-spirit-latin").textContent = t.latin;
+    card.querySelector("#holySpiritPrayerText").textContent = t.text;
+    card.querySelector("#holySpiritPrayerNote").textContent = t.note;
+    card.querySelector("#speakHolySpirit").textContent = t.listen;
+  }
+
+  renderHolySpirit();
+  new MutationObserver(renderHolySpirit).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+})();
