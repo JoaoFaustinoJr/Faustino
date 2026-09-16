@@ -1,18 +1,38 @@
 {
-  "id":"./",
-  "name":"Novena Iluminada · Saint Hildegard of Bingen",
-  "short_name":"Hildegarda",
-  "description":"Novena digital multilíngue (Português/English/Deutsch/Español) em estilo de manuscrito iluminado medieval.",
-  "start_url":"./?source=pwa",
-  "scope":"./",
-  "display":"standalone",
-  "display_override":["standalone","minimal-ui"],
-  "orientation":"portrait-primary",
-  "background_color":"#f7e8bf",
-  "theme_color":"#0d4a31",
-  "prefer_related_applications":false,
-  "icons":[
-    {"src":"./santa-hildegarda-icon.svg?v=7","sizes":"any","type":"image/svg+xml","purpose":"any"},
-    {"src":"./santa-hildegarda-icon.svg?v=7","sizes":"any","type":"image/svg+xml","purpose":"maskable"}
-  ]
+  "id": "/Faustino/medieval/",
+  "name": "Novena Iluminada · Santa Hildegarda de Bingen",
+  "short_name": "Santa Hildegarda",
+  "description": "Novena digital multilíngue de Santa Hildegarda de Bingen em estilo de manuscrito iluminado medieval.",
+  "lang": "pt-BR",
+  "start_url": "/Faustino/medieval/?source=pwa",
+  "scope": "/Faustino/medieval/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "background_color": "#f7e8bf",
+  "theme_color": "#0d4a31",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/Faustino/assets/icons/hildegarda-official.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/Faustino/assets/icons/hildegarda-official.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/Faustino/medieval/santa-hildegarda-icon.svg?v=8",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["lifestyle", "education"],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
 }
